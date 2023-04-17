@@ -1,8 +1,8 @@
 const  Admins = require('../models/admins')
 const  Applicants = require('../models/applicants')
-// const  JobApplication = require('../models/jobapplication')
+const  JobApplication = require('../models/jobapplication')
 const JobOffer = require('../models/joboffer')
-const  Recruiter = require('../models/recruiter')
+const  Recruiter = require('../models/recruiters')
 
 const findAdmin= async(req, res)=>{
   // the data we get from the login
@@ -16,12 +16,12 @@ const findAdmin= async(req, res)=>{
     const findPassword = await Admins.findOne({password})
     console.log(findPassword._id)
       if (findUserName._id.toString()=== findPassword._id.toString()){
-        res.send(true)
+        res.send({ok:true})
       } else{
-        res.send(false)
+        res.send({ok:false})
       }
     }else{
-    res.send("Users doesn't exist :(")
+    res.send({ok:false, data:"user does not exist"})
     }
   } catch (error) {
     console.log(error)
@@ -34,10 +34,16 @@ const addAdmin = async(req,res)=>{
   try {
     const findAdmin = await Admins.findOne({userName, password})
     if (!findAdmin){
-      await Admins.create({userName, password})
-      res.send('User added')
+
+      const createNew = await Admins.create({userName, password})
+      if(createNew){
+        res.send({ok:true,data:'user added successfully'})
+      }
+      else{
+        res.send({ok:false,data:'failed to add a new admin'})
+      }
     } else {
-      res.send('User already exists')
+      res.send({ok:false,data:'admin already added'})
     }
   } catch (error) {
     res.send(error)
@@ -66,10 +72,13 @@ const deleteApplicant = async (req,res)=>{
   const {userName} = req.body;
   try {
     // find the username
-    const findUsername = await Applicants.findOne({userName})
+    const findUsername = await Applicants.findOneAndDelete({userName})
       if (findUsername){
-        await Applicants.deleteOne({userName})
-        res.send ('See you in hell !')
+        // await Applicants.deleteOne({userName})
+        res.send ({ok:true,data:'applicant deleted successfully'})
+      }
+      else{
+        res.send({ok:false,data:'failed to find the applicant'})
       }
   } catch (error) {
     res.send(error)
@@ -80,32 +89,46 @@ const deleteRecruiter = async (req,res)=>{
   const {userName} = req.body;
   try {
     // find the username
-    const findUsername = await Recruiter.findOne({userName})
+    const findUsername = await Recruiter.findOneAndDelete({userName})
       if (findUsername){
-        await Recruiter.deleteOne({userName})
-        res.send ('See you in hell !')
+        // await Recruiter.deleteOne({userName})
+        res.send ({ok:true,data:'recruiter deleted successfully'})
       }else{
-        res.send(("user doesn't exist"))
+        res.send({ok:false,data:'failed to find the recruiter'})
       }
   } catch (error) {
     res.send(error)
   }
 }
 
-const deleteOffers = async(req, res)=>{
+const deleteOffer = async(req, res)=>{
 const {companyName, jobDescription, jobTitle} = req.body;
   try {
-    const findOffer = await JobOffer.findOne({companyName, jobDescription})
+    const findOffer = await JobOffer.findOneAndDelete({companyName, jobDescription})
     if (findOffer){
-      await JobOffer.deleteOne({companyName, jobDescription})
-      res.send (`Job offer ${jobTitle} has been deleted`)
+      // await JobOffer.deleteOne({companyName, jobDescription})
+      res.send ({ok:true,data:`${jobTitle} deleted successfully`})
     } else {
-      res.send (`Job offer not found`)
+      res.send ({ok:false,data:`failed to find ${jobTitle}`})
     }
   } catch (error) {
     
   }
 }
+const deleteApplication = async(req, res)=>{
+  const {userName, jobApplication, jobTitle} = req.body;
+    try {
+      const findApplication = await JobApplication.findOneAndDelete({userName, jobApplication})
+      if (findApplication){
+        // await JobApplication.deleteOne({userName, jobApplication})
+        res.send ({ok:true,data:` ${jobTitle} deleted successfully`})
+      } else {
+        res.send ({ok:false,data:`failed to find ${jobTitle}`})
+      }
+    } catch (error) {
+      
+    }
+  }
 
 module.exports = {
   findAdmin,
@@ -114,6 +137,6 @@ module.exports = {
   getAllApplicants,
   deleteApplicant,
   deleteRecruiter,
-  deleteOffers,
-  // deleteApplications, 
+  deleteOffer,
+  deleteApplication, 
 }
