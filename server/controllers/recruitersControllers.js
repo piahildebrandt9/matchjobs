@@ -1,6 +1,4 @@
-// const  Admins = require('../models/admins')
-// const  Applicants = require('../models/applicants')
-// const  JobApplication = require('../models/jobapplication')
+const  JobApplication = require('../models/jobapplication')
 const JobOffer = require('../models/joboffer')
 const  Recruiter = require('../models/recruiter')
 
@@ -95,6 +93,7 @@ const addJobOffer = async (req,res) =>{
      console.log(recruiter)
      if(recruiter){
         const newOffer = await JobOffer.create({companyName,jobTitle,remote,onSite,flexible,minPrice,maxPrice,location,jobDescription,softSkills,hardSkills,jobFields, likedBy :[], recruitersId:recruiter._id})
+        console.log(newOffer)
         res.send({ok:true,data:'new job offer created successfully'})
      }else{
         res.send({ok:false,data:'could not find the current user'})
@@ -121,17 +120,76 @@ const deleteJobOffer = async (req,res)=>{
   }
 
 }
-// //deleteJobOffer
-// router.post('/deleteJobOffer',controller.deleteJobOffer)
+
 // //updateJobOffer
 // router.post('updateJobOffer',controller.updateJobOffer)
-// //getAllMyJobOffer
-// router.get('/getAllMyJobOffers',controller.getAllMyJobOffers)
-// //likeApplicant
-// router.post('/likeApplicant',controller.LikeApplicant)
-// //unlikeApplicant
-// router.post('/unlikeApplicant',controller.unlikeApplicant)
+const updateJobOffer = async (req,res)=>{
+  const {jobOffer, oldJobOffer} = req.body; 
+  try{
+      const findjobOffer = await JobOffer.findOne(oldJobOffer)
+      if (findjobOffer){
+        await JobOffer.updateOne(findjobOffer,{jobOffer})
+        res.send({ok:true, data:`Job offer updated successfully`})
+      } else{
+        res.send({ok:false, data:`Job offer not found`})
+      }
+         }catch(error){
+      res.send(error)
+  }
+}
 
+// //getAllMyJobOffer
+const getAllMyJobOffer = async(req,res)=>{
+  const {recruiterId}= req.body
+  try {
+    // empty array with objects of all the job offers that belongs to this recruiter
+    var arrJobOffer =[]
+    const allJobOffers = await JobOffer.find({}) // FIND ALL
+      for (var ele of allJobOffers){
+      if (ele._id.toString() == recruiterId.toString()){ // take the job offers of a specific id(user)
+        arrJobOffer.push(ele)
+      }else {
+      }
+   }
+   res.send({ok:true, data: arrJobOffer})    
+  } catch (error) {
+    res.send(error)
+  }
+}
+// //likeApplicant
+const likeApplicant = async(req,res)=>{
+  const {applicationId, recruiterId}= req.body
+  try {
+    const application = await JobApplication.findOne({_id: applicationId}) // FIND ALL
+      if(application){
+        application.likedBy.push({recruiterId})
+        res.send({ok:true, data:' Applicant liked successfully'})    
+      }else{
+        res.send({ok:true, data:"Applicant id could'nt be found"})    
+      }
+   } catch (error) {
+    res.send(error)
+  }
+}
+// unlikeApplicant
+const unlikeApplicant = async(req,res)=>{
+  const {applicationId, recruiterId}= req.body
+  try {
+    const application = await JobApplication.findOne({_id: applicationId}) // FIND ALL
+      if(application){
+        // findIndex find the id
+       const findIndexApplication = application.likedBy.findIndex(c=>c.toString()== recruiterId.toString())
+          if (!findIndexApplication==-1){
+            application.likedBy.splice(findIndexApplication, 1) // remove the index found (1)
+            res.send({ok:true, data:' Applicant unliked successfully'})    
+          }else{
+        res.send({ok:true, data:"Applicant id could'nt be found"})    
+   }}else{
+    res.send({ok:true, data:"Applicant could'nt be found"})    
+   }} catch (error) {
+    res.send(error)
+  }
+}
 module.exports = {
     findRecruiter,
     addRecruiter,
@@ -139,6 +197,8 @@ module.exports = {
     updateRecruiter,
     addJobOffer,
     deleteJobOffer,
-    
+    updateJobOffer,
+    getAllMyJobOffer,
+    likeApplicant,
+    unlikeApplicant,
   }
-

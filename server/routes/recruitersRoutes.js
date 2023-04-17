@@ -13,14 +13,14 @@ router.post('/updateRecruiter',controller.updateRecruiter)
 router.post('/addJobOffer',controller.addJobOffer)
 //deleteJobOffer
 router.post('/deleteJobOffer',controller.deleteJobOffer)
-// //updateJobOffer
-// router.post('updateJobOffer',controller.updateJobOffer)
-// //getAllMyJobOffer
-// router.get('/getAllMyJobOffers',controller.getAllMyJobOffers)
+//updateJobOffer
+router.post('updateJobOffer',controller.updateJobOffer)
+// getAllMyJobOffer
+router.post('/getAllMyJobOffers',controller.getAllMyJobOffer)
 // //likeApplicant
-// router.post('/likeApplicant',controller.LikeApplicant)
+router.post('/likeApplicant',controller.likeApplicant)
 // //unlikeApplicant
-// router.post('/unlikeApplicant',controller.unlikeApplicant)
+router.post('/unlikeApplicant',controller.unlikeApplicant)
 
 
 
