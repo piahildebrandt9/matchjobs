@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema
 
 const jobOfferSchema = new mongoose.Schema({
     companyName:{type:String,required:true,unique:false},
@@ -21,9 +22,9 @@ const jobOfferSchema = new mongoose.Schema({
     recruitersId:{
         _id: Schema.Types.ObjectId,
         required:true,
-        ref:'recruiter',
+        ref:'recruiters',
     }
   
 });
 
-module.exports = mongoose.model("jobOffer", jobOfferSchema);
+module.exports = mongoose.model("jobOffers", jobOfferSchema);

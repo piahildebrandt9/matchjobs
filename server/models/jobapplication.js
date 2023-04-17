@@ -19,7 +19,7 @@ const jobApplicationSchema = new mongoose.Schema({
     uploadedFiles:[{type:String,unique:false}],
     likedBy:[{
         _id:Schema.Types.ObjectId,
-        ref:'recruiter',
+        ref:'recruiters',
 
     }],
     applicantsId:{
@@ -30,4 +30,4 @@ const jobApplicationSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("jobApplication", jobApplicationSchema);
+module.exports = mongoose.model("jobApplications", jobApplicationSchema);
