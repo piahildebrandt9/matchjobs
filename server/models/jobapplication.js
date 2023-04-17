@@ -18,12 +18,12 @@ const jobApplicationSchema = new mongoose.Schema({
     jobFields:[{type:String,unique:false}],
     uploadedFiles:[{type:String,unique:false}],
     likedBy:[{
-        _id:Schema.Types.ObjectId,
+        type:Schema.Types.ObjectId,
         ref:'recruiters',
 
     }],
     applicantsId:{
-        _id: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true,
         ref:'applicants',
     }

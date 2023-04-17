@@ -19,7 +19,7 @@ try {
 }
 connecting()
 
-// app.use('/recruiter/', require('./routes/recruitersRoutes'));
+app.use('/recruiter/', require('./routes/recruitersRoutes'));
 // app.use('/applicants/', require('./routes/applicantsRoutes'));
 app.use('/admin/', require('./routes/adminRoutes'));
 app.listen(5555, ()=>console.log('listening on port 5555'));

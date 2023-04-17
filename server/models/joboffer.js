@@ -15,15 +15,16 @@ const jobOfferSchema = new mongoose.Schema({
     hardSkills:[{type:String,required:true,unique:false}],
     jobFields:[{type:String,required:true,unique:false}],
     likedBy:[{
-        _id:Schema.Types.ObjectId,
+        type:Schema.Types.ObjectId,
         ref:'applicants',
 
     }],
     recruitersId:{
-        _id: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required:true,
         ref:'recruiters',
     }
+    
   
 });
 
