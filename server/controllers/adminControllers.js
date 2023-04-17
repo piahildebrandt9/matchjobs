@@ -2,7 +2,7 @@ const  Admins = require('../models/admins')
 const  Applicants = require('../models/applicants')
 const  JobApplication = require('../models/jobapplication')
 const JobOffer = require('../models/joboffer')
-const  Recruiter = require('../models/recruiters')
+const  Recruiter = require('../models/recruiter')
 
 const findAdmin= async(req, res)=>{
   // the data we get from the login
@@ -16,9 +16,9 @@ const findAdmin= async(req, res)=>{
     const findPassword = await Admins.findOne({password})
     console.log(findPassword._id)
       if (findUserName._id.toString()=== findPassword._id.toString()){
-        res.send({ok:true})
+        res.send({ok:true, data:'admin found successfully'})
       } else{
-        res.send({ok:false})
+        res.send({ok:false,data:'username and password do not match'})
       }
     }else{
     res.send({ok:false, data:"user does not exist"})
@@ -102,14 +102,14 @@ const deleteRecruiter = async (req,res)=>{
 }
 
 const deleteOffer = async(req, res)=>{
-const {companyName, jobDescription, jobTitle} = req.body;
+const { offerId} = req.body;
   try {
-    const findOffer = await JobOffer.findOneAndDelete({companyName, jobDescription})
+    const findOffer = await JobOffer.findOneAndDelete({_id:offerId})
     if (findOffer){
       // await JobOffer.deleteOne({companyName, jobDescription})
-      res.send ({ok:true,data:`${jobTitle} deleted successfully`})
+      res.send ({ok:true,data:`${findOffer.jobTitle} deleted successfully`})
     } else {
-      res.send ({ok:false,data:`failed to find ${jobTitle}`})
+      res.send ({ok:false,data:`failed to find ${findOffer.jobTitle}`})
     }
   } catch (error) {
     
