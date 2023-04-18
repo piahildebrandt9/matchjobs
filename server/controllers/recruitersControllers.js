@@ -11,8 +11,7 @@ const findRecruiter = async (req,res) =>{
         console.log(findRecName._id)
         if (findRecName){
         // CHECK IF PASSWORD MATCHES
-        const findPassword = await Recruiter.findOne({password})
-        console.log(findPassword._id)
+        const findPassword = await findRecName.password
           if (findRecName._id.toString()=== findPassword._id.toString()){
             res.send({ok:true, data:`recruiter ${userName} found successfully`})
           } else{
@@ -22,7 +21,6 @@ const findRecruiter = async (req,res) =>{
         res.send({ok:false, data:"user does not exist"})
         }
       } catch (error) {
-        console.log(error)
         res.send(error)
       }
 
@@ -140,18 +138,17 @@ const updateJobOffer = async (req,res)=>{
 
 // //getAllMyJobOffer
 const getAllMyJobOffer = async(req,res)=>{
-  const {recruiterId}= req.body
+  let {id} = req.params;
   try {
     // empty array with objects of all the job offers that belongs to this recruiter
-    var arrJobOffer =[]
-    const allJobOffers = await JobOffer.find({}) // FIND ALL
-      for (var ele of allJobOffers){
-      if (ele._id.toString() == recruiterId.toString()){ // take the job offers of a specific id(user)
-        arrJobOffer.push(ele)
-      }else {
-      }
-   }
-   res.send({ok:true, data: arrJobOffer})    
+    // var arrJobOffer =[]
+    const allJobOffers = await JobOffer.find({recruiterId: id}) // FIND ALL
+    res.send({ok:true, data: allJobOffers})
+  //     for (var ele of allJobOffers){
+  //     if (ele._id.toString() == recruiterId.toString()){ // take the job offers of a specific id(user)
+  //       arrJobOffer.push(ele)
+  //     }else {
+  //     }} res.send({ok:true, data: arrJobOffer})    
   } catch (error) {
     res.send(error)
   }
@@ -159,34 +156,39 @@ const getAllMyJobOffer = async(req,res)=>{
 // //likeApplicant
 const likeApplicant = async(req,res)=>{
   const {applicationId, recruiterId}= req.body
+
   try {
-    const application = await JobApplication.findOne({_id: applicationId}) // FIND ALL
-      if(application){
-        application.likedBy.push({recruiterId})
-        res.send({ok:true, data:' Applicant liked successfully'})    
-      }else{
-        res.send({ok:true, data:"Applicant id could'nt be found"})    
-      }
+    const offer = await JobApplication.findOneAndUpdate({_id: applicationId}, {$push: {likedBy: {recruiter_id : recruiterId}}}) // FIND ALL
+      // if(application){
+      //   application.likedBy.push({recruiterId})
+      //   res.send({ok:true, data:' Applicant liked successfully'})    
+      // }else{
+      //   res.send({ok:true, data:"Applicant id could'nt be found"})    
+      // }
    } catch (error) {
     res.send(error)
   }
 }
+
+
+
 // unlikeApplicant
 const unlikeApplicant = async(req,res)=>{
   const {applicationId, recruiterId}= req.body
   try {
-    const application = await JobApplication.findOne({_id: applicationId}) // FIND ALL
-      if(application){
-        // findIndex find the id
-       const findIndexApplication = application.likedBy.findIndex(c=>c.toString()== recruiterId.toString())
-          if (!findIndexApplication==-1){
-            application.likedBy.splice(findIndexApplication, 1) // remove the index found (1)
-            res.send({ok:true, data:' Applicant unliked successfully'})    
-          }else{
-        res.send({ok:true, data:"Applicant id could'nt be found"})    
-   }}else{
-    res.send({ok:true, data:"Applicant could'nt be found"})    
-   }} catch (error) {
+    const application = await JobApplication.findOneAndUpdate({_id: applicationId}, {$pull: {likedBy: {recruiter_id : recruiterId}}}) // FIND ALL
+  //     if(application){
+  //       // findIndex find the id
+  //      const findIndexApplication = application.likedBy.findIndex(c=>c.toString()== recruiterId.toString())
+  //         if (!findIndexApplication==-1){
+  //           application.likedBy.splice(findIndexApplication, 1) // remove the index found (1)
+  //           res.send({ok:true, data:' Applicant unliked successfully'})    
+  //         }else{
+  //       res.send({ok:true, data:"Applicant id could'nt be found"})    
+  //  }}else{
+  //   res.send({ok:true, data:"Applicant could'nt be found"})    
+  //  }
+} catch (error) {
     res.send(error)
   }
 }
