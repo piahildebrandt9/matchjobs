@@ -9,10 +9,10 @@ const findApplicants = async (req,res) =>{
   const {userName, password} = req.body;
   try {
       // true if find username
-      const findAppName = await Applicant.findOne({userName})
+      const findAppName = await Applicant.findOne({userName}) // findOne returns the whole object (can use findAppName.password to access key password)
       if (findAppName){
       // CHECK IF PASSWORD MATCHES
-      const findPassword = await Applicant.findOne({password})
+     const findPassword = await findAppName.password     //Applicant.findOne({password})
         if (findAppName._id.toString()=== findPassword._id.toString()){
           res.send({ok:true, data:`Applicant ${userName} found successfully`})
         } else{
@@ -139,17 +139,23 @@ const updateJobApplication = async (req,res)=>{
 }
 // // getAllMyJobApplications
 const getAllMyJobApplications = async(req,res)=>{
-  const {applicantId}= req.body
+
+// look for records in JobApplications collection with specific applicantsId reference
+// pass to the controller a current applicant_id
+let {id} = req.params;
+  // const {applicantId}= req.body
+
   try {
     // empty array with objects of all the job offers that belongs to this recruiter
-    var arrJobApplications =[]
-    const allJobApplications = await JobApplication.find({}) // FIND ALL
-      for (var ele of allJobApplications){
-      if (ele._id.toString() == applicantId.toString()){ // take the job offers of a specific id(user)
-        arrJobApplications.push(ele)
-      }else {
-      }}
-   res.send({ok:true, data: arrJobApplications})    
+    // var arrJobApplications =[]
+    const allJobApplications = await JobApplication.find({applicantsId: id}) // FIND ALL
+    res.send({ok:true, data: allJobApplications})
+  //     for (var ele of allJobApplications){
+  //     if (ele._id.toString() == applicantId.toString()){ // take the job offers of a specific id(user)
+  //       arrJobApplications.push(ele)
+  //     }else {
+  //     }}
+  //  res.send({ok:true, data: arrJobApplications})    
   } catch (error) {
     res.send(error)
   }
@@ -159,14 +165,15 @@ const getAllMyJobApplications = async(req,res)=>{
 // // //likeJobOffer
 const likeOffer = async(req,res)=>{
   const {offerId, applicantId}= req.body
+
   try {
-    const offer = await JobOffer.findOne({_id: offerId}) // FIND ALL
-      if(offer){
-        offer.likedBy.push(applicantId)
-        res.send({ok:true, data:' Offer liked successfully'})    
-      }else{
-        res.send({ok:true, data:"Offer id could'nt be found"})    
-      }
+    const offer = await JobOffer.findOneAndUpdate({_id: offerId}, {$push: {likedBy: {applicant_id : applicantId}}}) // FIND ALL
+      // if(offer){
+      //   offer.likedBy.push(applicantId)
+      //   res.send({ok:true, data:' Offer liked successfully'})    
+      // }else{
+      //   res.send({ok:true, data:"Offer id could'nt be found"})    
+      // }
    } catch (error) {
     res.send(error)
   }
@@ -176,18 +183,19 @@ const likeOffer = async(req,res)=>{
 const unlikeOffer = async(req,res)=>{
   const {offerId, applicantId}= req.body
   try {
-    const offer = await JobOffer.findOne({_id: offerId}) // FIND ALL
-      if(offer){
-        // findIndex find the id
-       const findIndexOffer= offer.likedBy.findIndex(c=>c.toString()== applicantId.toString())
-          if (!findIndexOffer==-1){
-            offer.likedBy.splice(findIndexOffer, 1) // remove the index found (1)
-            res.send({ok:true, data:' Offer unliked successfully'})    
-          }else{
-        res.send({ok:true, data:"Offer id could'nt be found"})    
-   }}else{
-    res.send({ok:true, data:"Offer could'nt be found"})    
-   }} catch (error) {
+    const offer = await JobOffer.findOneandUpdate({_id: offerId}, {$pull: {likedBy: {applicant_id : applicantId}}}) // FIND ALL
+
+  //     if(offer){
+  //       // findIndex find the id
+  //      const findIndexOffer= offer.likedBy.findIndex(c=>c.toString()== applicantId.toString())
+  //         if (!findIndexOffer==-1){
+  //           offer.likedBy.splice(findIndexOffer, 1) // remove the index found (1)
+  //           res.send({ok:true, data:' Offer unliked successfully'})    
+  //         }else{
+  //       res.send({ok:true, data:"Offer id could'nt be found"})    
+  //  }}else{
+  //   res.send({ok:true, data:"Offer could'nt be found"})    
+  } catch (error) {
     res.send(error)
   }
 }
