@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
-
-
 const jobApplicationSchema = new mongoose.Schema({
 
     jobTitle: {type:String,unique:false},
@@ -17,11 +15,11 @@ const jobApplicationSchema = new mongoose.Schema({
     hardSkills:[{type:String,unique:false}],
     jobFields:[{type:String,unique:false}],
     uploadedFiles:[{type:String,unique:false}],
-    likedBy:[{
-        type:Schema.Types.ObjectId,
-        ref:'recruiters',
-
-    }],
+    likedBy: [{
+        recruiter_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'applicants'
+        }}],
     applicantsId:{
         type: Schema.Types.ObjectId,
         required: true,
