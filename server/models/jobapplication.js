@@ -24,8 +24,10 @@ const jobApplicationSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         required: true,
         ref:'applicants',
-    }
+    },
+    active:{type:Boolean,required:false,unique:false}
 
-});
+},
+{strictQuery: false});
 
 module.exports = mongoose.model("jobApplications", jobApplicationSchema);
