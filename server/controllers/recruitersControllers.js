@@ -121,14 +121,16 @@ const deleteJobOffer = async (req,res)=>{
   }
 
 }
-// //deleteJobOffer
-// router.post('/deleteJobOffer',controller.deleteJobOffer)
+
 // //updateJobOffer
 // router.post('updateJobOffer',controller.updateJobOffer)
+
 // //getAllMyJobOffer
 // router.get('/getAllMyJobOffers',controller.getAllMyJobOffers)
+
 // //likeApplicant
 // router.post('/likeApplicant',controller.LikeApplicant)
+
 // //unlikeApplicant
 // router.post('/unlikeApplicant',controller.unlikeApplicant)
 
