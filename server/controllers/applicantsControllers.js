@@ -67,9 +67,12 @@ const deleteApplicant = async (req,res)=>{
 // //updateApplicants
 const updateApplicant = async (req,res)=>{
   const {olduserName,oldPassword,userName, password} = req.body
+ 
   try{
       const findRec = await Applicant.findOne({userName:olduserName,password:oldPassword})
       const findNewRec = await Applicant.findOne({userName})
+
+      
 
       if(findRec){
           if(findNewRec){
