@@ -24,9 +24,11 @@ const jobOfferSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         required:true,
         ref:'recruiters',
-    }
+    },
+    active:{type:Boolean,required:false,unique:false}
     
   
-});
+},
+{strictQuery: false});
 
 module.exports = mongoose.model("jobOffers", jobOfferSchema);
