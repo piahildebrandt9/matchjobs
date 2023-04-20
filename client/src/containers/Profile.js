@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import {useParams, Link} from 'react-router-dom'
+import {useParams, Link, NavLink} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
 import Edit from './Edit';
@@ -10,7 +10,7 @@ const Profile = ()=>{
 
     const {type,id} = useParams()
     
-    const [mySheets,setMySheets] = useState('')
+    const [mySheets,setMySheets] = useState([])
 
 
 
@@ -75,7 +75,7 @@ const Profile = ()=>{
         <p>{c.hardSkills}</p>
         
         {/* use userid here also */}
-        <button onClick = {() => < Edit type = {type} id = {c._id} userid={id}/>}>edit</button>
+        <NavLink to  ={`${type}/edit/${c._id}/${id}`}>edit</NavLink>
         <button onClick = {()=> c.active = !c.active}>activate</button>
         </Link>
         </>

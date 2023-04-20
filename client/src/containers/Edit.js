@@ -4,7 +4,10 @@ import axios from "axios";
 import { URL } from "../config";
 
 
-const Edit = ({type,id, userid})=>{
+const Edit = ()=>{
+
+
+    const {type,id,userid} = useParams();
     const [loadData, setLoadData] = useState('') // loadData as a state variable so it can be filled with the right infos depending on the condition met
     const [initData, setInitData] = useState('') // what we get in the beginning
     const handleSubmit= async()=>{
