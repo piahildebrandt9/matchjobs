@@ -7,6 +7,9 @@ import Navbar from "./components/Navbar.js";
 import { URL } from "./config";
 import Profile from './containers/Profile.js'
 import Admin from './containers/Admin.js'
+import Main from './containers/Main.js'
+import View from './containers/View'
+import Matches from './containers//Matches.js'
 import * as jose from 'jose'
 
 
@@ -15,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
-  const [user,SetUser] = useState(null);
+  const [user,SetUser] = useState('');
   
 
   useEffect(

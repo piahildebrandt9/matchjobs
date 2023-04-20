@@ -3,7 +3,6 @@ import {useParams} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
 
-import React from 'react'
 function View() {
 
   // taking type and id params and use them as props
