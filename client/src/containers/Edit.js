@@ -1,18 +1,13 @@
 import React, { useState,useEffect } from "react";
-<<<<<<< HEAD
-
-=======
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 import {useParams} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
 
 
-<<<<<<< HEAD
-const Edit = ({type,id})=>{
-    
-=======
-const Edit = ({type,id, userid})=>{
+const Edit = ()=>{
+
+
+    const {type,id,userid} = useParams();
     const [loadData, setLoadData] = useState('') // loadData as a state variable so it can be filled with the right infos depending on the condition met
     const [initData, setInitData] = useState('') // what we get in the beginning
     const handleSubmit= async()=>{
@@ -29,29 +24,11 @@ const Edit = ({type,id, userid})=>{
             console.log(error)
         }
     }
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 
     const exist = async () =>{
         try{
             if(id){
                 // loading data
-<<<<<<< HEAD
-                const loadData = await axios.post('')
-    
-    
-            }
-            else{
-                //create
-                //add new job Offer or job app
-    
-            }
-
-        }catch(error){
-
-        }
-      
-
-=======
                 if (type === 'recuiter'){
                     let temp = await axios.get(`/${URL}/recruiter/getJobOffer/${id}`) // want the specific joboffer 
                     setInitData(temp)// CALLING THE FUNCTION
@@ -112,26 +89,10 @@ const Edit = ({type,id, userid})=>{
         }catch(error){
             console.log(error)
         }
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
     }
 
     useEffect(()=>{
         exist();
-<<<<<<< HEAD
-
-    },[])
-
-
-    return(
-        
-        <>
-            <h1>Title</h1>
-            <input type = 'text' placeholder = { type === 'recruiter'? 'Job Title' : 'Application Title'}/>
-            <input type = 'text' placeholder = 'location'/>
-            <button>remote</button>
-            <button>on site</button>
-            <button>flexible</button>
-=======
     })
 
     return(
@@ -148,28 +109,15 @@ const Edit = ({type,id, userid})=>{
             <button onClick={()=>setLoadData({...loadData,remote:!loadData.remote})}> remote</button>
             <button onClick={()=>setLoadData({...loadData,onSite:!loadData.onSite})}>on site</button>
             <button onClick={()=>setLoadData({...loadData,flexible:!loadData.flexible})}>flexible</button>
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
             <input type = 'range' min = '0' max ='20 000' />
 
             <h1>Skills</h1>
             <p>Soft</p>
             <p>Hard</p>
             {type ==='recruiter' ? <h1>Job Description</h1>: <h1>Biographie</h1>}
-<<<<<<< HEAD
-            <input type = 'text' placeholder = 'hello, I am ...'/>
-            <button onClick>submit</button>
-
-
-
-
-
-        
-      
-=======
             <input type = 'text' placeholder = {loadData.bio}/>
             <button onClick={handleSubmit}>submit</button>
 
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
         </>
 
 

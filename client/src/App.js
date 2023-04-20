@@ -7,31 +7,25 @@ import Navbar from "./components/Navbar.js";
 import { URL } from "./config";
 import Profile from './containers/Profile.js'
 import Admin from './containers/Admin.js'
-<<<<<<< HEAD
-=======
 import Main from './containers/Main.js'
 import View from './containers/View'
 import Matches from './containers//Matches.js'
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
+import Edit from './containers/Edit.js'
 import * as jose from 'jose'
 
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState("");
 
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
-<<<<<<< HEAD
-  const [user,SetUser] = useState(null);
-=======
-  const [user,SetUser] = useState('');
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
+  const [user,SetUser] = useState([]);
   
 
   useEffect(
     () => {
       const verify_token = async () => {
-        debugger
+        
         try {
           if (!token) {
             setIsLoggedIn(false)
@@ -50,7 +44,7 @@ function App() {
     );
 
   const login = (token) => {
-    debugger
+    
     localStorage.setItem("token", JSON.stringify(token));
     setIsLoggedIn(true);
     let decoded = jose.decodeJwt(token) // decoding the information form the token {userName,userType}
@@ -59,7 +53,7 @@ function App() {
   };
   
   const logout = () => {
-    debugger
+    
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
@@ -72,11 +66,11 @@ function App() {
    
     <Route 
     path="/" 
-    element={ isLoggedIn && user.userType !== 'admin' ? <Navigate to= {`/${user.userType}/profile/${user._id}`} /> : <Login login={login} />} />
+    element={ isLoggedIn && user.userType !== 'admin' ? <Navigate to= {`/${user.userType}/profile/${user._id}`} /> : <Login loginFun={login} />} />
     
       <Route 
     path="/" 
-    element={ isLoggedIn && user.userType == 'admin' ? <Navigate to= '/admin' /> : <Login login={login} />} />
+    element={ isLoggedIn && user.userType == 'admin' ? <Navigate to= '/admin' /> : <Login loginFun={login} />} />
 
     <Route
     path="/:type/profile/:id"
@@ -87,6 +81,10 @@ function App() {
     path="/:type/view/:id"
     element ={< View/>}  
     />  
+      <Route
+    path="/:type/edit/:id/:userid"
+    element ={< Edit />}  
+    />  
 
     <Route
     path="/:type/main/:id"
@@ -96,7 +94,7 @@ function App() {
     path="/:type/matches/:id"
     element ={< Matches />}  
     />  
-
+   
     
     <Route
     path="/admin"

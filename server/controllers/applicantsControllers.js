@@ -211,8 +211,6 @@ const updateJobApplication = async (req,res)=>{
       res.send(error)
   }
 }
-<<<<<<< HEAD
-=======
 
 
 const getJobApplication = async(req,res)=>{
@@ -235,7 +233,6 @@ const getJobApplication = async(req,res)=>{
 
 
 
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 // // getAllMyJobApplications
 const getAllMyJobApplications = async(req,res)=>{
 
@@ -319,8 +316,5 @@ module.exports = {
   login,
   register,
   verify_token,
-<<<<<<< HEAD
-=======
   getJobApplication,
->>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 }

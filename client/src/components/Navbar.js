@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {URL} from '../config'
 
 const Navbar = ({isLoggedIn, user}) => {
     // user is the state variable with userName and userType from the token
@@ -10,7 +11,7 @@ const Navbar = ({isLoggedIn, user}) => {
     && 
     <>
     <NavLink 
-    to={`/${user.userType}`}  >
+    to={`/${user.userType}/profile/${user._id}`}  >
     icon profile
     </NavLink>
     <NavLink 
@@ -27,7 +28,7 @@ const Navbar = ({isLoggedIn, user}) => {
     }
 
 
-    {isLoggedIn===false
+    {!isLoggedIn
       && <>
 
     <NavLink 
