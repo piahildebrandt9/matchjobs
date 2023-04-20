@@ -151,17 +151,11 @@ const updateRecruiter = async (req,res)=>{
     }
 }
 const addJobOffer = async (req,res) =>{
-    const {companyName,  jobTitle, remote, onSite, flexible, minPrice, maxPrice,location, jobDescription, softSkills, hardSkills,jobFields,userName} = req.body; 
+    const {companyName,  jobTitle, remote, onSite, flexible, minPrice, maxPrice,location, jobDescription, softSkills, hardSkills,jobFields,userid} = req.body; 
     try {
-     const recruiter = await Recruiter.findOne({userName})
-     console.log(recruiter)
-     if(recruiter){
-        const newOffer = await JobOffer.create({companyName,jobTitle,remote,onSite,flexible,minPrice,maxPrice,location,jobDescription,softSkills,hardSkills,jobFields, likedBy :[], recruitersId:recruiter._id})
+        const newOffer = await JobOffer.create({companyName,jobTitle,remote,onSite,flexible,minPrice,maxPrice,location,jobDescription,softSkills,hardSkills,jobFields, likedBy :[], userid})
         console.log(newOffer)
         res.send({ok:true,data:'new job offer created successfully'})
-     }else{
-        res.send({ok:false,data:'could not find the current user'})
-     } 
     } catch (error) {
       res.send(error)
     }
