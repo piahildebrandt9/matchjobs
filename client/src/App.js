@@ -7,6 +7,12 @@ import Navbar from "./components/Navbar.js";
 import { URL } from "./config";
 import Profile from './containers/Profile.js'
 import Admin from './containers/Admin.js'
+<<<<<<< HEAD
+=======
+import Main from './containers/Main.js'
+import View from './containers/View'
+import Matches from './containers//Matches.js'
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 import * as jose from 'jose'
 
 
@@ -15,7 +21,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
+<<<<<<< HEAD
   const [user,SetUser] = useState(null);
+=======
+  const [user,SetUser] = useState('');
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
   
 
   useEffect(

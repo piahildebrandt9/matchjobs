@@ -151,6 +151,7 @@ const updateRecruiter = async (req,res)=>{
     }
 }
 const addJobOffer = async (req,res) =>{
+<<<<<<< HEAD
     const {companyName,  jobTitle, remote, onSite, flexible, minPrice, maxPrice,location, jobDescription, softSkills, hardSkills,jobFields,userName} = req.body; 
     try {
      const recruiter = await Recruiter.findOne({userName})
@@ -162,6 +163,13 @@ const addJobOffer = async (req,res) =>{
      }else{
         res.send({ok:false,data:'could not find the current user'})
      } 
+=======
+    const {companyName,  jobTitle, remote, onSite, flexible, minPrice, maxPrice,location, jobDescription, softSkills, hardSkills,jobFields,userid} = req.body; 
+    try {
+        const newOffer = await JobOffer.create({companyName,jobTitle,remote,onSite,flexible,minPrice,maxPrice,location,jobDescription,softSkills,hardSkills,jobFields, likedBy :[], userid})
+        console.log(newOffer)
+        res.send({ok:true,data:'new job offer created successfully'})
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
     } catch (error) {
       res.send(error)
     }
@@ -197,8 +205,32 @@ const updateJobOffer = async (req,res)=>{
   }
 }
 
+<<<<<<< HEAD
 // //getAllMyJobOffer
 const getAllMyJobOffer = async(req,res)=>{
+=======
+const getJobOffer = async(req,res)=>{
+  // this id = id of one job offer
+  let {id} = req.params;
+    try {
+      const jobOffer = await JobOffer.findOne({_id: id})
+      if (jobOffer){
+        res.send({ok: true, data: {jobOffer}})
+      }else{
+        res.send ({ok: false, data: "Job offer doesn't exist"})
+      }
+     
+    } catch (error) {
+      res.send(error)
+    }
+}
+
+
+
+// //getAllMyJobOffer
+const getAllMyJobOffer = async(req,res)=>{
+  // id = recruiters' id
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
   let {id} = req.params;
   try {
     // empty array with objects of all the job offers that belongs to this recruiter
@@ -260,4 +292,8 @@ module.exports = {
     login,
     register,
     verify_token,
+<<<<<<< HEAD
+=======
+    getJobOffer,
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
   }

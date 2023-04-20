@@ -211,6 +211,31 @@ const updateJobApplication = async (req,res)=>{
       res.send(error)
   }
 }
+<<<<<<< HEAD
+=======
+
+
+const getJobApplication = async(req,res)=>{
+  // this id = id of one job application
+  let {id} = req.params;
+    try {
+      const jobApp = await JobApplication.findOne({_id: id})
+      if (jobApp){
+        res.send({ok: true, data: {jobApp}})
+      }else{
+        res.send ({ok: false, data: "Job application doesn't exist"})
+      }
+     
+    } catch (error) {
+      res.send(error)
+    }
+}
+
+
+
+
+
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 // // getAllMyJobApplications
 const getAllMyJobApplications = async(req,res)=>{
 
@@ -294,4 +319,8 @@ module.exports = {
   login,
   register,
   verify_token,
+<<<<<<< HEAD
+=======
+  getJobApplication,
+>>>>>>> e08e79f85017738f45bd21bdcc91b45d59bd3707
 }
