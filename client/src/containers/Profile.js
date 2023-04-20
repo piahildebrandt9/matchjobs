@@ -40,6 +40,7 @@ const Profile = ()=>{
 
 
     return(<>
+    {/* // greyish sheet for new app/offer that can be edit */}
     {type === 'recruiter' ? <h1>Add your job offer</h1> : <h1>Add your application</h1> }
     <p> location icon and location</p>
     <p>min salary</p>
@@ -50,9 +51,15 @@ const Profile = ()=>{
 
     <h3>Hard</h3>
 
-    <button onClick = {() => < Edit type = {type} id = ''/>}>edit</button>
+{/* // clicking will render the edit file */}
+{/* // since we are making a new one we don't have an id yet */}
+
+{/* // we don't have the job app (bc making a new one) but need the user id to link it afterwards */}
+    <button onClick = {() => < Edit type = {type} id = '' userid={id}/>}>edit</button> 
     <button>activate</button>
 
+{/* // maping all existing applications or offers */}
+{/* // depending on the element caught by the maping will use infos of applicants or recruiters */}
     {mySheets.map(c =>{return( 
         <>
         <Link to = {`/${type}/view/${c._id}`}>
@@ -67,7 +74,9 @@ const Profile = ()=>{
         <p>{c.softSkills}</p>
         <h3>Hard</h3>
         <p>{c.hardSkills}</p>
-        <button onClick = {() => < Edit type = {type} id = {c._id}/>}>edit</button>
+        
+        {/* use userid here also */}
+        <button onClick = {() => < Edit type = {type} id = {c._id} userid={id}/>}>edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
         </Link>
         </>

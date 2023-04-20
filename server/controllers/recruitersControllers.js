@@ -197,8 +197,27 @@ const updateJobOffer = async (req,res)=>{
   }
 }
 
+const getJobOffer = async(req,res)=>{
+  // this id = id of one job offer
+  let {id} = req.params;
+    try {
+      const jobOffer = await JobOffer.findOne({_id: id})
+      if (jobOffer){
+        res.send({ok: true, data: {jobOffer}})
+      }else{
+        res.send ({ok: false, data: "Job offer doesn't exist"})
+      }
+     
+    } catch (error) {
+      res.send(error)
+    }
+}
+
+
+
 // //getAllMyJobOffer
 const getAllMyJobOffer = async(req,res)=>{
+  // id = recruiters' id
   let {id} = req.params;
   try {
     // empty array with objects of all the job offers that belongs to this recruiter
@@ -260,4 +279,5 @@ module.exports = {
     login,
     register,
     verify_token,
+    getJobOffer,
   }
