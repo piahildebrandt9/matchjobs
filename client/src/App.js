@@ -31,7 +31,9 @@ function App() {
             setIsLoggedIn(false)
           }else {
           axios.defaults.headers.common['Authorization'] = token;
-          const response = await axios.post(`${URL}/users/verify_token`);
+          let decoded = jose.decodeJwt(token) // decoding the information form the token {userName,userType}
+   
+          const response = await axios.post(`${URL}/${decoded.userType}/verify_token`);
           return response.data.ok ? login(token) : logout();
           }
         } catch (error) {
@@ -84,6 +86,7 @@ function App() {
       <Route
     path="/:type/edit/:id/:userid"
     element ={< Edit />}  
+
     />  
 
     <Route

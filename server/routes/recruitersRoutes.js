@@ -21,7 +21,7 @@ router.post('updateJobOffer',controller.updateJobOffer)
 // getJobOffer
 router.get('/getJobOffer/:id', controller.getJobOffer)
 // getAllMyJobOffer/?id=''
-router.get('/getAllMyJobOffers',controller.getAllMyJobOffer)
+router.get('/getAllMyJobOffers/:id',controller.getAllMyJobOffer)
 // //likeApplicant
 router.post('/likeApplicant',controller.likeApplicant)
 // //unlikeApplicant

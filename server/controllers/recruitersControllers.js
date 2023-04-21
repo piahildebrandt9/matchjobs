@@ -220,6 +220,7 @@ const getJobOffer = async(req,res)=>{
 const getAllMyJobOffer = async(req,res)=>{
   // id = recruiters' id
   let {id} = req.params;
+  
   try {
     // empty array with objects of all the job offers that belongs to this recruiter
     // var arrJobOffer =[]

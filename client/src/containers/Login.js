@@ -44,7 +44,7 @@ function Login({loginFun}) {
       // calling the back end and using the corresponding controller
       //check if true and send the corresponding message (backend)
       case 'recruiter':
-        
+        debugger
         const recruiter = await axios.post(`${URL}/recruiter/login`,{userName:input.userName,password:input.password});
         console.log(recruiter)
        

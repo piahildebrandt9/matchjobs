@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import {useParams, Link, NavLink} from 'react-router-dom'
+import {useParams, Link, useNavigate} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
 import Edit from './Edit';
@@ -7,35 +7,33 @@ import Edit from './Edit';
 
 const Profile = ()=>{
 
-
     const {type,id} = useParams()
-    
     const [mySheets,setMySheets] = useState([])
-
-
+    const navigate = useNavigate();
 
     // empty new greyish jobapplication example
     // map through all jobapplications of this applicant
 
     // const id = user._id;
     const handleSheets = async ()=>{
-        let allMySheets = [];
+        try {
+            let allMySheets
         if(type === 'recruiter'){
-            allMySheets = await axios.get(`/${URL}/recruiter/getAllMyJobOffers/?id=${id}`)
-
+            allMySheets = await axios.get(`${URL}/recruiter/getAllMyJobOffers/${id}`)
+            // console.log(allMySheets);
         }
         else{
-            allMySheets = await axios.get(`/${URL}/applicant/getAllMyJobApplications/?id=${id}`)
+            allMySheets = await axios.get(`${URL}/applicant/getAllMyJobApplications/${id}`)
         }
-       
-        setMySheets(allMySheets)
-
+        setMySheets(allMySheets.data.data) 
+        } catch (error) {
+            console.log(error);
+        }
     }
    
     useEffect(()=>{
         handleSheets();
     })
-
 
 
     return(<>
@@ -61,8 +59,7 @@ const Profile = ()=>{
 {/* // depending on the element caught by the maping will use infos of applicants or recruiters */}
     {mySheets.map(c =>{return( 
         <>
-        <Link to = {`/${type}/view/${c._id}`}>
-        
+        {/* <Link to = {`/${type}/view/${c._id}`}> */}
         <h1>{c.jobTitle}</h1>
         <p>{c.location}</p>
         <p>{c.minPrice}</p>
@@ -74,10 +71,12 @@ const Profile = ()=>{
         <h3>Hard</h3>
         <p>{c.hardSkills}</p>
         
+       <p>information{(type) (c._id) (id)}</p>
         {/* use userid here also */}
-        <NavLink to  ={`${type}/edit/${c._id}/${id}`}>edit</NavLink>
+        
+        <button  onClick= {()=>{navigate(`/${type}/edit/${c._id}/${id}`)}}>edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
-        </Link>
+        {/* </Link> */}
         </>
     )} 
 
