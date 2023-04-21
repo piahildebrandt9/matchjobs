@@ -6,11 +6,13 @@ import { URL } from "../config";
 
 const Edit = ()=>{
     
-    const {type,id,userid} = useParams();
+    let {type,id,userid} = useParams();
+  
 
     const [loadData, setLoadData] = useState({}) // loadData as a state variable so it can be filled with the right infos depending on the condition met
     const [initData, setInitData] = useState({}) // what we get in the beginning
-    
+    const [newID, setNewID]= useState(id)
+  
     const handleSubmit= async()=>{
         // call the backend and submit infos - only using loadData and update model chosen
 
@@ -19,8 +21,6 @@ const Edit = ()=>{
             if (type==='recruiter'){
                 console.log(loadData,initData)
                 const data = await axios.post(`${URL}/recruiter/updateJobOffer`,{jobOffer:loadData,oldJobOffer:initData}) // set load and init to corresponding keys // pass the key/value as an object
-                
-                
             }else{
                 await axios.post(`${URL}/applicant/updateJobApplication`,{jobApp:loadData ,oldJobApp:initData} )
             }
@@ -31,7 +31,8 @@ const Edit = ()=>{
 
     const exist = async () =>{
         try{
-            if(id){
+            if(newID!="null"){
+                // console.log(id)
                 // loading data
                 if (type === 'recruiter'){
                     
@@ -44,6 +45,7 @@ const Edit = ()=>{
             }else{
                 //create
                 //add new job Offer or job app
+         
                 if (type === 'recruiter'){
                     let temp = {
                         companyName:'My company',
@@ -66,7 +68,7 @@ const Edit = ()=>{
                     const addJobOffer = await axios.post(`${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
                     
                     // take the new received id (from the creation) and assign it to the new joboffer id
-                    id = addJobOffer._id.toString()
+                    setNewID(addJobOffer._id)
                 }else{
                     let temp= {
                         jobTitle:'Application title',
@@ -87,11 +89,11 @@ const Edit = ()=>{
                     }
                     setInitData(temp)
                     const addJobApplication = await axios.post(`${URL}/applicant/addJobApplication`,temp) // its a post so giving infos (temp)
-                    id = addJobApplication._id.toString()
+                    setNewID(addJobApplication._id)
                 }
             }
             // put data assigned to initData inside Load (allows us to recreate old/new data scheme of update controller)
-            setLoadData(initData)
+            setLoadData({...initData})
         }catch(error){
             console.log(error)
         }
@@ -99,7 +101,7 @@ const Edit = ()=>{
 
     useEffect(()=>{
         exist();
-    })
+    },[])
 
     return(
         <>
@@ -122,7 +124,7 @@ const Edit = ()=>{
             <p>Soft</p>
             <p>Hard</p>
             {type ==='recruiter' ? <h1>Job Description</h1>: <h1>Biographie</h1>}
-           {type == 'recruiter' ?  <input name = 'jobDescription' type = 'text' placeholder = {loadData.jobDescription} onChange =  {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}} /> :
+           {type === 'recruiter' ?  <input name = 'jobDescription' type = 'text' placeholder = {loadData.jobDescription} onChange =  {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}} /> :
            <input name = 'bio' type = 'text' placeholder = {loadData.bio} onChange =  {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}} /> }
             <button onClick={handleSubmit}>submit</button>
 

@@ -54,7 +54,7 @@ const Profile = ()=>{
 {/* // since we are making a new one we don't have an id yet */}
 
 {/* // we don't have the job app (bc making a new one) but need the user id to link it afterwards */}
-    <button onClick = {() =>  navigate(`/${type}/edit/${null}/${id}`)}>edit</button> 
+    <button onClick = {() =>  navigate(`/${type}/edit/null/${id}`)}>edit</button> 
     <button>activate</button>
 
 {/* // maping all existing applications or offers */}
