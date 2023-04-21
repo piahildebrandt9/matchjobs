@@ -184,8 +184,18 @@ const deleteJobOffer = async (req,res)=>{
 // //updateJobOffer
 // router.post('updateJobOffer',controller.updateJobOffer)
 const updateJobOffer = async (req,res)=>{
-  const {jobOffer, oldJobOffer} = req.body; 
+  
+  const {jobOffer, oldJobOffer} = req.body;
+  console.log('here')
+  console.log(jobOffer,oldJobOffer)
+
   try{
+   
+      let objectid = mongoose.Types.ObjectId(jobOffer.recruitersId)
+      jobOffer.recruitersId = objectid;
+      let objectidold = mongoose.Types.ObjectId(oldJobOffer.recruitersId)
+      oldJobOffer.recruitersId = objectidold;
+      console.log(jobOffer,oldJobOffer)
       const findjobOffer = await JobOffer.findOne(oldJobOffer)
       if (findjobOffer){
         await JobOffer.updateOne(findjobOffer,{jobOffer})

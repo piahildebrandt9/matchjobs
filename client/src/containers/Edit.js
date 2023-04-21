@@ -5,20 +5,24 @@ import { URL } from "../config";
 
 
 const Edit = ()=>{
-
-
+    
     const {type,id,userid} = useParams();
-    const [loadData, setLoadData] = useState('') // loadData as a state variable so it can be filled with the right infos depending on the condition met
-    const [initData, setInitData] = useState('') // what we get in the beginning
+
+    const [loadData, setLoadData] = useState({}) // loadData as a state variable so it can be filled with the right infos depending on the condition met
+    const [initData, setInitData] = useState({}) // what we get in the beginning
+    
     const handleSubmit= async()=>{
         // call the backend and submit infos - only using loadData and update model chosen
 
         // controller updateJobApp/JobOffer
         try {
             if (type==='recruiter'){
-                await axios.post(`/${URL}/recruiter/updateJobOffer`,{jobOffer:loadData ,oldJobOffer:initData} ) // set load and init to corresponding keys // pass the key/value as an object
+                console.log(loadData,initData)
+                const data = await axios.post(`${URL}/recruiter/updateJobOffer`,{jobOffer:loadData,oldJobOffer:initData}) // set load and init to corresponding keys // pass the key/value as an object
+                
+                
             }else{
-                await axios.post(`/${URL}/applicant/updateJobApplication`,{jobApp:loadData ,oldJobApp:initData} )
+                await axios.post(`${URL}/applicant/updateJobApplication`,{jobApp:loadData ,oldJobApp:initData} )
             }
         } catch (error) {
             console.log(error)
@@ -29,17 +33,18 @@ const Edit = ()=>{
         try{
             if(id){
                 // loading data
-                if (type === 'recuiter'){
-                    let temp = await axios.get(`/${URL}/recruiter/getJobOffer/${id}`) // want the specific joboffer 
+                if (type === 'recruiter'){
+                    
+                    let temp = await axios.get(`${URL}/recruiter/getJobOffer/${id}`) // want the specific joboffer 
                     setInitData(temp)// CALLING THE FUNCTION
                 }else{
-                    let temp = await axios.get(`/${URL}/applicant/getJobApplication/${id}`) // want the specific joboffer 
+                    let temp = await axios.get(`${URL}/applicant/getJobApplication/${id}`) // want the specific joboffer 
                     setInitData(temp)
                 }
             }else{
                 //create
                 //add new job Offer or job app
-                if (type === 'recuiter'){
+                if (type === 'recruiter'){
                     let temp = {
                         companyName:'My company',
                         jobTitle:'Job Title',
@@ -58,9 +63,10 @@ const Edit = ()=>{
                         active:false,
                     }
                     setInitData(temp)
-                    const addJobOffer = await axios.post(`/${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
+                    const addJobOffer = await axios.post(`${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
+                    
                     // take the new received id (from the creation) and assign it to the new joboffer id
-                    id = addJobOffer._id
+                    id = addJobOffer._id.toString()
                 }else{
                     let temp= {
                         jobTitle:'Application title',
@@ -80,8 +86,8 @@ const Edit = ()=>{
                         active:false,
                     }
                     setInitData(temp)
-                    const addJobApplication = await axios.post(`/${URL}/applicant/addJobApplication`,temp) // its a post so giving infos (temp)
-                    id = addJobApplication._id
+                    const addJobApplication = await axios.post(`${URL}/applicant/addJobApplication`,temp) // its a post so giving infos (temp)
+                    id = addJobApplication._id.toString()
                 }
             }
             // put data assigned to initData inside Load (allows us to recreate old/new data scheme of update controller)
@@ -99,10 +105,11 @@ const Edit = ()=>{
         <>
         {/* // rendering keys of the loadData object */}
             <h1>Title</h1>
-            <input type = 'text' placeholder = {loadData.jobTitle}/>
+            {/* // [e.target.name] is the key in the schema of mongodb and we are assigning here the current value of that input to that key in loadData */}
+            <input name = 'jobTitle' type = 'text' placeholder = {loadData.jobTitle} onChange = {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}}/>
             {/* // display only if type is recruiter */}
-            {type==='recruiter' && <input type = 'text' placeholder = {loadData.companyName}/>} 
-            <input type = 'text' placeholder = {loadData.location}/>
+            {type==='recruiter' && <input name = 'companyName' type = 'text' placeholder = {loadData.companyName} onChange = {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}}/>} 
+            <input name = 'location' type = 'text' placeholder = {loadData.location} onChange = {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}}/>
 
             {/* // we use on click to change the state of the button when clicked
             // inside the function we call the whole object and only change remote TO : the opposite of its current state (that is what ! stands for) */}
@@ -115,7 +122,8 @@ const Edit = ()=>{
             <p>Soft</p>
             <p>Hard</p>
             {type ==='recruiter' ? <h1>Job Description</h1>: <h1>Biographie</h1>}
-            <input type = 'text' placeholder = {loadData.bio}/>
+           {type == 'recruiter' ?  <input name = 'jobDescription' type = 'text' placeholder = {loadData.jobDescription} onChange =  {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}} /> :
+           <input name = 'bio' type = 'text' placeholder = {loadData.bio} onChange =  {(e) =>{setLoadData({...loadData,[e.target.name]:e.target.value})}} /> }
             <button onClick={handleSubmit}>submit</button>
 
         </>

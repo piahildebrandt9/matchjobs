@@ -31,6 +31,8 @@ const Profile = ()=>{
         }
     }
    
+
+   
     useEffect(()=>{
         handleSheets();
     })
@@ -52,14 +54,14 @@ const Profile = ()=>{
 {/* // since we are making a new one we don't have an id yet */}
 
 {/* // we don't have the job app (bc making a new one) but need the user id to link it afterwards */}
-    <button onClick = {() => < Edit type = {type} id = '' userid={id}/>}>edit</button> 
+    <button onClick = {() =>  navigate(`/${type}/edit/${null}/${id}`)}>edit</button> 
     <button>activate</button>
 
 {/* // maping all existing applications or offers */}
 {/* // depending on the element caught by the maping will use infos of applicants or recruiters */}
     {mySheets.map(c =>{return( 
         <>
-        {/* <Link to = {`/${type}/view/${c._id}`}> */}
+        <Link to = {`/${type}/view/${c._id}`}>
         <h1>{c.jobTitle}</h1>
         <p>{c.location}</p>
         <p>{c.minPrice}</p>
@@ -71,12 +73,9 @@ const Profile = ()=>{
         <h3>Hard</h3>
         <p>{c.hardSkills}</p>
         
-       <p>information{(type) (c._id) (id)}</p>
-        {/* use userid here also */}
-        
-        <button  onClick= {()=>{navigate(`/${type}/edit/${c._id}/${id}`)}}>edit</button>
+        <button  onClick= {() => navigate(`/${type}/edit/${c._id}/${id}`)}>edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
-        {/* </Link> */}
+        </Link>
         </>
     )} 
 

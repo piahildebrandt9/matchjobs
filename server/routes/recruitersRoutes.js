@@ -17,7 +17,7 @@ router.post('/addJobOffer',controller.addJobOffer)
 //deleteJobOffer
 router.post('/deleteJobOffer',controller.deleteJobOffer)
 //updateJobOffer
-router.post('updateJobOffer',controller.updateJobOffer)
+router.post('/updateJobOffer',controller.updateJobOffer)
 // getJobOffer
 router.get('/getJobOffer/:id', controller.getJobOffer)
 // getAllMyJobOffer/?id=''
