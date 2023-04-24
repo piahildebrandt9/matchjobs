@@ -7,25 +7,23 @@ import Navbar from "./components/Navbar.js";
 import { URL } from "./config";
 import Profile from './containers/Profile.js'
 import Admin from './containers/Admin.js'
-import Main from './containers/Main.js'
+
 import View from './containers/View'
-import Matches from './containers//Matches.js'
+
 import Edit from './containers/Edit.js'
 import * as jose from 'jose'
 
 
 function App() {
-
   const [isLoggedIn, setIsLoggedIn] = useState("");
-
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
   const [user,SetUser] = useState([]);
   
 
   useEffect(
     () => {
+      // verifier a chaque render si le token est valide
       const verify_token = async () => {
-        
         try {
           if (!token) {
             setIsLoggedIn(false)
@@ -41,24 +39,31 @@ function App() {
         }
       };
       verify_token();
-    },
+    }, 
     [token]
     );
+// dependency array prend token en argument
+// ==> callback function will be executed whenever the value of token changes.
 
+
+
+
+// fonction connexion (avec token)
   const login = (token) => {
-    
     localStorage.setItem("token", JSON.stringify(token));
     setIsLoggedIn(true);
     let decoded = jose.decodeJwt(token) // decoding the information form the token {userName,userType}
     SetUser(decoded) // set user to userName and user Type from token
-
   };
   
-  const logout = () => {
-    
+  // fonction deconnexion
+  const logout = () => {  
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
+
+
+
   return (
     // user state variable passed to Navbar
     <Router>
@@ -88,7 +93,7 @@ function App() {
     element ={< Edit />}  
 
     />  
-
+{/* 
     <Route
     path="/:type/main/:id"
     element ={< Main />}  
@@ -96,7 +101,7 @@ function App() {
      <Route
     path="/:type/matches/:id"
     element ={< Matches />}  
-    />  
+    />   */}
    
     
     <Route

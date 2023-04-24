@@ -4,15 +4,17 @@ import axios from "axios";
 import { URL } from "../config";
 
 
-function Admin() {
+import React from 'react'
+
+function ApplicantMain() {
   return (
     <div>
-    {/* // display all job offers and applications
-        // filter */}
+      // display all job offers
+      // filter depending on keys/values of schema 
 
 
     </div>
   )
 }
 
-export default Admin
+export default RecruiterMain

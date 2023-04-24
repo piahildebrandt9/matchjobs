@@ -32,7 +32,7 @@ const Profile = ()=>{
     }
    
 
-   
+   // permet de s'update en fonction de ce qui est fetch derriere
     useEffect(()=>{
         handleSheets();
     })

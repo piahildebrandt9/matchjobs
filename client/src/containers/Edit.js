@@ -5,9 +5,9 @@ import { URL } from "../config";
 
 
 const Edit = ()=>{
-    
+    //destructuring to extract the type, id, and userid parameters from the current route's URL
+    // store them in individual variables.
     let {type,id,userid} = useParams();
-  
 
     const [loadData, setLoadData] = useState({}) // loadData as a state variable so it can be filled with the right infos depending on the condition met
     const [initData, setInitData] = useState({}) // what we get in the beginning
@@ -26,16 +26,14 @@ const Edit = ()=>{
             }
         } catch (error) {
             console.log(error)
-        }
-    }
+        }}
 
     const exist = async () =>{
         try{
             if(newID!="null"){
-                // console.log(id)
-                // loading data
+            // console.log(id)
+            // loading data
                 if (type === 'recruiter'){
-                    
                     let temp = await axios.get(`${URL}/recruiter/getJobOffer/${id}`) // want the specific joboffer 
                     setInitData(temp)// CALLING THE FUNCTION
                 }else{
@@ -65,7 +63,7 @@ const Edit = ()=>{
                         active:false,
                     }
                     setInitData(temp)
-                    const addJobOffer = await axios.post(`${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
+                    const addJogyrtfbOffer = await axios.post(`${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
                     
                     // take the new received id (from the creation) and assign it to the new joboffer id
                     setNewID(addJobOffer._id)
