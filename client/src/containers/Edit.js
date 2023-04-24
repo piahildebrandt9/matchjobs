@@ -63,10 +63,10 @@ const Edit = ()=>{
                         active:false,
                     }
                     setInitData(temp)
-                    const addJogyrtfbOffer = await axios.post(`${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
+                    // const addJogyrtfbOffer = await axios.post(`${URL}/recruiter/addJobOffer`,temp) // its a post so giving infos (temp)
                     
-                    // take the new received id (from the creation) and assign it to the new joboffer id
-                    setNewID(addJobOffer._id)
+                    // // take the new received id (from the creation) and assign it to the new joboffer id
+                    // setNewID(addJobOffer._id)
                 }else{
                     let temp= {
                         jobTitle:'Application title',
@@ -86,8 +86,8 @@ const Edit = ()=>{
                         active:false,
                     }
                     setInitData(temp)
-                    const addJobApplication = await axios.post(`${URL}/applicant/addJobApplication`,temp) // its a post so giving infos (temp)
-                    setNewID(addJobApplication._id)
+                    // const addJobApplication = await axios.post(`${URL}/applicant/addJobApplication`,temp) // its a post so giving infos (temp)
+                    // setNewID(addJobApplication._id)
                 }
             }
             // put data assigned to initData inside Load (allows us to recreate old/new data scheme of update controller)

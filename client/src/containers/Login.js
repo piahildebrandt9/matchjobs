@@ -6,7 +6,7 @@ import { URL } from "../config";
 
 
 // passe la fonction pour le token
-function Login({loginFun}) {
+function Login({finalLogin}) {
   const [input, setInput] = useState({userName:'',password:''})
   const [button,setButton] = useState("");
   const [msg, setMsg]= useState('');
@@ -27,7 +27,7 @@ function Login({loginFun}) {
     // setting the keyvalue to the type of the user, and changing its value to the opposite of what it was before
     // take value of button (...) and change to the opposite (boolean) - current value - click - change value
     if(button === type) {
-setButton("")
+    setButton("")
     } else {
       setButton(type)
     }
@@ -36,9 +36,10 @@ setButton("")
     //get entries of button in an array of arrays
     //filter out all the ones who have true as the value (only one)
     
-    const temp = Object.entries(button).filter(c=>c[1]=== true)
+    
+    // const temp = Object.entries(button).filter(c=>c[1]=== true)
   // take the first entry from the only entry in temp which is the word of the key
-    switch(temp[0][0]){
+    switch(button){
 
       //check which value has been checked by the button
       // calling the back end and using the corresponding controller
@@ -53,7 +54,7 @@ setButton("")
           setMsg(recruiter.data.message)
         } 
         // pour le token
-        loginFun(recruiter.data.token)
+        finalLogin(recruiter.data.token)
         break;
           case 'applicant':
             const applicant = await axios.post(`${URL}/applicant/login`,{username:input.userName,password:input.password});
@@ -63,7 +64,7 @@ setButton("")
             else{
               setMsg(applicant.message)
             } 
-            loginFun(applicant.data.token)
+            finalLogin(applicant.data.token)
             break;
           case 'admin':
             const admin = await axios.post(`${URL}/admin/login`,{username:input.userName,password:input.password});
@@ -73,7 +74,7 @@ setButton("")
             else{
               setMsg(admin.message)
             } 
-            loginFun(admin.token)
+            finalLogin(admin.token)
             break;
   
     }

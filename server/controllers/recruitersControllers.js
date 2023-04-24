@@ -21,7 +21,7 @@ const register = async (req, res) => {
   // }
   try {
     const user = await Recruiter.findOne({ userName });
-    if (user) return res.json({ ok: false, message: "Admin exists!" });
+    if (user) return res.json({ ok: false, message: "User exists!" });
     const hash = await argon2.hash(password,salt);
     // not salted, salt is appending a random string to a password to strengthen the hash 
     const hash2 = await argon2.hash(password); 
@@ -235,7 +235,7 @@ const getAllMyJobOffer = async(req,res)=>{
   try {
     // empty array with objects of all the job offers that belongs to this recruiter
     // var arrJobOffer =[]
-    const allJobOffers = await JobOffer.find({recruiterId: id}) // FIND ALL
+    const allJobOffers = await JobOffer.find({recruitersId: id}) // FIND ALL
     res.send({ok:true, data: allJobOffers})
   //     for (var ele of allJobOffers){
   //     if (ele._id.toString() == recruiterId.toString()){ // take the job offers of a specific id(user)

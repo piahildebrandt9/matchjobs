@@ -3,9 +3,9 @@ import React from 'react'
 function RecruiterEdit() {
   return (
     <div>
-      // inputs
+      {/* // inputs
       //submit
-      //send to db (save/update)
+      //send to db (save/update) */}
 
     </div>
   )

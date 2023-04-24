@@ -12,15 +12,15 @@ const Navbar = ({isLoggedIn, user}) => {
     <>
     <NavLink 
     to={`/${user.userType}/profile/${user._id}`}  >
-    icon profile
+    profile
     </NavLink>
     <NavLink 
     to={`/${user.userType}/main`}  >
-    logo
+    main
     </NavLink>
     <NavLink 
     to={`/${user.userType}/matches`}  >
-    matches sign
+    matches
     </NavLink>
 
     </>
@@ -33,11 +33,11 @@ const Navbar = ({isLoggedIn, user}) => {
 
     <NavLink 
     to={"/"} aria-disabled = 'true'>
-    icon profile
+    profile
     </NavLink>
     <NavLink 
     to={`/${user.userType}/main`}  aria-disabled = 'true'>
-    logo
+    main
     </NavLink>
     <NavLink 
     to={`/register`}  >
@@ -49,7 +49,7 @@ const Navbar = ({isLoggedIn, user}) => {
     </NavLink>
     <NavLink 
     to={`/${user.userType}/matches`}  >
-    matches sign
+    matches
     </NavLink>
     </>
       
