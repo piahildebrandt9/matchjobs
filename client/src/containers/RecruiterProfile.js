@@ -71,9 +71,10 @@ function RecruiterProfile({isLoggedIn}) {
         <p>{c.softSkills}</p>
         <h3>Hard</h3>
         <p>{c.hardSkills}</p>
+        
+        </NavLink>
         <button onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
-        </NavLink>
         </div>
     )} 
     )}

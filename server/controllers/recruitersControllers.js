@@ -33,6 +33,7 @@ const register = async (req, res) => {
       password: hash,
     };
     await Recruiter.create(newUser);
+    console.log('here')
     res.json({ ok: true, message: "Successfully registered" });
   } catch (error) {
     console.log(error)
@@ -53,7 +54,7 @@ const login = async (req, res) => {
   try {
     const user = await Recruiter.findOne({ userName });
 
-    if (!user) return res.json({ ok: false, message: "Invalid admin provided" });
+    if (!user) return res.json({ ok: false, message: "Invalid user provided" });
  
     const match = await argon2.verify(user.password, password);
 
@@ -158,12 +159,13 @@ const updateRecruiter = async (req,res)=>{
     }
 }
 const addJobOffer = async (req,res) =>{
-    const {companyName,  jobTitle, remote, onSite, flexible, minPrice, maxPrice,location, jobDescription, softSkills, hardSkills,jobFields,recruitersId} = req.body; 
+    const {jobOffer} = req.body; 
+   
     try {
       
-        const newOffer = await JobOffer.create({companyName,jobTitle,remote,onSite,flexible,minPrice,maxPrice,location,jobDescription,softSkills,hardSkills,jobFields, likedBy :[], recruitersId})
+        const newOffer = await JobOffer.create({...jobOffer})
         console.log(newOffer)
-        res.send({ok:true,data:'new job offer created successfully'})
+        res.send({ok:true,data:newOffer._id.toString()})
     } catch (error) {
       res.send(error)
     }
@@ -186,18 +188,17 @@ const deleteJobOffer = async (req,res)=>{
 // router.post('updateJobOffer',controller.updateJobOffer)
 const updateJobOffer = async (req,res)=>{
   
-  const {jobOffer, oldJobOffer} = req.body;
-  console.log('here')
-  console.log(jobOffer,oldJobOffer)
+  const {jobOffer, oldJobOfferId} = req.body;
+
 
   try{
    
-      let objectid = mongoose.Types.ObjectId(jobOffer.recruitersId)
-      jobOffer.recruitersId = objectid;
-      let objectidold = mongoose.Types.ObjectId(oldJobOffer.recruitersId)
-      oldJobOffer.recruitersId = objectidold;
-      console.log(jobOffer,oldJobOffer)
-      const findjobOffer = await JobOffer.findOne(oldJobOffer)
+      // let objectid = mongoose.Types.ObjectId(jobOffer.recruitersId)
+      // jobOffer.recruitersId = objectid;
+      // let objectidold = mongoose.Types.ObjectId(oldJobOffer.recruitersId)
+      // oldJobOffer.recruitersId = objectidold;
+      // console.log(jobOffer,oldJobOffer)
+      const findjobOffer = await JobOffer.findOne({_id:oldJobOfferId})
       if (findjobOffer){
         await JobOffer.updateOne(findjobOffer,{jobOffer})
         res.send({ok:true, data:`Job offer updated successfully`})
@@ -214,6 +215,7 @@ const getJobOffer = async(req,res)=>{
   let {id} = req.params;
     try {
       const jobOffer = await JobOffer.findOne({_id: id})
+      console.log('jobOffer',jobOffer)
       if (jobOffer){
         res.send({ok: true, data: {jobOffer}})
       }else{

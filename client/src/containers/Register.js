@@ -5,22 +5,21 @@ import { URL } from "../config";
 import Edit from './Edit';
 
 function Register() {
-  const [input, setInput] = useState({userName:'',password:'', password2:''})
+  const [input, setInput] = useState({userName:'',password:'', password2:''})//current input in input html tags
   const [button,setButton] = useState(""); // 'recruiter'/'applicant'
-  const [msg, setMsg]= useState(''); 
+  const [msg, setMsg]= useState(''); // output message 'successfully registered'/'failed to register'
 
   const getInput = (e)=>{
-    //setInput gets all data from input and changes the value of a certain key
-    // e.target.name gets the name of the input
-    // e.target.value gets input from input
+    //setInput gets all data from input and changes it in state input 
     setInput({...input, [e.target.name]: e.target.value})
 
   }
 
   const register = async ()=>{
+    // call register function in backend
     try {
-      const regInput = await axios.post(`${URL}/recruiter/register`, {...input})
-      console.log(regInput)
+      const regInput = await axios.post(`${URL}/${button}/register`, {...input})
+      setMsg(regInput.data.message)
     } catch (error) {
       console.log(error)
       
@@ -28,18 +27,16 @@ function Register() {
 
   }
   const getUser = (e,type)=>{
-    //setButton sets the user values
-    // setting the keyvalue to the type of the user, and changing its value to the opposite of what it was before
-    // take value of button (...) and change to the opposite (boolean) - current value - click - change value
+    //setButton sets the button to the currently chosen userType
     if(button === type) {
-    setButton("")
+      setButton("")
     } else {
       setButton(type)
     }
   }
   return (
     <div>
-
+      {/* // input register information */}
       <h1>user name</h1>
       <input name = 'userName' onChange = {getInput}/>
       <h1>password</h1>

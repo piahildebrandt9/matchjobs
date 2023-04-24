@@ -56,27 +56,28 @@ function Login({finalLogin}) {
         // pour le token
         finalLogin(recruiter.data.token)
         break;
-          case 'applicant':
-            const applicant = await axios.post(`${URL}/applicant/login`,{username:input.userName,password:input.password});
-            if(applicant.ok){
-              setMsg(applicant.message)
-            }
-            else{
-              setMsg(applicant.message)
-            } 
-            finalLogin(applicant.data.token)
-            break;
-          case 'admin':
-            const admin = await axios.post(`${URL}/admin/login`,{username:input.userName,password:input.password});
-            if(admin.ok){
-              setMsg(admin.message)
-            }
-            else{
-              setMsg(admin.message)
-            } 
-            finalLogin(admin.token)
-            break;
-  
+      case 'applicant':
+        const applicant = await axios.post(`${URL}/applicant/login`,{userName:input.userName,password:input.password});
+        console.log(applicant)
+        if(applicant.ok){
+          setMsg(applicant.data.message)
+        }
+        else{
+          setMsg(applicant.data.message)
+        } 
+        finalLogin(applicant.data.token)
+        break;
+      case 'admin':
+        const admin = await axios.post(`${URL}/admin/login`,{username:input.userName,password:input.password});
+        if(admin.ok){
+          setMsg(admin.message)
+        }
+        else{
+          setMsg(admin.message)
+        } 
+        finalLogin(admin.token)
+        break;
+
     }
   }
 

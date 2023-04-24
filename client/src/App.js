@@ -93,7 +93,7 @@ function App() {
         /> 
         <Route
         path="/applicant/profile/:id"
-        element ={< ApplicantProfile />}  
+        element ={< ApplicantProfile isLoggedIn = {isLoggedIn} />}  
         />    
         
         <Route
@@ -113,11 +113,11 @@ function App() {
 
          
         <Route
-        path="/recruiter/view/:id"
+        path="/recruiter/view/:id/:userid"
         element ={< RecruiterView/>}  
         /> 
          <Route
-        path="/applicant/view/:id"
+        path="/applicant/view/:id/:userid"
         element ={< ApplicantView/>}  
         />  
 
