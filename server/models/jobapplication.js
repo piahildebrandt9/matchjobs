@@ -13,7 +13,7 @@ const jobApplicationSchema = new mongoose.Schema({
     bio:{type:String,unique:false},
     softSkills:[{type:String,unique:false}],
     hardSkills:[{type:String,unique:false}],
-    jobFields:[{type:String,unique:false}],
+    jobFields:[{type:Object,unique:false}],
     uploadedFiles:[{type:String,unique:false}],
     likedBy: [{
         recruiter_id: {

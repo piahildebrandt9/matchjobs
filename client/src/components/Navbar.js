@@ -27,8 +27,6 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     logout
     </button>
     </NavLink>
-
-
     </>
     
     }

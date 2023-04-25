@@ -12,23 +12,28 @@ function RecruiterProfile() {
 
 
   const handleJobOffers = async ()=>{
+    console.log('handleJObOffers')
     try {
       // load all jobOffers of this recruiter (id) from backend => database
       let allMyJobOffers = await axios.get(`${URL}/recruiter/getAllMyJobOffers/${id}`) // [{jobTitle:...,jobDescription:...}] 
+      
       // if allMyJobOffers is not empty
       if (allMyJobOffers){
-        setMyJobOffers(allMyJobOffers.data.data) 
+        console.log(allMyJobOffers.data)
+        setMyJobOffers(allMyJobOffers.data.data)
+        
       }
       else{
       allMyJobOffers = [];
       }
+      
     } catch (error) {
         console.log(error);
   }}
 
   
   useEffect(()=>{
-    
+    console.log('here')
       handleJobOffers();
       
   },[])
@@ -55,6 +60,7 @@ function RecruiterProfile() {
 
 
     {/* // display allmyJobOffers each in a new sheet */}
+ 
     {myJobOffers.map(c =>{return( 
         <div key = {c._id}>
 
@@ -64,7 +70,7 @@ function RecruiterProfile() {
         <p>{c.minPrice}</p>
         <p>{c.maxPrice}</p>
         <h2>Skills</h2>
-        <p>{c.jobFields}</p>
+        <p>{c.jobFields.jobFieldName}</p>
         <h3>Soft</h3>
         <p>{c.softSkills}</p>
         <h3>Hard</h3>

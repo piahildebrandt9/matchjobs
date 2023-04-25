@@ -5,7 +5,7 @@ import axios from "axios";
 import { URL } from "../config";
 
 function RecruiterView() {
-  const {id,userid} = useParams(); // id = id of the jobOffer, userid = id of the recruiter
+  const {id} = useParams(); // id = id of the jobOffer, userid = id of the recruiter
 
   const [data,setData] = useState({companyName:'',jobTitle:'',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'',jobDescription:''});
 
@@ -55,7 +55,7 @@ function RecruiterView() {
       <h3>Soft</h3>
       <h3>Hard</h3>
       <h1>{data.jobDescription}</h1>
-      <button onClick = {()=> navigate(`/recruiter/profile/${userid}`)}>back to profile</button>
+      {/* <button onClick = {()=> navigate(`/recruiter/profile/${userid}`)}>back to profile</button> */}
 
     </div>
   )

@@ -25,15 +25,17 @@ function RecruiterEdit() {
     }
     else{
       //add
+      console.log('data:',data)
       const add = await axios.post(`${URL}/recruiter/addJobOffer`,{jobOffer:data}) 
+      console.log('add:',add)
       
-      id = add.data.data.jobOffer._id;
+      id = add.data.data;
       
       if(add.data.ok){
         setMsg('successfully added jobOffer')
       }
     }
-    navigate(`/recruiter/view/${id}/${userid}`)
+    navigate(`/recruiter/view/${id}`)
   }
 
   const change = (e)=>{
@@ -45,13 +47,14 @@ function RecruiterEdit() {
   const setUp = async ()=>{
     // setUp jobFields
     const getJobFields = await axios.get(`${URL}/admin/getAllJobFields`);
-    console.log('jbFields:',getJobFields)
+    console.log(getJobFields)
     const jobFieldNames = getJobFields.data.data.map(c => c.jobFieldName)
-    console.log(jobFieldNames)
+    
     const fullJobField = [];
     for(var item of jobFieldNames){
       fullJobField.push({jobFieldName:item,selected:false})
     }
+    
     setData({...data,jobFields:fullJobField})
 
     // if id given load data from data base and put it to inputs
@@ -94,9 +97,11 @@ function RecruiterEdit() {
   const setJobField = (c,idx)=>{
     const temp = [data.jobFields];
     temp[idx].selected = !temp[idx].selected;
+    c.selected = !c.selected;
 
 
-  
+  console.log(temp)
+  console.log(c)
     setData({...data,jobFields:temp})
 
   }
@@ -135,7 +140,8 @@ function RecruiterEdit() {
       <p>job Field</p>
       {data.jobFields.map((c,idx) =>{
         return(
-          <button  disabled = {c.selected} name = 'jobField'  type = 'radio' onClick = {()=>setJobField(c,idx)} >{c.jobFieldName} </button>
+          <button  disabled = {c.selected} name = 'jobField'  type = 'radio' onClick = {()=>setJobField(c,idx)} >{c.jobFieldName}</button>
+          
         )
         }
         )}

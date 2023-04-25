@@ -64,7 +64,7 @@ function ApplicantProfile() {
         <p>{c.minPrice}</p>
         <p>{c.maxPrice}</p>
         <h2>Skills</h2>
-        <p>{c.jobFields}</p>
+        {/* <p>{c.jobFields}</p> */}
         <h3>Soft</h3>
         <p>{c.softSkills}</p>
         <h3>Hard</h3>

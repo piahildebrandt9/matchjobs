@@ -162,10 +162,10 @@ const addJobOffer = async (req,res) =>{
     const {jobOffer} = req.body; 
    
     try {
-      
+      console.log('here')
         const newOffer = await JobOffer.create({...jobOffer})
-        console.log(newOffer)
-        res.send({ok:true,data:newOffer._id.toString()})
+        
+        res.send({ok:true,data:newOffer._id})
     } catch (error) {
       res.send(error)
     }

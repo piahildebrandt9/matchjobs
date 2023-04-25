@@ -29,7 +29,7 @@ function App() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token'))); // name of the token saved in loval storage
   const [user,setUser] = useState([]); // {userName, userType:'recruiter'/'applicant',_id} or []
   
-
+// for every change of the state variable token, reload verify_token
   useEffect(
     () => {
       // verify if there is the token in local storage and set loggedIn according to it
@@ -41,10 +41,16 @@ function App() {
             setIsLoggedIn(false)
           }else {
             // valid token  in localStorage
+            // set authorizatin in header to token
           axios.defaults.headers.common['Authorization'] = token;
-          let decoded = jose.decodeJwt(token) // decoding the information from the token {userName,userType,_id}
-   
-          const response = await axios.post(`${URL}/${decoded.userType}/verify_token`); // call function verify token in backend which verify the secret jwt password for token
+
+          // decoding the information from the token {userName,userType,_id}
+          let decoded = jose.decodeJwt(token) 
+
+          // call function verify token in backend which verify the secret jwt password for token
+          const response = await axios.post(`${URL}/${decoded.userType}/verify_token`); 
+
+          // if secret jwt passwort for token valid then login otherwise logout
           return response.data.ok ? login(token) : logout();
           }
         } catch (error) {
@@ -53,7 +59,7 @@ function App() {
       };
       verify_token();
     }, 
-    [token] // for every change of the state variable token, reload verify_token
+    [token] 
     );
 
 
@@ -62,19 +68,27 @@ function App() {
 
 // final login function
   const login = (token) => {
-
+    // set token in localStorage
     localStorage.setItem("token", JSON.stringify(token));
-    
+
+    // set loggedin state to true
     setIsLoggedIn(true);
-    let decoded = jose.decodeJwt(token) // decoding the information form the token {userName,userType}
-    setUser(decoded) // set user to userName and user Type from token
+
+    // decoding the information form the token {userName,userType}
+    let decoded = jose.decodeJwt(token) 
+
+    // set user {userName, userType:'recruiter'/'applicant',_id} from token
+    setUser(decoded) 
     
     
   };
   
   // final logout functiokn
   const logout = () => {  
+    // set token in localStorage
     localStorage.removeItem("token");
+
+    // set logged in state to false
     setIsLoggedIn(false);
   };
 
@@ -87,30 +101,34 @@ function App() {
     <Navbar  isLoggedIn={isLoggedIn} user ={user} logout = {logout}/> 
 
       <Routes>
-      
+      {/* // if no specific route called go to login page or profile page if isLoggedIn = true */}
         <Route 
         path="/" 
-        element={ isLoggedIn && user.userType !== 'admin' ? <Navigate to= {`/${user.userType}/profile/${user._id}`} /> : <Login finalLogin={login} />} />
+        element={ isLoggedIn && user.userType !== 'admin' ? <Navigate to= {`/${user.userType}/profile/${user._id}`} /> : <Login finalLogin={login} />} 
+        />
         
-          <Route 
+        <Route 
         path="/" 
-        element={ isLoggedIn && user.userType == 'admin' ? <Navigate to= '/admin' /> : <Login finalLogin={login} />} />
+        element={ isLoggedIn && user.userType == 'admin' ? <Navigate to= '/admin' /> : <Login finalLogin={login} />} 
+        />
 
-       <Route
-        path="/recruiter/profile/:id"
-        element ={ < RecruiterProfile />}  
-        /> 
-        <Route
-        path="/applicant/profile/:id"
-        element ={< ApplicantProfile />}  
-        />    
-        
         <Route
         path="/admin"
         element ={ <Admin /> } 
         /> 
 
+      {/* // profile page routes only available with id, so if you are logged in*/}
+       <Route
+        path="/recruiter/profile/:id"
+        element ={isLoggedIn && < RecruiterProfile />}  
+        /> 
+        <Route
+        path="/applicant/profile/:id"
+        element ={isLoggedIn &&< ApplicantProfile />}  
+        />    
+        
 
+        {/* // edit page only available if you are logged in and have both ids */}
           <Route
         path="/recruiter/edit/:id/:userid"
         element ={ isLoggedIn &&< RecruiterEdit />}  
@@ -120,15 +138,17 @@ function App() {
         element ={ isLoggedIn && < ApplicantEdit />}  
         />  
 
-         
+         {/* // view of a job always available if yu have id of job */}
         <Route
-        path="/recruiter/view/:id/:userid"
+        path="/recruiter/view/:id"
         element ={ < RecruiterView/>}  
         /> 
          <Route
-        path="/applicant/view/:id/:userid"
+        path="/applicant/view/:id"
         element ={< ApplicantView/>}  
         />  
+
+        {/* // main and matches still in the working */}
          <Route
         path="/applicant/main"
         element ={< ApplicantMain/>}  
@@ -147,8 +167,7 @@ function App() {
         />
 
         
-
-
+        {/*// login and register routes also coppled to being loggedin or not */}
         <Route
         path="/login"
         element ={ isLoggedIn ? <Navigate to='/' /> : <Login finalLogin={login} /> } 
@@ -157,10 +176,7 @@ function App() {
         path="/register"
         element ={ isLoggedIn ? <Navigate to='/' /> : <Register  /> } 
         />
-        {/* <Route
-        path="/logout"
-        element ={ !isLoggedIn ? <Navigate to='/' /> : logout() } 
-        /> */}
+       
       </Routes>
     </Router>
     );
