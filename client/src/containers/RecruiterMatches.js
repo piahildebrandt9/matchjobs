@@ -11,4 +11,4 @@ function RecruiterMatch() {
   )
 }
 
-export default ApplicantMatch
+export default RecruiterMatch

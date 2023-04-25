@@ -4,8 +4,6 @@ import axios from "axios";
 import { URL } from "../config";
 
 
-import React from 'react'
-
 function ApplicantMain() {
   return (
     <div>
@@ -17,4 +15,4 @@ function ApplicantMain() {
   )
 }
 
-export default RecruiterMain
+export default ApplicantMain

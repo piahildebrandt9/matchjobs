@@ -26,4 +26,11 @@ router.post('/deleteOffers', controller.deleteOffer);
 // //deleteJobApplications
 router.post('/deleteApplications', controller.deleteApplication);
 
+// getJobField
+router.post('/addJobField',controller.addJobField)
+router.post('/addSoftSkill',controller.addSoftSkill)
+router.post('/addHardSkill',controller.addHardSkill)
+router.post('/getAllJobFields',controller.getAllJobFields)
+router.post('/getJobField',controller.getJobField)
+
 module.exports = router;

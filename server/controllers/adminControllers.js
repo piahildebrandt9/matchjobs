@@ -3,6 +3,7 @@ const  Applicants = require('../models/applicants')
 const  JobApplication = require('../models/jobapplication')
 const JobOffer = require('../models/joboffer')
 const  Recruiter = require('../models/recruiter')
+const jobField = require('../models/jobFields');
 const argon2 = require("argon2"); //https://github.com/ranisalt/node-argon2/wiki/Options
 const jwt = require("jsonwebtoken");
 
@@ -199,7 +200,87 @@ const deleteApplication = async(req, res)=>{
       
     }
   }
+  
 
+  const addJobField = async(req,res)=>{
+    const {jobFieldName} = req.body;
+
+    try {
+      const newJobField = await jobField.create({jobFieldName,hardSkills:[],softSkills:[]})
+      if(newJobField){
+        res.send({ok:true,data:'successfully created new JobField'})
+      }
+      else{
+        res.send({ok:false,data:'failed to create new jobField'})
+      }
+      
+    } catch (error) {
+      res.send({ok:false,data:error})
+      
+    }
+
+
+  }
+  const addSoftSkill = async (req,res)=>{
+    const {jobFieldName,softSkill} = req.body;
+    try {
+      const findJobField = await jobField.findOne({jobFieldName})
+      console.log(findJobField)
+      if(findJobField){
+        console.log('here')
+        const updateJobField = await jobField.updateOne({findJobField},{...findJobField,softSkills:softSkill})
+        
+        if(updateJobField){
+          console.log('here1')
+          res.send({ok:true,data:'successfully added soft Skill'})
+        }
+        else{
+          res.send({ok:false,data:'failed to add softSkill'})
+
+        }
+      }
+      else{
+        res.send({ok:false,data:'could not find jobField'})
+      }
+      
+    } catch (error) {
+      res.send({ok:false,data:error})
+      
+    }
+
+  }
+  const addHardSkill = async(req,res)=>{
+    const {jobFieldName,hardSkill} = req.body;
+    try {
+      const findJobField = await jobField.findOne({jobFieldName})
+      if(findJobField){
+        const updateJobField = await jobField.update({findJobField},{...findJobField,hardSkills:hardSkill})
+        if(updateJobField){
+          res.send({ok:true,data:'successfully added hard Skill'})
+        }
+        else{
+          res.send({ok:false,data:'failed to add hard Skill'})
+
+        }
+      }
+      else{
+        res.send({ok:false,data:'could not find jobField'})
+      }
+      
+    } catch (error) {
+      res.send({ok:false,data:error})
+      
+    }
+
+  }
+  const getAllJobFields = async(req,res)=>{
+
+  }
+  const getJobField = async(req,res)=>{
+
+  }
+
+  
 module.exports = {
   findAdmin,
   addAdmin,
@@ -212,4 +293,10 @@ module.exports = {
   register,
   login,
   verify_token,
+  addJobField,
+  addSoftSkill,
+  addHardSkill,
+  getAllJobFields,
+  getJobField,
+
 }

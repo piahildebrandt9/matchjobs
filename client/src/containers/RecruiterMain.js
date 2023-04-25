@@ -4,13 +4,11 @@ import axios from "axios";
 import { URL } from "../config";
 
 
-import React from 'react'
 
 function RecruiterMain() {
   return (
     <div>
-      // display all job App
-      // filter depending on keys/values of schema 
+      
 
 
     </div>

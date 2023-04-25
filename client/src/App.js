@@ -16,6 +16,10 @@ import RecruiterEdit from './containers/RecruiterEdit'
 import ApplicantEdit from './containers/ApplicantEdit'
 import RecruiterView from './containers/RecruiterView';
 import ApplicantView from './containers/ApplicantView';
+import ApplicantMain from './containers/ApplicantMain';
+import ApplicantMatch from './containers/ApplicantMatch';
+import RecruiterMain from './containers/RecruiterMain';
+import RecruiterMatch from './containers/RecruiterMatches';
 
 
 
@@ -126,6 +130,22 @@ function App() {
         path="/applicant/view/:id/:userid"
         element ={< ApplicantView/>}  
         />  
+         <Route
+        path="/applicant/main"
+        element ={< ApplicantMain/>}  
+        />  
+         <Route
+        path="/applicant/matches"
+        element ={< ApplicantMatch/>}  
+        />
+          <Route
+        path="/recruiter/main"
+        element ={< RecruiterMain/>}  
+        />  
+         <Route
+        path="/recruiter/matches"
+        element ={< RecruiterMatch/>}  
+        />
 
         
 
