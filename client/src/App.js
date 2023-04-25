@@ -20,10 +20,11 @@ import ApplicantView from './containers/ApplicantView';
 
 
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(""); // true if token in localStorage still valid, false if not
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token'))); // name of the token saved in loval storage
-  const [user,SetUser] = useState([]); // {userName, userType:'recruiter'/'applicant',_id} or []
+  const [user,setUser] = useState([]); // {userName, userType:'recruiter'/'applicant',_id} or []
   
 
   useEffect(
@@ -31,6 +32,7 @@ function App() {
       // verify if there is the token in local storage and set loggedIn according to it
       const verify_token = async () => {
         try {
+         
           if (!token) {
             // no token in local storage
             setIsLoggedIn(false)
@@ -57,10 +59,14 @@ function App() {
 
 // final login function
   const login = (token) => {
+
     localStorage.setItem("token", JSON.stringify(token));
+    
     setIsLoggedIn(true);
     let decoded = jose.decodeJwt(token) // decoding the information form the token {userName,userType}
-    SetUser(decoded) // set user to userName and user Type from token
+    setUser(decoded) // set user to userName and user Type from token
+    
+    
   };
   
   // final logout functiokn
@@ -132,7 +138,10 @@ function App() {
         path="/register"
         element ={ isLoggedIn ? <Navigate to='/' /> : <Register  /> } 
         />
-        
+        <Route
+        path="/logout"
+        element ={ !isLoggedIn ? <Navigate to='/' /> : logout() } 
+        />
       </Routes>
     </Router>
     );

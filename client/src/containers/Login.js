@@ -1,8 +1,9 @@
 import React, { useState,useEffect } from "react";
 import Register from './Register';
-import {useParams, NavLink} from 'react-router-dom'
+import {useParams, NavLink, useNavigate} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
+import * as jose from 'jose';
 
 
 // passe la fonction pour le token
@@ -10,6 +11,8 @@ function Login({finalLogin}) {
   const [input, setInput] = useState({userName:'',password:''})
   const [button,setButton] = useState("");
   const [msg, setMsg]= useState('');
+
+  const navigate = useNavigate();
   
   
   // getInput takes the data from the inputs and saves it in the input state variable
@@ -27,7 +30,7 @@ function Login({finalLogin}) {
     // setting the keyvalue to the type of the user, and changing its value to the opposite of what it was before
     // take value of button (...) and change to the opposite (boolean) - current value - click - change value
     if(button === type) {
-    setButton("")
+      setButton("")
     } else {
       setButton(type)
     }
@@ -35,6 +38,7 @@ function Login({finalLogin}) {
   const login = async()=>{
     //get entries of button in an array of arrays
     //filter out all the ones who have true as the value (only one)
+    
     
     
     // const temp = Object.entries(button).filter(c=>c[1]=== true)
@@ -46,39 +50,52 @@ function Login({finalLogin}) {
       //check if true and send the corresponding message (backend)
       case 'recruiter':
         const recruiter = await axios.post(`${URL}/recruiter/login`,{userName:input.userName,password:input.password});
-       
+       console.log(recruiter)
         if(recruiter.data.ok){
           setMsg(recruiter.data.message)
+          finalLogin(recruiter.data.token)
+          let decoded = jose.decodeJwt(recruiter.data.token)
+          console.log(decoded) 
+          
+          navigate(`/recruiter/profile/${decoded._id}`)
         }
         else{
           setMsg(recruiter.data.message)
         } 
         // pour le token
-        finalLogin(recruiter.data.token)
+        
         break;
       case 'applicant':
         const applicant = await axios.post(`${URL}/applicant/login`,{userName:input.userName,password:input.password});
         console.log(applicant)
         if(applicant.ok){
           setMsg(applicant.data.message)
+          finalLogin(applicant.data.token)
         }
         else{
           setMsg(applicant.data.message)
         } 
-        finalLogin(applicant.data.token)
+        
         break;
       case 'admin':
-        const admin = await axios.post(`${URL}/admin/login`,{username:input.userName,password:input.password});
+        const admin = await axios.post(`${URL}/admin/login`,{userName:input.userName,password:input.password});
         if(admin.ok){
-          setMsg(admin.message)
+          setMsg(admin.data.message)
+          finalLogin(admin.data.token)
         }
         else{
-          setMsg(admin.message)
+          setMsg(admin.data.message)
         } 
-        finalLogin(admin.token)
+        
         break;
 
     }
+    
+    
+    
+    
+    
+    
   }
 
   return (

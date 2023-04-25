@@ -38,6 +38,7 @@ function ApplicantEdit() {
 
   const change = (e)=>{
     // set data to current input values
+    
     setData({...data,[e.target.id]:e.target.value})
 
   }
@@ -46,9 +47,10 @@ function ApplicantEdit() {
     // if id given load data from data base and put it to inputs
     if(id!= 'null'){
       const getData = await axios.get(`${URL}/applicant/getJobApplication/${id}`)
-      
+      console.log(getData)
       if(getData.data.ok){
-        setData(getData.data.data.jobApplication)
+        
+        setData(getData.data.data.jobApp)
       }
       else{
         setMsg(getData.data.data)
@@ -70,6 +72,7 @@ function ApplicantEdit() {
   }
   const setInputs = ()=>{
     // every time data changes set input values to data
+  
     const arr = Object.keys(data);
         
         for(var item of arr){

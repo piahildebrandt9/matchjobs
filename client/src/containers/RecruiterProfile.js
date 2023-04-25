@@ -27,13 +27,13 @@ function RecruiterProfile({isLoggedIn}) {
   }}
 
   // at initializing render always getAllMyJobOffers(handleJobOffer) from backend => database
-  useEffect(()=>{
-    if(!isLoggedIn){
-      navigate(`/login`)
-    }
-      handleJobOffers();
+  // useEffect(()=>{
+  //   if(!isLoggedIn){
+  //     navigate(`/login`)
+  //   }
+  //     handleJobOffers();
       
-  },[])
+  // },[])
 
   return (
     <div>

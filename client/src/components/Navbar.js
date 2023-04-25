@@ -22,6 +22,11 @@ const Navbar = ({isLoggedIn, user}) => {
     to={`/${user.userType}/matches`}  >
     matches
     </NavLink>
+    <NavLink 
+    to={`/logout`}  >
+    logout
+    </NavLink>
+
 
     </>
     
@@ -51,7 +56,12 @@ const Navbar = ({isLoggedIn, user}) => {
     to={`/${user.userType}/matches`}  >
     matches
     </NavLink>
+    <NavLink 
+    to={`/logout`}  >
+    logout
+    </NavLink>
     </>
+    
       
     }
 
