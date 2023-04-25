@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import {useParams, Link} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
-import Edit from './Edit';
+
 
 function Register() {
   const [input, setInput] = useState({userName:'',password:'', password2:''})//current input in input html tags

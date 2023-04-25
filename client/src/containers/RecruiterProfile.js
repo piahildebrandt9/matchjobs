@@ -5,7 +5,7 @@ import { URL } from "../config";
 
 
 
-function RecruiterProfile({isLoggedIn}) {
+function RecruiterProfile() {
   const {id} = useParams() // userid
   const [myJobOffers,setMyJobOffers] = useState([]) // [{jobTitle:...,jobDescription:...}] or []
   const navigate = useNavigate();
@@ -26,14 +26,12 @@ function RecruiterProfile({isLoggedIn}) {
         console.log(error);
   }}
 
-  // at initializing render always getAllMyJobOffers(handleJobOffer) from backend => database
-  // useEffect(()=>{
-  //   if(!isLoggedIn){
-  //     navigate(`/login`)
-  //   }
-  //     handleJobOffers();
+  
+  useEffect(()=>{
+    
+      handleJobOffers();
       
-  // },[])
+  },[])
 
   return (
     <div>

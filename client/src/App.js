@@ -8,8 +8,7 @@ import Login from "./containers/Login.js";
 import Register from "./containers/Register.js";
 import Navbar from "./components/Navbar.js";
 import Admin from './containers/Admin.js';
-import View from './containers/View';
-import Edit from './containers/Edit.js';
+
 import RecruiterProfile from './containers/RecruiterProfile.js';
 import ApplicantProfile from './containers/ApplicantProfile.js';
 import RecruiterEdit from './containers/RecruiterEdit'
@@ -85,7 +84,7 @@ function App() {
     
     <Router>
     {/* // navbar always visible with props isLoggedIn = true/false, user = {userName, userType:'recruiter'/'applicant',_id} or [] */}
-    <Navbar  isLoggedIn={isLoggedIn} user ={user}/> 
+    <Navbar  isLoggedIn={isLoggedIn} user ={user} logout = {logout}/> 
 
       <Routes>
       
@@ -99,11 +98,11 @@ function App() {
 
        <Route
         path="/recruiter/profile/:id"
-        element ={< RecruiterProfile isLoggedIn = {isLoggedIn} />}  
+        element ={ < RecruiterProfile />}  
         /> 
         <Route
         path="/applicant/profile/:id"
-        element ={< ApplicantProfile isLoggedIn = {isLoggedIn} />}  
+        element ={< ApplicantProfile />}  
         />    
         
         <Route
@@ -114,17 +113,17 @@ function App() {
 
           <Route
         path="/recruiter/edit/:id/:userid"
-        element ={< RecruiterEdit />}  
+        element ={ isLoggedIn &&< RecruiterEdit />}  
         />  
            <Route
         path="/applicant/edit/:id/:userid"
-        element ={< ApplicantEdit />}  
+        element ={ isLoggedIn && < ApplicantEdit />}  
         />  
 
          
         <Route
         path="/recruiter/view/:id/:userid"
-        element ={< RecruiterView/>}  
+        element ={ < RecruiterView/>}  
         /> 
          <Route
         path="/applicant/view/:id/:userid"
@@ -136,15 +135,15 @@ function App() {
         />  
          <Route
         path="/applicant/matches"
-        element ={< ApplicantMatch/>}  
+        element ={isLoggedIn && < ApplicantMatch/>}  
         />
           <Route
         path="/recruiter/main"
-        element ={< RecruiterMain/>}  
+        element ={isLoggedIn && < RecruiterMain/>}  
         />  
          <Route
         path="/recruiter/matches"
-        element ={< RecruiterMatch/>}  
+        element ={isLoggedIn &&< RecruiterMatch/>}  
         />
 
         
@@ -158,10 +157,10 @@ function App() {
         path="/register"
         element ={ isLoggedIn ? <Navigate to='/' /> : <Register  /> } 
         />
-        <Route
+        {/* <Route
         path="/logout"
         element ={ !isLoggedIn ? <Navigate to='/' /> : logout() } 
-        />
+        /> */}
       </Routes>
     </Router>
     );

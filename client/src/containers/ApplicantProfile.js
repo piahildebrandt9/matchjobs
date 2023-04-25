@@ -5,7 +5,7 @@ import { URL } from "../config";
 
 
 
-function ApplicantProfile({isLoggedIn}) {
+function ApplicantProfile() {
   const {id} = useParams() // userid = id of applicant
   const [myJobApplications,setMyJobApplications] = useState([]) // [{jobTitle:...,jobDescription:...}] or []
   const navigate = useNavigate();
@@ -28,9 +28,7 @@ function ApplicantProfile({isLoggedIn}) {
 
   // at initializing render always getAllMyJobApplicatons(handleJobApplications) from backend => database
   useEffect(()=>{
-    if(!isLoggedIn){
-      navigate(`/login`)
-    }
+   
       handleJobApplications();
       
   },[])

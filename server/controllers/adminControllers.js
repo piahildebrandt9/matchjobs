@@ -224,20 +224,10 @@ const deleteApplication = async(req, res)=>{
   const addSoftSkill = async (req,res)=>{
     const {jobFieldName,softSkill} = req.body;
     try {
-      const findJobField = await jobField.findOne({jobFieldName})
-      console.log(findJobField)
+      const findJobField = await jobField.findOneAndUpdate({jobFieldName},{$push: {softSkills:softSkill}})
+    
       if(findJobField){
-        console.log('here')
-        const updateJobField = await jobField.updateOne({findJobField},{...findJobField,softSkills:softSkill})
-        
-        if(updateJobField){
-          console.log('here1')
-          res.send({ok:true,data:'successfully added soft Skill'})
-        }
-        else{
-          res.send({ok:false,data:'failed to add softSkill'})
-
-        }
+        res.send({ok:true,data:'successfully updated jobField soft Skills'})
       }
       else{
         res.send({ok:false,data:'could not find jobField'})
@@ -252,16 +242,10 @@ const deleteApplication = async(req, res)=>{
   const addHardSkill = async(req,res)=>{
     const {jobFieldName,hardSkill} = req.body;
     try {
-      const findJobField = await jobField.findOne({jobFieldName})
+      const findJobField = await jobField.findOneAndUpdate({jobFieldName},{$push: {hardSkills:hardSkill}})
+    
       if(findJobField){
-        const updateJobField = await jobField.update({findJobField},{...findJobField,hardSkills:hardSkill})
-        if(updateJobField){
-          res.send({ok:true,data:'successfully added hard Skill'})
-        }
-        else{
-          res.send({ok:false,data:'failed to add hard Skill'})
-
-        }
+        res.send({ok:true,data:'successfully updated jobField hard Skills'})
       }
       else{
         res.send({ok:false,data:'could not find jobField'})
@@ -274,9 +258,37 @@ const deleteApplication = async(req, res)=>{
 
   }
   const getAllJobFields = async(req,res)=>{
+    try {
+      const getall = await jobField.find({})
+      if(getall){
+        res.send({ok:true,data:getall})
+      }
+      else{
+        res.send({ok:false,data:'could not get jobFields'})
+      }
+    } catch (error) {
+      res.send({ok:false,data:error})
+      
+    }
 
   }
   const getJobField = async(req,res)=>{
+    const {jobFieldName} = req.body
+
+    try {
+      const findJobField = await jobField.findOne({jobFieldName})
+      
+      if(findJobField){
+        res.send({ok:true,data:findJobField})
+      }
+      else{
+        res.send({ok:false,data:'failed to find jobField'})
+      }
+      
+    } catch (error) {
+      res.send({ok:false,data:error})
+      
+    }
 
   }
 

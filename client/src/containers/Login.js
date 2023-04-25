@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import Register from './Register';
+
 import {useParams, NavLink, useNavigate} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
@@ -68,9 +68,15 @@ function Login({finalLogin}) {
       case 'applicant':
         const applicant = await axios.post(`${URL}/applicant/login`,{userName:input.userName,password:input.password});
         console.log(applicant)
-        if(applicant.ok){
+        if(applicant.data.ok){
           setMsg(applicant.data.message)
           finalLogin(applicant.data.token)
+          let decoded = jose.decodeJwt(applicant.data.token)
+          console.log(decoded) 
+          
+          navigate(`/applicant/profile/${decoded._id}`)
+          
+        
         }
         else{
           setMsg(applicant.data.message)

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {URL} from '../config'
 
-const Navbar = ({isLoggedIn, user}) => {
+const Navbar = ({isLoggedIn, user, logout}) => {
     // user is the state variable with userName and userType from the token
 
   return (
@@ -22,9 +22,10 @@ const Navbar = ({isLoggedIn, user}) => {
     to={`/${user.userType}/matches`}  >
     matches
     </NavLink>
-    <NavLink 
-    to={`/logout`}  >
+    <NavLink to ={`/`} >
+      <button onClick = {logout}>
     logout
+    </button>
     </NavLink>
 
 
@@ -56,10 +57,12 @@ const Navbar = ({isLoggedIn, user}) => {
     to={`/${user.userType}/matches`}  >
     matches
     </NavLink>
-    <NavLink 
-    to={`/logout`}  >
+    <NavLink to ={`/`} >
+      <button onClick = {logout}>
     logout
+    </button>
     </NavLink>
+
     </>
     
       

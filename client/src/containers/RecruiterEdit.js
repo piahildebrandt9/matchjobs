@@ -28,7 +28,7 @@ function RecruiterEdit() {
       const add = await axios.post(`${URL}/recruiter/addJobOffer`,{jobOffer:data}) 
       
       id = add.data.data.jobOffer._id;
-      console.log(id)
+      
       if(add.data.ok){
         setMsg('successfully added jobOffer')
       }
@@ -43,6 +43,17 @@ function RecruiterEdit() {
   }
 
   const setUp = async ()=>{
+    // setUp jobFields
+    const getJobFields = await axios.get(`${URL}/admin/getAllJobFields`);
+    console.log('jbFields:',getJobFields)
+    const jobFieldNames = getJobFields.data.data.map(c => c.jobFieldName)
+    console.log(jobFieldNames)
+    const fullJobField = [];
+    for(var item of jobFieldNames){
+      fullJobField.push({jobFieldName:item,selected:false})
+    }
+    setData({...data,jobFields:fullJobField})
+
     // if id given load data from data base and put it to inputs
     if(id!= 'null'){
       const getData = await axios.get(`${URL}/recruiter/getJobOffer/${id}`)
@@ -80,6 +91,16 @@ function RecruiterEdit() {
 
   }
 
+  const setJobField = (c,idx)=>{
+    const temp = [data.jobFields];
+    temp[idx].selected = !temp[idx].selected;
+
+
+  
+    setData({...data,jobFields:temp})
+
+  }
+
   useEffect(()=>{
     // when initialize rendering setUp data
     setUp()
@@ -112,6 +133,13 @@ function RecruiterEdit() {
       <input id = 'maxPrice' onChange = {(e) =>change(e)}/>
       <h2>Skills</h2>
       <p>job Field</p>
+      {data.jobFields.map((c,idx) =>{
+        return(
+          <button  disabled = {c.selected} name = 'jobField'  type = 'radio' onClick = {()=>setJobField(c,idx)} >{c.jobFieldName} </button>
+        )
+        }
+        )}
+      
       <h3>Soft</h3>
       <h3>Hard</h3>
       <h1>Job Description</h1>
