@@ -21,22 +21,6 @@ function ApplicantEdit() {
 
   const setUp = async ()=>{
 
-    // setUp JobFields
-
-    // make new jobFields input to be of type[{jobFieldName:'',selected:true}]
-    // get all jobFields from db
-    const getJobFields = await axios.get(`${URL}/admin/getAllJobFields`); 
-    // get only jobField Names
-    const jobFieldNames = getJobFields.data.data.map(c => c.jobFieldName)
-    // make new array with objects of type[{jobFieldName:'',selected:true}]
-    const fullJobField = [];
-    for(var item of jobFieldNames){
-      fullJobField.push({jobFieldName:item,selected:false})
-    }
-    
-    setData({...data,jobFields:fullJobField}) //fullJobField = [{jobFieldName:'',selected:true}]
-
-
     // if id given load data from data base and put it to inputs
     // id given
     if(id!= 'null'){
@@ -67,6 +51,47 @@ function ApplicantEdit() {
     
 
   }
+
+
+    const setUpJobFields = async ()=>{
+    // setUp jobFields
+     const getJobFields = await axios.get(`${URL}/admin/getAllJobFields`); 
+    
+    // get only jobField Names
+    const jobFieldNames = getJobFields.data.data.map(c => c.jobFieldName)
+    // make new array with objects of type[{jobFieldName:'',selected:true}]
+    const fullJobField = [];
+    for(var item of jobFieldNames){
+      fullJobField.push({jobFieldName:item,selected:false})
+    }
+   
+    // set up softSkills
+    const softSkillsArray = getJobFields.data.data.map(c => c.softSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
+    const fullSoftSkillData = softSkillsArray.map(c => {
+      let temp =[]
+      for(var item of c){
+        
+        temp.push({skillName:item,selected:false})
+      }
+      return temp
+  })
+  
+    // set up hardSkills
+    const hardSkillsArray = getJobFields.data.data.map(c => c.hardSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
+    const fullHardSkillData = hardSkillsArray.map(c => {
+      let temp =[]
+      for(var item of c){
+        
+        temp.push({skillName:item,selected:false})
+      }
+      return temp
+  })
+  
+   // save skills to data
+    setData({...data,jobFields:fullJobField,softSkills:fullSoftSkillData,hardSkills:fullHardSkillData})
+  }
+
+
 
     // constantly setData to current input vlaues
   const changeData = (e)=>{
@@ -117,6 +142,7 @@ function ApplicantEdit() {
 
   useEffect(()=>{
     // when initialize rendering setUp data
+    setUpJobFields();
     setUp()
   },[])
 
