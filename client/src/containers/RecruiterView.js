@@ -1,12 +1,12 @@
-
 import React, { useState,useEffect } from "react";
 import {useParams, useNavigate} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
 
 function RecruiterView() {
+  // params /:id
   const {id} = useParams(); // id = id of the jobOffer, userid = id of the recruiter
-
+  // state variables
   const [data,setData] = useState({companyName:'',jobTitle:'',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'',jobDescription:''});
 
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function RecruiterView() {
       
     }
   }
-
+  // initially always load all data
   useEffect(()=>{
 
     loadData();
@@ -41,7 +41,7 @@ function RecruiterView() {
 
   return (
     <div>
-      
+      {/* // view all data */}
       <h1 >{data.jobTitle}</h1>
       <h1>{data.companyName}</h1>
       {/* <button onClick={}> remote</button>

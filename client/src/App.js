@@ -120,22 +120,22 @@ function App() {
       {/* // profile page routes only available with id, so if you are logged in*/}
        <Route
         path="/recruiter/profile/:id"
-        element ={isLoggedIn && < RecruiterProfile />}  
+        element ={isLoggedIn ? < RecruiterProfile /> : <Login finalLogin = {login}/>}  
         /> 
         <Route
         path="/applicant/profile/:id"
-        element ={isLoggedIn &&< ApplicantProfile />}  
+        element ={isLoggedIn ? < ApplicantProfile />: <Login finalLogin ={login}/>}  
         />    
         
 
         {/* // edit page only available if you are logged in and have both ids */}
           <Route
         path="/recruiter/edit/:id/:userid"
-        element ={ isLoggedIn &&< RecruiterEdit />}  
+        element ={ isLoggedIn ?< RecruiterEdit /> : <Login finalLogin = {login}/>}  
         />  
            <Route
         path="/applicant/edit/:id/:userid"
-        element ={ isLoggedIn && < ApplicantEdit />}  
+        element ={ isLoggedIn ? < ApplicantEdit />: <Login finalLogin = {login}/>}  
         />  
 
          {/* // view of a job always available if yu have id of job */}

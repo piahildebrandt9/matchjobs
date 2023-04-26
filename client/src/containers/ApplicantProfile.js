@@ -6,11 +6,14 @@ import { URL } from "../config";
 
 
 function ApplicantProfile() {
+  // param /:id
   const {id} = useParams() // userid = id of applicant
+  //declare state variables
   const [myJobApplications,setMyJobApplications] = useState([]) // [{jobTitle:...,jobDescription:...}] or []
+  // useNavigate
   const navigate = useNavigate();
 
-
+  // load all Job Applications of this applicant
   const handleJobApplications = async ()=>{
     try {
       // load all jobApplications of this applicant (id) from backend => database
@@ -28,16 +31,15 @@ function ApplicantProfile() {
 
   // at initializing render always getAllMyJobApplicatons(handleJobApplications) from backend => database
   useEffect(()=>{
-   
       handleJobApplications();
-      
   },[])
+
+
 
   return (
     <div>
 
     {/* // example job applications sheet in grey  */}
-  
     <h1>Add your job Application</h1>
     {/* <p> location icon and location</p>
     <p>min salary</p>
@@ -45,19 +47,15 @@ function ApplicantProfile() {
     <h2>Skills</h2>
     <p>job Field</p>
     <h3>Soft</h3>
-
     <h3>Hard</h3> */}
-  
     <button onClick = {()=> navigate( `/applicant/edit/${null}/${id}`)} >add</button> 
     {/* <button>activate</button>  */}
-
 
 
 
     {/* // display allmyJobApplications each in a new sheet */}
     {myJobApplications.map(c =>{return( 
         <div key = {c._id}>
-
         <NavLink to = {`/applicant/view/${c._id}`}>
         <h1>{c.jobTitle}</h1>
         <p>{c.location}</p>
@@ -69,10 +67,10 @@ function ApplicantProfile() {
         <p>{c.softSkills}</p>
         <h3>Hard</h3>
         <p>{c.hardSkills}</p>
-        
         </NavLink>
         <button onClick = {()=> navigate( `/applicant/edit/${c._id}/${id}`)} >edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
+        
         </div>
     )} 
     )}

@@ -5,8 +5,9 @@ import axios from "axios";
 import { URL } from "../config";
 
 function ApplicantView() {
-  const {id,userid} = useParams(); // id = id of the jobApplication, userid = id of the applicant
-
+  // params /:id
+  const {id} = useParams(); // id = id of the jobApplication, userid = id of the applicant
+  // state variables
   const [data,setData] = useState({jobTitle:'',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'',bio:''});
 
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function ApplicantView() {
       
     }
   }
-
+  // initially always load data
   useEffect(()=>{
 
     loadData();
@@ -55,8 +56,7 @@ function ApplicantView() {
       <h3>Soft</h3>
       <h3>Hard</h3>
       <h1>{data.bio}</h1>
-      <button onClick = {()=> navigate(`/applicant/profile/${userid}`)}>back to profile</button>
-
+     
     </div>
   )
 }

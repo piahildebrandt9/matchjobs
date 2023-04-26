@@ -6,22 +6,23 @@ import { URL } from "../config";
 
 
 function RecruiterProfile() {
+  // param /:id
   const {id} = useParams() // userid
+  // state variables
   const [myJobOffers,setMyJobOffers] = useState([]) // [{jobTitle:...,jobDescription:...}] or []
+  // useNavigate
   const navigate = useNavigate();
 
-
+  // load all jobOffers of this recruiter
   const handleJobOffers = async ()=>{
-    console.log('handleJObOffers')
+   
     try {
       // load all jobOffers of this recruiter (id) from backend => database
       let allMyJobOffers = await axios.get(`${URL}/recruiter/getAllMyJobOffers/${id}`) // [{jobTitle:...,jobDescription:...}] 
       
       // if allMyJobOffers is not empty
       if (allMyJobOffers){
-        console.log(allMyJobOffers.data)
         setMyJobOffers(allMyJobOffers.data.data)
-        
       }
       else{
       allMyJobOffers = [];
@@ -31,18 +32,16 @@ function RecruiterProfile() {
         console.log(error);
   }}
 
-  
+  // initially always load all jobOffers of this recruiter
   useEffect(()=>{
-    console.log('here')
       handleJobOffers();
-      
   },[])
 
+  
   return (
     <div>
 
     {/* // example job offer sheet in grey  */}
-  
     <h1>Add your job offer</h1>
     {/* <p> location icon and location</p>
     <p>min salary</p>
@@ -50,17 +49,12 @@ function RecruiterProfile() {
     <h2>Skills</h2>
     <p>job Field</p>
     <h3>Soft</h3>
-
     <h3>Hard</h3> */}
-  
     <button onClick = {()=> navigate( `/recruiter/edit/${null}/${id}`)} >add</button> 
     {/* <button>activate</button>  */}
 
 
-
-
     {/* // display allmyJobOffers each in a new sheet */}
- 
     {myJobOffers.map(c =>{return( 
         <div key = {c._id}>
 
@@ -75,10 +69,10 @@ function RecruiterProfile() {
         <p>{c.softSkills}</p>
         <h3>Hard</h3>
         <p>{c.hardSkills}</p>
-        
         </NavLink>
         <button onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
+
         </div>
     )} 
     )}

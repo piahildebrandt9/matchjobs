@@ -1,15 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import {URL} from '../config'
+import '../App.css'
 
 const Navbar = ({isLoggedIn, user, logout}) => {
-    // user is the state variable with userName and userType from the token
+    // isLoggedIn is the state variable from app.js which is either true or false
+    // user is the state variable with userName, userType and ._id from the token
+    // logout is the final logout function
 
   return (
+    
     <div className="navbar">
+      {/* // Navbar if isLoggedIn */}
     {isLoggedIn === true
     && 
-    <>
+    <div className = "nav">
     <NavLink 
     to={`/${user.userType}/profile/${user._id}`}  >
     profile
@@ -27,13 +32,13 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     logout
     </button>
     </NavLink>
-    </>
+    </div>
     
     }
 
-
+      {/* // Navbar if not LoggedIn */}
     {!isLoggedIn
-      && <>
+      && <div className = "nav">
 
     <NavLink 
     to={"/"} aria-disabled = 'true'>
@@ -44,16 +49,16 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     main
     </NavLink>
     <NavLink 
-    to={`/register`}  >
-    register
+    to={`/${user.userType}/matches`}  >
+    matches
     </NavLink>
     <NavLink 
     to={`/login`}  >
     login
     </NavLink>
     <NavLink 
-    to={`/${user.userType}/matches`}  >
-    matches
+    to={`/register`}  >
+    register
     </NavLink>
     <NavLink to ={`/`} >
       <button onClick = {logout}>
@@ -61,7 +66,7 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     </button>
     </NavLink>
 
-    </>
+    </div>
     
       
     }

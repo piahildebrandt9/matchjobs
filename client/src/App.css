@@ -1,0 +1,5 @@
+.nav{
+    size:large;
+    display:flex;
+    justify-content:space-evenly;
+}
