@@ -11,6 +11,8 @@ function RecruiterEdit() {
   // state variables
   const[data, setData] = useState({companyName:'Your companyName',jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',jobDescription:'describe the job',softSkills:[],hardSkills:[],jobFields:[],likedBy:[],recruitersId:userid})
   // data = empty new job offer
+  const[softSkills,setSoftSkills] = useState([]);
+  const[hardSkills,setHardSkills] = useState([])
   const[msg,setMsg] = useState('') // msg displayed in the end, declaring status of edit
   // useNavigate
   const navigate = useNavigate();
@@ -21,7 +23,11 @@ function RecruiterEdit() {
 
     // make new jobFields input to be of type[{jobFieldName:'',selected:true}]
     // get all jobFields from db
+    
     const getJobFields = await axios.get(`${URL}/admin/getAllJobFields`); 
+    console.log(getJobFields)
+
+
     // get only jobField Names
     const jobFieldNames = getJobFields.data.data.map(c => c.jobFieldName)
     // make new array with objects of type[{jobFieldName:'',selected:true}]
@@ -31,6 +37,34 @@ function RecruiterEdit() {
     }
     
     setData({...data,jobFields:fullJobField}) //fullJobField = [{jobFieldName:'',selected:true}]
+
+    const softSkillsArray = getJobFields.data.data.map(c => c.softSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
+    const fullSoftSkillData = softSkillsArray.map(c => {
+      let temp =[]
+      for(var item of c){
+        
+        temp.push({skillName:item,selected:false})
+      }
+      return temp
+  })
+    console.log(fullSoftSkillData)
+    setSoftSkills(fullSoftSkillData)
+
+  
+
+    // for(var item of softSkillsArray){
+    //   fullSoftSkillData.push({softSkillName:item,selected:false})
+
+    // }
+    
+    // setSoftSkills(fullSoftSkillData)
+
+    // const hardSkillsArray = getJobFields.data.data.map(c => c.hardSkills)
+
+    // setHardSkills(hardSkillsArray);
+    
+
+    
 
     // if id given load data from data base and put it to inputs
     // id given
@@ -81,6 +115,8 @@ function RecruiterEdit() {
     // update data jobFields to new array
     setData({...data,jobFields:temp})
 
+
+
   }
 
    // in the end update or add final changes to database
@@ -110,7 +146,7 @@ function RecruiterEdit() {
 
   useEffect(()=>{
     // when initialize rendering setUp data
-    setUp()
+    setUp();
   },[])
 
  
@@ -121,9 +157,9 @@ function RecruiterEdit() {
       
       <h1>Add your job offer</h1>
       <h1>Job Title</h1>
-      <input id = 'jobTitle' value = {data['jobTitle']} onChange = {(e) =>changeData(e)}/>
+      <input id = 'jobTitle' value = {data['jobTitle'] } onChange = {(e) =>changeData(e)}/>
       <h1>Company Name</h1>
-      <input id ='companyName' value = {data['companyName']} onChange = {(e) =>changeData(e)}/>
+      <input id ='companyName' value = {data['companyName'] } onChange = {(e) =>changeData(e)}/>
       {/* <button onClick={}> remote</button>
       <button onClick={}>on site</button>
       <button onClick={}>flexible</button> */}
@@ -131,9 +167,9 @@ function RecruiterEdit() {
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
       {/* <input type = 'range' min = '0' max ='20 000' /> */}
       <p>min salary</p>
-      <input id = 'minPrice' value = {data['minPrice']} onChange = {(e) =>changeData(e)}/>
+      <input id = 'minPrice' value = {data['minPrice'] } onChange = {(e) =>changeData(e)}/>
       <p>max salary</p>
-      <input id = 'maxPrice' value = {data['maxPrice']} onChange = {(e) =>changeData(e)}/>
+      <input id = 'maxPrice' value = {data['maxPrice'] } onChange = {(e) =>changeData(e)}/>
       <h2>Skills</h2>
       <p>job Field</p>
       {data.jobFields.map((c,idx) =>{
@@ -147,7 +183,7 @@ function RecruiterEdit() {
       <h3>Soft</h3>
       <h3>Hard</h3>
       <h1>Job Description</h1>
-      <input id = 'jobDescription' value = {data['jobDescription']} onChange = {(e) =>changeData(e)}/>
+      <input id = 'jobDescription' value = {data['jobDescription'] } onChange = {(e) =>changeData(e)}/>
 
       <button onClick = {submit}>submit</button>
       <p>{msg}</p>
