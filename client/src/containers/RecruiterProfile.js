@@ -32,10 +32,21 @@ function RecruiterProfile() {
         console.log(error);
   }}
 
+  const deleteJobOffer = async(cId)=>{
+
+    const deleteOffer = await axios.post(`${URL}/recruiter/deleteJobOffer`,{offersId:cId})
+    console.log(deleteOffer)
+    handleJobOffers();
+
+
+  }
+
   // initially always load all jobOffers of this recruiter
   useEffect(()=>{
       handleJobOffers();
   },[])
+
+
 
   
   return (
@@ -72,6 +83,7 @@ function RecruiterProfile() {
         </NavLink>
         <button onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
+        <button onClick = {()=>deleteJobOffer(c._id)}>delete</button>
 
         </div>
     )} 

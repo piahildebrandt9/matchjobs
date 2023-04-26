@@ -18,15 +18,52 @@ function RecruiterEdit() {
   const navigate = useNavigate();
 
  
-  const setUp = async ()=>{
+  // const setUp = async ()=>{
+    
+  //   // if id given load data from data base and put it to inputs
+  //   // id given
+  //   if(id!= 'null'){
+  //     // get existing data for this jobOffer(id) from db
+  //     const getData = await axios.get(`${URL}/recruiter/getJobOffer/${id}`)
+      
+  //     if(getData.data.ok){
+  //       setData(getData.data.data.jobOffer)
+  //     }
+  //     else{
+  //       setMsg(getData.data.data)
+  //     }
+
+  //   }
+  //   else{
+  //   // id not given
+  //   // set default data into inputs
+  //   // get all keys from data
+  //     const temp = Object.keys(data)
+  //   // set corresponding input to the data
+  //     for(var item of temp){
+  //       if(document.getElementById(item)){
+  //         document.getElementById(item).value = data[item]
+  //       } 
+  //     }
+
+  //   }
+
+    
+
+    
+
+  // }
+
+  const setUpJobFields = async ()=>{
+
+    
     // setUp jobFields
 
     // make new jobFields input to be of type[{jobFieldName:'',selected:true}]
     // get all jobFields from db
     
     const getJobFields = await axios.get(`${URL}/admin/getAllJobFields`); 
-    console.log(getJobFields)
-
+    
 
     // get only jobField Names
     const jobFieldNames = getJobFields.data.data.map(c => c.jobFieldName)
@@ -35,8 +72,11 @@ function RecruiterEdit() {
     for(var item of jobFieldNames){
       fullJobField.push({jobFieldName:item,selected:false})
     }
-    
-    setData({...data,jobFields:fullJobField}) //fullJobField = [{jobFieldName:'',selected:true}]
+   
+   const arr = ['bla']
+  
+    setData({...data,jobFields:['blarz']}) //fullJobField = [{jobFieldName:'',selected:true}, {...}]
+   
 
     const softSkillsArray = getJobFields.data.data.map(c => c.softSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
     const fullSoftSkillData = softSkillsArray.map(c => {
@@ -47,73 +87,44 @@ function RecruiterEdit() {
       }
       return temp
   })
-    console.log(fullSoftSkillData)
-    setSoftSkills(fullSoftSkillData)
-
   
-
-    // for(var item of softSkillsArray){
-    //   fullSoftSkillData.push({softSkillName:item,selected:false})
-
-    // }
-    
-    // setSoftSkills(fullSoftSkillData)
-
-    // const hardSkillsArray = getJobFields.data.data.map(c => c.hardSkills)
-
-    // setHardSkills(hardSkillsArray);
-    
+    setData({...data,softSkills:fullSoftSkillData})
 
     
-
-    // if id given load data from data base and put it to inputs
-    // id given
-    if(id!= 'null'){
-      // get existing data for this jobOffer(id) from db
-      const getData = await axios.get(`${URL}/recruiter/getJobOffer/${id}`)
-      
-      if(getData.data.ok){
-        setData(getData.data.data.jobOffer)
+    const hardSkillsArray = getJobFields.data.data.map(c => c.hardSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
+    const fullHardSkillData = hardSkillsArray.map(c => {
+      let temp =[]
+      for(var item of c){
+        
+        temp.push({skillName:item,selected:false})
       }
-      else{
-        setMsg(getData.data.data)
-      }
+      return temp
+  })
+  
+    setData({...data,hardSkills:fullHardSkillData})
 
-    }
-    else{
-    // id not given
-    // set default data into inputs
-    // get all keys from data
-      const temp = Object.keys(data)
-    // set corresponding input to the data
-      for(var item of temp){
-        if(document.getElementById(item)){
-          document.getElementById(item).value = data[item]
-        } 
-      }
-
-    }
-    
 
   }
 
   // constantly updating data to current input values
   const changeData = (e)=>{
     // set data to current input values
-    setData({...data,[e.target.id]:e.target.value})
+    // setData({...data,[e.target.id]:e.target.value})
+    
+    
 
   }
  
   // when button of JobField pushed change the selected value in state data
   const setJobField = (c,idx)=>{
-    // make new array of jobFields
-    const temp = [data.jobFields];
-    // change selected status in array and in button
-    temp[idx].selected = !temp[idx].selected;
-    c.selected = !c.selected;
+    // // make new array of jobFields
+    // const temp = [data.jobFields];
+    // // change selected status in array and in button
+    // temp[idx].selected = !temp[idx].selected;
+    // c.selected = !c.selected;
 
-    // update data jobFields to new array
-    setData({...data,jobFields:temp})
+    // // update data jobFields to new array
+    // setData({...data,jobFields:temp})
 
 
 
@@ -146,8 +157,16 @@ function RecruiterEdit() {
 
   useEffect(()=>{
     // when initialize rendering setUp data
-    setUp();
+    // setUp();
+    setUpJobFields();
+  
   },[])
+
+
+  // useEffect(()=>{
+
+  //   setUpJobFields();
+  // },[data])
 
  
 
@@ -181,6 +200,11 @@ function RecruiterEdit() {
         )}
       
       <h3>Soft</h3>
+      {/* {data.softSkills.map((c,idx)=>{
+        return (
+          <button disabled = {} name = 'softSkills' type = 'radio'></button>
+        )
+      })} */}
       <h3>Hard</h3>
       <h1>Job Description</h1>
       <input id = 'jobDescription' value = {data['jobDescription'] } onChange = {(e) =>changeData(e)}/>

@@ -29,6 +29,16 @@ function ApplicantProfile() {
         console.log(error);
   }}
 
+  const deleteJobApplication = async(cId)=>{
+
+    const deleteApp = await axios.post(`${URL}/applicant/deleteJobApplication`,{offersId:cId})
+    console.log(deleteApp)
+    handleJobApplications();
+
+
+  }
+
+
   // at initializing render always getAllMyJobApplicatons(handleJobApplications) from backend => database
   useEffect(()=>{
       handleJobApplications();
@@ -70,6 +80,7 @@ function ApplicantProfile() {
         </NavLink>
         <button onClick = {()=> navigate( `/applicant/edit/${c._id}/${id}`)} >edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>
+        <button onClick = {()=>deleteJobApplication(c._id)}>delete</button>
         
         </div>
     )} 
