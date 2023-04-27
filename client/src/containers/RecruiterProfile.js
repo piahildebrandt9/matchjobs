@@ -75,11 +75,24 @@ function RecruiterProfile() {
         <p>{c.minPrice}</p>
         <p>{c.maxPrice}</p>
         <h2>Skills</h2>
-        <p>{c.jobFields.jobFieldName}</p>
-        <h3>Soft</h3>
-        <p>{c.softSkills}</p>
-        <h3>Hard</h3>
-        <p>{c.hardSkills}</p>
+        <p>Job Fields</p>
+        {c.jobFields.map((d) =>{
+        return(
+          <button  disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+          
+        )})}
+         <h3>Soft</h3>
+        {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
+        return (
+          <button disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+        )
+        })}
+         {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.hardSkills[c.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
+        return (
+          <button disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+        )
+        })}
+        
         </NavLink>
         <button onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
         <button onClick = {()=> c.active = !c.active}>activate</button>

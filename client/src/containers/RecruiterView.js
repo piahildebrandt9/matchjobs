@@ -7,7 +7,7 @@ function RecruiterView() {
   // params /:id
   const {id} = useParams(); // id = id of the jobOffer, userid = id of the recruiter
   // state variables
-  const [data,setData] = useState({companyName:'',jobTitle:'',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'',jobDescription:''});
+  const [data,setData] = useState({companyName:'',jobTitle:'',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'',jobFields:[],softSkills:[[]],hardSkills:[[]],jobDescription:''});
 
   const navigate = useNavigate();
  
@@ -51,9 +51,22 @@ function RecruiterView() {
       <p>{data.minPrice}</p>
       <p>{data.maxPrice}</p>
       <h2>Skills</h2>
-      <p>job Field</p>
-      <h3>Soft</h3>
-      <h3>Hard</h3>
+      {data.jobFields.map((d) =>{
+        return(
+          <button  disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+          
+        )})}
+        <h3>Soft</h3>
+      {data.jobFields.findIndex(c => c.selected == true) !== -1 &&  data.softSkills[data.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
+      return (
+        <button disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+      )
+      })} 
+      {data.jobFields.findIndex(c => c.selected == true) !== -1 &&  data.hardSkills[data.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
+      return (
+        <button disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+      )
+      })}
       <h1>{data.jobDescription}</h1>
       {/* <button onClick = {()=> navigate(`/recruiter/profile/${userid}`)}>back to profile</button> */}
 

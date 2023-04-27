@@ -11,8 +11,8 @@ const jobOfferSchema = new mongoose.Schema({
     maxPrice:{type:Number,unique:false},
     location:{type:String,unique:false},
     jobDescription:{type:String,unique:false},
-    softSkills:[{type:String,required:true,unique:false}],
-    hardSkills:[{type:String,required:true,unique:false}],
+    softSkills:[{type:Object,required:true,unique:false}],
+    hardSkills:[{type:Object,required:true,unique:false}],
     jobFields:[{type:Object,required:true,unique:false}],
     likedBy:[{
         applicant_id: {

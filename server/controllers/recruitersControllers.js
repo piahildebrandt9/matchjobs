@@ -162,56 +162,8 @@ const updateRecruiter = async (req,res)=>{
 }
 const addJobOffer = async (req,res) =>{
     let {jobOffer} = req.body;
-  //   const jobFields = await JobField.find({})
-  //   console.log(jobFields)
-  //   const jobFieldNames = jobFields.map(c => c.jobFieldName)
-    
-   
-    
-   
   
-  //   // make new array with objects of type[{jobFieldName:'',selected:true}]
-  //   const fullJobField = [];
-  //   for(var item of jobFieldNames){
-  //     fullJobField.push({jobFieldName:item,selected:false})
-  //   }
-   
- 
-  
-  //   jobOffer.jobFields = fullJobField ;//fullJobField = [{jobFieldName:'',selected:true}, {...}]
-   
 
-  //   const softSkillsArray = jobFields.map(c => c.softSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
-  //   const fullSoftSkillData = softSkillsArray.map(c => {
-  //     let temp =[]
-  //     for(var item of c){
-        
-  //       temp.push({skillName:item,selected:false})
-  //     }
-  //     return temp
-  // })
-  
-  //   jobOffer.softSkills=fullSoftSkillData;
-
-    
-  //   const hardSkillsArray = jobFields.map(c => c.hardSkills) // [[skill1,skill2,...],[skilla,skillb,...]]
-  //   const fullHardSkillData = hardSkillsArray.map(c => {
-  //     let temp =[]
-  //     for(var item of c){
-        
-  //       temp.push({skillName:item,selected:false})
-  //     }
-  //     return temp
-  // })
-  
-  //   jobOffer.hardSkills = fullHardSkillData;
-
-
- 
-
-
-
-   
     try {
     
         const newOffer = await JobOffer.create({...jobOffer})
