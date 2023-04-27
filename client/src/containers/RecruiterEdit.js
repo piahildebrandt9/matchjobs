@@ -11,7 +11,7 @@ function RecruiterEdit() {
   let {id,userid} = useParams(); //id = jobOfferId, userid = recruiters Id
 
   // state variables
-  const[data, setData] = useState({companyName:'Your companyName',jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',jobDescription:'describe the job',softSkills:[['choose jobField']],hardSkills:[],jobFields:[],likedBy:[],recruitersId:userid})
+  const[data, setData] = useState({companyName:'Your companyName',jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',jobDescription:'describe the job',softSkills:[['choose jobField']],hardSkills:[['choose jobField']],jobFields:[],likedBy:[],recruitersId:userid})
   // data = empty new job offer
   const [idx,setIdx] = useState("")// idx of the choosen jobField
   const[msg,setMsg] = useState('') // msg displayed in the end, declaring status of edit
@@ -76,6 +76,11 @@ function RecruiterEdit() {
 
   }
 
+  const changePrice =(e)=>{
+    setData({...data,['minPrice']:e.target.min, ['maxPrice']:e.target.max})
+
+  }
+
 
    // in the end update or add final changes to database
    const submit = async ()=>{
@@ -126,11 +131,14 @@ function RecruiterEdit() {
       <button onClick={}>flexible</button> */}
       <p>location</p>
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
-      {/* <input type = 'range' min = '0' max ='20 000' /> */}
-      <p>min salary</p>
+      <label for="min">min salary</label>
+     <input id="min" className="min" name="min" type="range" step="1" min={data['minPrice']} max= {data['maxPrice']} onChange = {(e)=>changePrice(e)} />
+    <label for="max">Maximum price</label>
+    <input id="max" className="max" name="max" type="range" step="1" min={data['minPrice']} max= {data['maxPrice']} onChange = {(e)=>changePrice(e)} />
+      {/* <p>min salary</p>
       <input id = 'minPrice' value = {data['minPrice'] } onChange = {(e) =>changeData(e)}/>
       <p>max salary</p>
-      <input id = 'maxPrice' value = {data['maxPrice'] } onChange = {(e) =>changeData(e)}/>
+      <input id = 'maxPrice' value = {data['maxPrice'] } onChange = {(e) =>changeData(e)}/> */}
       <h2>Skills</h2>
       <p>job Field</p>
       <Skills idx = {idx} data= {data} setJobField  ={setJobField} setSoftSkill= {setSoftSkill} setHardSkill = {setHardSkill} />

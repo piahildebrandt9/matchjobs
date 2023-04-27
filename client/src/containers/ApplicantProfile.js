@@ -32,7 +32,7 @@ function ApplicantProfile() {
 
   const deleteJobApplication = async(cId)=>{
 
-    const deleteApp = await axios.post(`${URL}/applicant/deleteJobApplication`,{offersId:cId})
+    const deleteApp = await axios.post(`${URL}/applicant/deleteApplication`,{offersId:cId})
     console.log(deleteApp)
     handleJobApplications();
 

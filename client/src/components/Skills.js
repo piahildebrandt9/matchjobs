@@ -2,7 +2,7 @@ import React from 'react'
 
 function Skills({idx,data,setJobField,setSoftSkill,setHardSkill}) {
   return (
-    <p>
+    <div>
           {data.jobFields.map((c,id) =>{
         return(
           <button  disabled = {c.selected}  name = 'jobField'  type = 'radio' onClick = {()=>setJobField(c,id)} >{c.jobFieldName}</button>
@@ -25,7 +25,7 @@ function Skills({idx,data,setJobField,setSoftSkill,setHardSkill}) {
         )
       })}
 
-    </p>
+    </div>
   )
 }
 

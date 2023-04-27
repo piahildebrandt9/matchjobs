@@ -14,7 +14,7 @@ function ApplicantEdit() {
   let {id,userid} = useParams(); //id = jobApplicantId, userid = applicants Id
 
   // state variables
-  const[data, setData] = useState({jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',bio:'describe yourself',softSkills:[],hardSkills:[],jobFields:[],likedBy:[],applicantsId:userid})
+  const[data, setData] = useState({jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',bio:'describe yourself',softSkills:[['set JobField']],hardSkills:[['setJobField']],jobFields:[],likedBy:[],applicantsId:userid})
   // default data when adding a new job Application
   const [idx,setIdx] = useState("")// idx of the choosen jobField
   const[msg,setMsg] = useState('') // msg displayed at the end confirming editing
@@ -117,15 +117,16 @@ function ApplicantEdit() {
     // when button of JobField pushed change the selected value in state data
   const setJobField = (c,idx)=>{
     // make new array of jobFields
-    const temp = [data.jobFields];
+    let temp = [...data.jobFields];
+    temp = temp.map(d =>({...d,selected:false}))
     // change selected status in array and in button
-    temp[idx].selected = !temp[idx].selected;
-    c.selected = !c.selected;
+    temp[idx].selected = true;
+    // c.selected = !c.selected;
 
     // update data jobFields to new array
     setData({...data,jobFields:temp})
-    // set Idx of the current selected JobField
-    setIdx(idx);
+    // set idx of the current select jobField
+    setIdx(idx)
 
   }
 
@@ -144,6 +145,7 @@ function ApplicantEdit() {
     setData({...data,softSkills:tempSoftSkills})
 
   }
+
   const setHardSkill = (c,id)=>{
     // make copy of all hardSkills
     let tempHardSkills = [...data.hardSkills]
