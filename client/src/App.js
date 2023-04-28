@@ -95,7 +95,7 @@ function App() {
 
 
   return (
-    
+    <div className="app">
     <Router>
     {/* // navbar always visible with props isLoggedIn = true/false, user = {userName, userType:'recruiter'/'applicant',_id} or [] */}
     <Navbar  isLoggedIn={isLoggedIn} user ={user} logout = {logout}/> 
@@ -179,6 +179,7 @@ function App() {
        
       </Routes>
     </Router>
+    </div>
     );
 }
 

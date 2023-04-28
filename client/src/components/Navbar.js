@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {URL} from '../config'
 import '../App.css'
+import { CgProfile} from 'react-icons/cg';
+import { MdOutlineHandshake } from 'react-icons/md'
 
 const Navbar = ({isLoggedIn, user, logout}) => {
     // isLoggedIn is the state variable from app.js which is either true or false
@@ -17,21 +19,24 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     <div className = "nav">
     <NavLink 
     to={`/${user.userType}/profile/${user._id}`}  >
-    profile
+    < CgProfile className = 'profile'/>
     </NavLink>
     <NavLink 
+    className = 'logo'
     to={`/${user.userType}/main`}  >
-    main
+    thematch
     </NavLink>
+    <p>
     <NavLink 
     to={`/${user.userType}/matches`}  >
-    matches
+    < MdOutlineHandshake className='matches'/>
     </NavLink>
     <NavLink to ={`/`} >
-      <button onClick = {logout}>
+      <button className = 'logout' onClick = {logout}>
     logout
     </button>
     </NavLink>
+    </p>
     </div>
     
     }
@@ -40,17 +45,19 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     {!isLoggedIn
       && <div className = "nav">
 
-    <NavLink 
+    <NavLink
     to={"/"} aria-disabled = 'true'>
-    profile
+    < CgProfile  className='profile' />
     </NavLink>
     <NavLink 
+    className = 'logo'
     to={`/${user.userType}/main`}  aria-disabled = 'true'>
-    main
+    thematch
     </NavLink>
+    <p>
     <NavLink 
     to={`/${user.userType}/matches`}  >
-    matches
+    < MdOutlineHandshake className='matches'/>
     </NavLink>
     <NavLink 
     to={`/login`}  >
@@ -61,10 +68,11 @@ const Navbar = ({isLoggedIn, user, logout}) => {
     register
     </NavLink>
     <NavLink to ={`/`} >
-      <button onClick = {logout}>
+      <button className = 'logout' onClick = {logout}>
     logout
     </button>
     </NavLink>
+    </p>
 
     </div>
     

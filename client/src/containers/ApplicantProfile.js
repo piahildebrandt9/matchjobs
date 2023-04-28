@@ -76,18 +76,18 @@ function ApplicantProfile() {
         <p>Job Fields</p>
         {c.jobFields.map((d) =>{
         return(
-          <button  disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+          <button key={d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
           
         )})}
          <h3>Soft</h3>
         {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
         return (
-          <button disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+          <button key={e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
         )
         })}
          {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.hardSkills[c.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
         return (
-          <button disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+          <button key={f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
         )
         })}
         </NavLink>

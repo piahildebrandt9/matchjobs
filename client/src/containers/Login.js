@@ -99,7 +99,7 @@ function Login({finalLogin}) {
   }
 
   return (
-    <div>
+    <div className="login">
       <h1>user name</h1>
       <input name = 'userName' onChange = {getInput}/>
       <h1>password</h1>

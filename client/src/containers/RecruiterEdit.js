@@ -131,9 +131,9 @@ function RecruiterEdit() {
       <button onClick={}>flexible</button> */}
       <p>location</p>
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
-      <label for="min">min salary</label>
+      <label htmlFor="min">min salary</label>
      <input id="min" className="min" name="min" type="range" step="1" min={data['minPrice']} max= {data['maxPrice']} onChange = {(e)=>changePrice(e)} />
-    <label for="max">Maximum price</label>
+    <label htmlFor="max">Maximum price</label>
     <input id="max" className="max" name="max" type="range" step="1" min={data['minPrice']} max= {data['maxPrice']} onChange = {(e)=>changePrice(e)} />
       {/* <p>min salary</p>
       <input id = 'minPrice' value = {data['minPrice'] } onChange = {(e) =>changeData(e)}/>
