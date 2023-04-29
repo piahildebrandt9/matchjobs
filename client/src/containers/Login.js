@@ -100,9 +100,9 @@ function Login({finalLogin}) {
 
   return (
     <div className="login">
-      <h1>user name</h1>
+      <h1>username:</h1>
       <input name = 'userName' onChange = {getInput}/>
-      <h1>password</h1>
+      <h1>password:</h1>
       <input name = 'password' onChange = {getInput}/>
       
       <button disabled={userType === "recruiter" ? true : false} name = 'user' value = 'recruiter' type = 'radio' onClick = {(e)=>getUser(e,"recruiter")}>Recruiter</button>

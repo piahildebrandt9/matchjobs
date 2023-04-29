@@ -69,5 +69,10 @@
     width:70%;
     background-color:rgb(73, 79, 107);
     margin: 2em 0 0 15%;
+    color:rgb(33, 34, 77);
     
+}
+.login h1{
+    font-weight:lighter;
+    margin:1em 0 0;
 }
