@@ -35,7 +35,7 @@ function Register() {
     }
   }
   return (
-    <div>
+    <div className = 'login'>
       {/* // input register information */}
       <h1>user name</h1>
       <input name = 'userName' onChange = {getInput}/>
@@ -44,10 +44,11 @@ function Register() {
       <h1>password2</h1>
       <input name = 'password2' onChange = {getInput}/>
 
-      
-      <button disabled={button === "recruiter" ? true : false} name = 'user' value = 'recruiter' type = 'radio' onClick = {(e)=>getUser(e,"recruiter")}>Recruiter</button>
-      <button disabled={button === "applicant" ? true : false} name = 'user' value = 'applicant' type = 'radio' onClick = {(e)=>getUser(e,"applicant")}>Applicant</button>
-      <button onClick = {register}>register</button>
+      <span id = 'users'>
+      <button className = 'userchoice' disabled={button === "recruiter" ? true : false} name = 'user' value = 'recruiter' type = 'radio' onClick = {(e)=>getUser(e,"recruiter")}>Recruiter</button>
+      <button className = 'userchoice' disabled={button === "applicant" ? true : false} name = 'user' value = 'applicant' type = 'radio' onClick = {(e)=>getUser(e,"applicant")}>Applicant</button>
+      </span>
+      <button id = 'login' onClick = {register}>register</button>
       <p>{msg}</p>
     </div>
   )

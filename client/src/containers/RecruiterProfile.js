@@ -53,6 +53,7 @@ function RecruiterProfile() {
     <div>
 
     {/* // example job offer sheet in grey  */}
+    <div className="login">
     <h1>Add your job offer</h1>
     {/* <p> location icon and location</p>
     <p>min salary</p>
@@ -61,11 +62,13 @@ function RecruiterProfile() {
     <p>job Field</p>
     <h3>Soft</h3>
     <h3>Hard</h3> */}
-    <button onClick = {()=> navigate( `/recruiter/edit/${null}/${id}`)} >add</button> 
+    <button id = 'login' onClick = {()=> navigate( `/recruiter/edit/${null}/${id}`)} >add</button> 
     {/* <button>activate</button>  */}
+    </div>
 
 
     {/* // display allmyJobOffers each in a new sheet */}
+    <div className="login">
     {myJobOffers.map(c =>{return( 
         <div key = {c._id}>
 
@@ -94,13 +97,14 @@ function RecruiterProfile() {
         })}
         
         </NavLink>
-        <button onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
-        <button onClick = {()=> c.active = !c.active}>activate</button>
-        <button onClick = {()=>deleteJobOffer(c._id)}>delete</button>
+        <button  id = 'login' onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
+        <button  className = 'userchoice' onClick = {()=> c.active = !c.active}>activate</button>
+        <button  id = 'login' onClick = {()=>deleteJobOffer(c._id)}>delete</button>
 
         </div>
     )} 
     )}
+    </div>
     </div>
   )
 }
