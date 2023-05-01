@@ -210,7 +210,7 @@ const updateJobApplication = async (req,res)=>{
    
       const findjobApplication = await JobApplication.findOne({_id:oldJobApplicationId})
       if (findjobApplication){
-        await JobApplication.updateOne(findjobApplication,{...jobApplication})
+        await JobApplication.updateOne(findjobApplication,jobApplication)
         res.send({ok:true, data:`Job application updated successfully`})
       } else{
         res.send({ok:false, data:`Job application not found`})

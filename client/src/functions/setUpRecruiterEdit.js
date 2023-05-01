@@ -16,6 +16,7 @@ import axios from 'axios'
         let id = getData.data.data.jobOffer.jobFields.findIndex(c => c.selected == true)
         if(id !== -1){
           setIdx(id)
+          
         }
         setData(getData.data.data.jobOffer)
       }

@@ -89,7 +89,7 @@ function RecruiterEdit() {
 
    // in the end update or add final changes to database
    const submit = async ()=>{
-
+    console.log(data)
     // if id given then update, else add
     if(id!='null'){
       //update

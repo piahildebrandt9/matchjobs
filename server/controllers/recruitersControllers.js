@@ -203,7 +203,7 @@ const updateJobOffer = async (req,res)=>{
       // console.log(jobOffer,oldJobOffer)
       const findjobOffer = await JobOffer.findOne({_id:oldJobOfferId})
       if (findjobOffer){
-        await JobOffer.updateOne(findjobOffer,{jobOffer})
+        await JobOffer.updateOne(findjobOffer,jobOffer)
         res.send({ok:true, data:`Job offer updated successfully`})
       } else{
         res.send({ok:false, data:`Job offer not found`})

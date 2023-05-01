@@ -18,27 +18,27 @@ function RecruiterMain({user}) {
       const allJobApps = getAll.data.data.jobApps;
      
       const activeJobOffer = await getActiveJobOffer();
+      console.log(activeJobOffer)
     
       // count similarities
       let count = [];
 
+      
+
       allJobApps.forEach((item,idx)=>{
+        // if jobField == 
         count[idx] = 0;
         if(item.remote == activeJobOffer.remote){
           count[idx] +=1;
-
         }
         if(item.flexible== activeJobOffer.flexible){
           count[idx] += 1;
-
         }
         if(item.onSite== activeJobOffer.onSite){
           count[idx] += 1;
-
         }
         if(item.location== activeJobOffer.location){
           count[idx] += 1;
-
         }
 
 
