@@ -251,6 +251,23 @@ const getAllMyJobOffer = async(req,res)=>{
     res.send(error)
   }
 }
+
+const getActiveJobOffer = async(req,res)=>{
+  const {userid} = req.params;
+  try {
+    const activeJobOffer = await JobOffer.findOne({active:true,recruitersId:userid})
+    if(activeJobOffer){
+      res.send({ok:true,data:{activeJobOffer}})
+    }
+    else{
+      res.send( {ok:false,data:'failed to find acitve JobOffer'})
+    }
+  } catch (error) {
+    res.send(error)
+    
+  }
+}
+
 // //likeApplicant
 const likeApplicant = async(req,res)=>{
   const {applicationId, recruiterId}= req.body
@@ -298,4 +315,5 @@ module.exports = {
     register,
     verify_token,
     getJobOffer,
+    getActiveJobOffer,
   }

@@ -237,6 +237,23 @@ const getJobApplication = async(req,res)=>{
     }
 }
 
+const getAllJobApplications = async(req,res)=>{
+  try {
+    const jobApps = await JobApplication.find({});
+    if(jobApps){
+      res.send({ok:true,data:{jobApps}});
+    }
+    else{
+      res.send({ok:false,data:'failed to load jobApplications'})
+
+    }
+    
+  } catch (error) {
+    res.send({ok:false,data:error})
+    
+  }
+}
+
 
 
 
@@ -325,4 +342,5 @@ module.exports = {
   register,
   verify_token,
   getJobApplication,
+  getAllJobApplications,
 }

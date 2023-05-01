@@ -159,7 +159,7 @@ function App() {
         />
           <Route
         path="/recruiter/main"
-        element ={isLoggedIn && < RecruiterMain/>}  
+        element ={isLoggedIn && < RecruiterMain user = {user}/>}  
         />  
          <Route
         path="/recruiter/matches"

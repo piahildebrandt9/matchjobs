@@ -33,13 +33,38 @@ function RecruiterProfile() {
   }}
 
   const deleteJobOffer = async(cId)=>{
-
-    const deleteOffer = await axios.post(`${URL}/recruiter/deleteJobOffer`,{offersId:cId})
-    console.log(deleteOffer)
+    try {
+      const deleteOffer = await axios.post(`${URL}/recruiter/deleteJobOffer`,{offersId:cId})
+    
     handleJobOffers();
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
 
 
   }
+
+  const setActive = async(cId,c)=>{
+    try {
+      c.active = !c.active;
+      const updateOffer = await axios.post(`${URL}/recruiter/updateJobOffer`,{jobOffer:c,oldJobOfferId:cId})
+      if(!updateOffer){
+          console.log('failed to update JobOffer')
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
+
+
+  }
+
+
 
   // initially always load all jobOffers of this recruiter
   useEffect(()=>{
@@ -69,12 +94,16 @@ function RecruiterProfile() {
 
     {/* // display allmyJobOffers each in a new sheet */}
     <div className="login">
-    {myJobOffers.map(c =>{return( 
+    {myJobOffers.map(c=>{return( 
         <div key = {c._id}>
 
         <NavLink to = {`/recruiter/view/${c._id}`}>
         <h1>{c.jobTitle}</h1>
         <p>{c.location}</p>
+        <button className = {c.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
+        <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
+        <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
+    
         <p>{c.minPrice}</p>
         <p>{c.maxPrice}</p>
         <h2>Skills</h2>
@@ -98,7 +127,7 @@ function RecruiterProfile() {
         
         </NavLink>
         <button  id = 'login' onClick = {()=> navigate( `/recruiter/edit/${c._id}/${id}`)} >edit</button>
-        <button  className = 'userchoice' onClick = {()=> c.active = !c.active}>activate</button>
+        <button  className = {c.active.toString()} onClick = {() => setActive(c._id,c)}>activate</button>
         <button  id = 'login' onClick = {()=>deleteJobOffer(c._id)}>delete</button>
 
         </div>

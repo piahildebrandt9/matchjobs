@@ -14,7 +14,7 @@ function ApplicantEdit() {
   let {id,userid} = useParams(); //id = jobApplicantId, userid = applicants Id
 
   // state variables
-  const[data, setData] = useState({jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',bio:'describe yourself',softSkills:[['set JobField']],hardSkills:[['setJobField']],jobFields:[],likedBy:[],applicantsId:userid})
+  const[data, setData] = useState({jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',bio:'describe yourself',softSkills:[['set JobField']],hardSkills:[['setJobField']],jobFields:[],likedBy:[],applicantsId:userid,active:false})
   // default data when adding a new job Application
   const [idx,setIdx] = useState("")// idx of the choosen jobField
   const[msg,setMsg] = useState('') // msg displayed at the end confirming editing
@@ -130,6 +130,12 @@ function ApplicantEdit() {
 
   }
 
+
+  const setValue = (e)=>{
+    setData({...data,[e.target.name]: !data[e.target.name]});
+
+  }
+
   
   // change value of soft skill when you click on it
   const setSoftSkill = (c,id)=>{
@@ -209,7 +215,10 @@ function ApplicantEdit() {
       <button onClick={}>flexible</button> */}
       <p>location</p>
       <input id = 'location' value={data['location']} onChange = {(e) =>changeData(e)}/>
-      {/* <input type = 'range' min = '0' max ='20 000' /> */}
+      <button className = {data.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' onClick = {(e) =>setValue(e)}>remote</button>
+      <button className = {data.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' onClick = {(e) =>setValue(e)}>on site</button>
+      <button className = {data.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' onClick = {(e) =>setValue(e)}>flexible</button>
+    
       <p>min salary</p>
       <input id = 'minPrice' value = {data['minPrice']} onChange = {(e) =>changeData(e)}/>
       <p>max salary</p>

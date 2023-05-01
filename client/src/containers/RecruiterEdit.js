@@ -11,7 +11,7 @@ function RecruiterEdit() {
   let {id,userid} = useParams(); //id = jobOfferId, userid = recruiters Id
 
   // state variables
-  const[data, setData] = useState({companyName:'Your companyName',jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',jobDescription:'describe the job',softSkills:[['choose jobField']],hardSkills:[['choose jobField']],jobFields:[],likedBy:[],recruitersId:userid})
+  const[data, setData] = useState({companyName:'Your companyName',jobTitle:'Your job Title',remote:false,onSite:false,flexible:false,minPrice:0,maxPrice:Infinity,location:'put your location here',jobDescription:'describe the job',softSkills:[['choose jobField']],hardSkills:[['choose jobField']],jobFields:[],likedBy:[],recruitersId:userid,active:false})
   // data = empty new job offer
   const [idx,setIdx] = useState("")// idx of the choosen jobField
   const[msg,setMsg] = useState('') // msg displayed in the end, declaring status of edit
@@ -81,6 +81,11 @@ function RecruiterEdit() {
 
   }
 
+  const setValue = (e)=>{
+    setData({...data,[e.target.name]: !data[e.target.name]});
+
+  }
+
 
    // in the end update or add final changes to database
    const submit = async ()=>{
@@ -126,9 +131,10 @@ function RecruiterEdit() {
       <input id = 'jobTitle' value = {data['jobTitle'] } onChange = {(e) =>changeData(e)}/>
       <h1>Company Name</h1>
       <input id ='companyName' value = {data['companyName'] } onChange = {(e) =>changeData(e)}/>
-      {/* <button onClick={}> remote</button>
-      <button onClick={}>on site</button>
-      <button onClick={}>flexible</button> */}
+      <button className = {data.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' onClick = {(e) =>setValue(e)}>remote</button>
+      <button className = {data.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' onClick = {(e) =>setValue(e)}>on site</button>
+      <button className = {data.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' onClick = {(e) =>setValue(e)}>flexible</button>
+    
       <p>location</p>
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
       <label htmlFor="min">min salary</label>

@@ -44,9 +44,10 @@ function RecruiterView() {
       {/* // view all data */}
       <h1 >{data.jobTitle}</h1>
       <h1>{data.companyName}</h1>
-      {/* <button onClick={}> remote</button>
-      <button onClick={}>on site</button>
-      <button onClick={}>flexible</button> */}
+      <button className = {data.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
+      <button className = {data.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
+      <button className = {data.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
+    
       <p>{data.location}</p>
       <p>{data.minPrice}</p>
       <p>{data.maxPrice}</p>

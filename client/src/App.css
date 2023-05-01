@@ -148,3 +148,18 @@
     cursor:pointer;
     
 }
+
+.false{
+    background-color:darkgrey;
+    border-style:solid;
+    border-radius:5px;
+    border-color:transparent;
+    margin: 0 0.25em 0;
+    color:black;
+    cursor:pointer;
+}
+
+.true{
+    background-color:turquoise;
+
+}

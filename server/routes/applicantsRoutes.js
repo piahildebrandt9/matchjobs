@@ -16,11 +16,13 @@ router.post('/updateApplicant',controller.updateApplicant)
 //addApplication,
 router.post('/addApplication',controller.addApplication)
 //deleteApplication
-router.post('/deleteApplications',controller.deleteApplication)
+router.post('/deleteApplication',controller.deleteApplication)
 //updateJobApplication
 router.post('/updateJobApplication',controller.updateJobApplication)
 // get one job application
 router.get('/getJobApplication/:id', controller.getJobApplication)
+// get all job Applications
+router.get('/getAllJobApplications',controller.getAllJobApplications)
 // getAllMyJobApplications/?id=''
 router.get('/getAllMyJobApplications/:id',controller.getAllMyJobApplications)
 // //likeJobOffer

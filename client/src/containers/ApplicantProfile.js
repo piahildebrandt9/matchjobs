@@ -32,11 +32,24 @@ function ApplicantProfile() {
 
   const deleteJobApplication = async(cId)=>{
 
-    const deleteApp = await axios.post(`${URL}/applicant/deleteApplication`,{offersId:cId})
+    const deleteApp = await axios.post(`${URL}/applicant/deleteApplication`,{applicationId:cId})
     console.log(deleteApp)
     handleJobApplications();
 
 
+  }
+
+  const setActive = async(cId,c)=>{
+    try {
+      c.active = !c.active;
+      const updateApp = await axios.post(`${URL}/applicant/updateJobApplication`,{jobApplication:c,oldJobApplicationId:cId})
+      if(!updateApp){
+          console.log('failed to update JobApplication')
+      }
+      
+    } catch (error) {
+      console.log(error) 
+    }
   }
 
 
@@ -70,6 +83,10 @@ function ApplicantProfile() {
         <NavLink to = {`/applicant/view/${c._id}`}>
         <h1>{c.jobTitle}</h1>
         <p>{c.location}</p>
+        <button className = {c.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
+        <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
+        <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
+    
         <p>{c.minPrice}</p>
         <p>{c.maxPrice}</p>
         <h2>Skills</h2>
@@ -92,7 +109,7 @@ function ApplicantProfile() {
         })}
         </NavLink>
         <button onClick = {()=> navigate( `/applicant/edit/${c._id}/${id}`)} >edit</button>
-        <button onClick = {()=> c.active = !c.active}>activate</button>
+        <button  className = {c.active.toString()} onClick = {() => setActive(c._id,c)}>activate</button>
         <button onClick = {()=>deleteJobApplication(c._id)}>delete</button>
         
         </div>

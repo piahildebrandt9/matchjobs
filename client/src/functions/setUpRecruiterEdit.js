@@ -30,6 +30,7 @@ import axios from 'axios'
     // get all keys from data
     //setUpJobFields
     setUpJobFields(data,setData);
+    
       const temp = Object.keys(data)
     // set corresponding input to the data
       for(var item of temp){
