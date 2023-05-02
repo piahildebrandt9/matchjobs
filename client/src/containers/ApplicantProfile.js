@@ -70,8 +70,8 @@ function ApplicantProfile() {
 
 
   return (
-    <div>
-
+    <div className ='wrapper'>
+    <div className = 'sheet'>
     {/* // example job applications sheet in grey  */}
     <h1>Add your job Application</h1>
     {/* <p> location icon and location</p>
@@ -81,13 +81,14 @@ function ApplicantProfile() {
     <p>job Field</p>
     <h3>Soft</h3>
     <h3>Hard</h3> */}
-    <button onClick = {()=> navigate( `/applicant/edit/${null}/${id}`)} >add</button> 
+    <button id = 'button' onClick = {()=> navigate( `/applicant/edit/${null}/${id}`)} >add</button> 
     {/* <button>activate</button>  */}
+    </div>
 
 
 
     {/* // display allmyJobApplications each in a new sheet */}
-    <div className = 'wrapper'>
+    <div>
     {myJobApplications.map(c =>{return( 
         <div className = 'sheet' key = {c._id}>
         <NavLink className = 'biglink' to = {`/applicant/view/${c._id}`}>
@@ -99,24 +100,31 @@ function ApplicantProfile() {
       
           <p>{c.minPrice}-{c.maxPrice || 'infinity'}</p>
           
-          
+          <div className = 'skills'>
+            <span>
           {c.jobFields.map((d) =>{
           return(
             <button className = {d.selected.toString()} key={d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
             
           )})}
-          
+          </span>
+          <span>
           {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
           return (
             <button className = {e.selected.toString()} key={e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
           )
           })}
+          </span>
+          <span>
           {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.hardSkills[c.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
           return (
             <button className = {f.selected.toString()} key={f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
           )
           })}
+          </span>
+          </div>
         </NavLink>
+        
         <span>
         <button id = 'button' onClick = {()=> navigate( `/applicant/edit/${c._id}/${id}`)} >edit</button>
         <button id = 'button' onClick = {()=>deleteJobApplication(c._id)}>delete</button>

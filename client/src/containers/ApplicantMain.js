@@ -25,7 +25,8 @@ function ApplicantMain({user}) {
       
       allJobOffers.forEach((item,idx)=>{
         count[idx] = 0;
-        console.log(item)
+        console.log('item',item)
+        console.log('active...',activeJobApplication)
        
         if(item.jobFields.filter(c=>c.selected== true)[0].jobFieldName == activeJobApplication.jobFields.filter(c=>c.selected == true)[0].jobFieldName){
           
@@ -115,14 +116,15 @@ function ApplicantMain({user}) {
   },[])
 
   return(
-    <div className = 'sheet'>
+    <div className = 'wrapper'>
       {JobOffers.map(c =>{
     return (
-      <div key = {c._id}>
-         
+      <div className = 'sheet' key = {c._id}>
+         <span>
         <button className = {c.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
         <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
         <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
+        </span>
         <p>{c.location}</p>
         <p>{c.minPrice}-{c.maxPrice || 'inifinity'}</p>
         
@@ -151,7 +153,7 @@ function ApplicantMain({user}) {
             </span>
         </div>
         <p>{c.jobDescription}</p>
-        <button onClick = {()=> likeOffer(c,c._id)}>like</button>
+        <button id = 'button' onClick = {()=> likeOffer(c,c._id)}>like</button>
   
   
       </div>

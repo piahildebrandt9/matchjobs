@@ -116,15 +116,16 @@ function RecruiterMain({user}) {
 
 
   return (
-    <div className = 'sheet'>
+    <div className = 'wrapper'>
       {/* // map through jobApplications */}
       {JobApplications.map(c=>{
         return(
-          <div  key = {c._id}>
-           
+          <div className = 'sheet' key = {c._id}>
+            <span>
             <button className = {c.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
             <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
             <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
+            </span>
             <p>{c.location}</p>
             <p>{c.minPrice}-{c.maxPrice || 'inifinity'}</p>
             
@@ -135,8 +136,8 @@ function RecruiterMain({user}) {
                   <button className = {d.selected.toString()} key = {d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
                   
                 )})}
-                </span>
-                <span>
+              </span>
+              <span>
               {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
               return (
                 <button className = {e.selected.toString()} key = {e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>

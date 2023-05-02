@@ -43,7 +43,7 @@ function ApplicantView() {
   return (
     <div className = 'sheet'>
       
-      <h1 >{data.jobTitle}</h1>
+     
       <span>
       <button className = {data.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
       <button className = {data.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
@@ -56,7 +56,7 @@ function ApplicantView() {
       <span>
       {data.jobFields.map((d) =>{
         return(
-          <button  disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+          <button className  = {d.selected.toString()}   disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
           
         )})}
         </span>
@@ -64,7 +64,7 @@ function ApplicantView() {
         <span>
       {data.jobFields.findIndex(c => c.selected == true) !== -1 &&  data.softSkills[data.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
       return (
-        <button disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+        <button className  = {e.selected.toString()}  disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
       )
       })} 
       </span>
@@ -72,7 +72,7 @@ function ApplicantView() {
       <span>
       {data.jobFields.findIndex(c => c.selected == true) !== -1 &&  data.hardSkills[data.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
       return (
-        <button disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+        <button className  = {f.selected.toString()} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
       )
       })}
       </span>
