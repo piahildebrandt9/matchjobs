@@ -151,7 +151,7 @@ function App() {
         {/* // main and matches still in the working */}
          <Route
         path="/applicant/main"
-        element ={< ApplicantMain/>}  
+        element ={< ApplicantMain user = {user}/>}  
         />  
          <Route
         path="/applicant/matches"

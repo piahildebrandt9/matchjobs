@@ -230,6 +230,23 @@ const getJobOffer = async(req,res)=>{
     }
 }
 
+const getAllJobOffers = async(req,res)=>{
+  try {
+    const jobOffers = await JobOffer.find({});
+    if(jobOffers){
+      res.send({ok:true,data:{jobOffers}});
+    }
+    else{
+      res.send({ok:false,data:'failed to load jobOffers'})
+
+    }
+    
+  } catch (error) {
+    res.send({ok:false,data:error})
+    
+  }
+}
+
 
 
 // //getAllMyJobOffer
@@ -260,7 +277,7 @@ const getActiveJobOffer = async(req,res)=>{
       res.send({ok:true,data:{activeJobOffer}})
     }
     else{
-      res.send( {ok:false,data:'failed to find acitve JobOffer'})
+      res.send( {ok:false,data:[]})
     }
   } catch (error) {
     res.send(error)
@@ -316,4 +333,5 @@ module.exports = {
     verify_token,
     getJobOffer,
     getActiveJobOffer,
+    getAllJobOffers,
   }

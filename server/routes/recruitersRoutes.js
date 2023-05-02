@@ -20,6 +20,8 @@ router.post('/deleteJobOffer',controller.deleteJobOffer)
 router.post('/updateJobOffer',controller.updateJobOffer)
 // getJobOffer
 router.get('/getJobOffer/:id', controller.getJobOffer)
+// get all jobOffers
+router.get('/getAllJobOffers',controller.getAllJobOffers)
 // getAllMyJobOffer/?id=''
 router.get('/getAllMyJobOffers/:id',controller.getAllMyJobOffer)
 //get active jobOffer

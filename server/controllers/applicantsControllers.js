@@ -282,6 +282,22 @@ let {id} = req.params;
   }
 }
 
+const getActiveJobApplication = async(req,res)=>{
+  const {userid} = req.params;
+  try {
+    const activeJobApp = await JobApplication.findOne({active:true,applicantsId:userid})
+    if(activeJobApp){
+      res.send({ok:true,data:{activeJobApp}})
+    }
+    else{
+      res.send( {ok:false,data:[]})
+    }
+  } catch (error) {
+    res.send(error)
+    
+  }
+}
+
 
 // // //likeJobOffer
 const likeOffer = async(req,res)=>{
@@ -343,4 +359,5 @@ module.exports = {
   verify_token,
   getJobApplication,
   getAllJobApplications,
+  getActiveJobApplication,
 }
