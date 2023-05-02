@@ -115,36 +115,43 @@ function ApplicantMain({user}) {
   },[])
 
   return(
-    <div>
+    <div className = 'sheet'>
       {JobOffers.map(c =>{
     return (
       <div key = {c._id}>
          
-         <button className = {c.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
-              <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
-              <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
-              <p>{c.location}</p>
-              <p>{c.minPrice}</p>
-              <p>{c.maxPrice}</p>
-              <h2>Skills</h2>
-              {c.jobFields.map((d) =>{
-                return(
-                  <button key ={d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
-                  
-                )})}
-                <h3>Soft</h3>
-              {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
-              return (
-                <button key ={e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
-              )
-              })} 
-              {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.hardSkills[c.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
-              return (
-                <button key = {f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
-              )
-              })}
-              <h1>{c.jobDescription}</h1>
-              <button onClick = {()=> likeOffer(c,c._id)}>like</button>
+        <button className = {c.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' >remote</button>
+        <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
+        <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
+        <p>{c.location}</p>
+        <p>{c.minPrice}-{c.maxPrice || 'inifinity'}</p>
+        
+        
+        <div className = 'skills'>
+            <span>
+            {c.jobFields.map((d) =>{
+              return(
+                <button className = {d.selected.toString()} key = {d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+                
+              )})}
+              </span>
+              <span>
+            {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
+            return (
+              <button className = {e.selected.toString()} key = {e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+            )
+            })} 
+            </span>
+            <span>
+            {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.hardSkills[c.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
+            return (
+              <button className = {f.selected.toString()} key = {f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+            )
+            })}
+            </span>
+        </div>
+        <p>{c.jobDescription}</p>
+        <button onClick = {()=> likeOffer(c,c._id)}>like</button>
   
   
       </div>

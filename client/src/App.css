@@ -209,4 +209,28 @@
     border-style:none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
+.contact{
+    background-color:transparent;
+    color:white;
+    size:xx-large;
+     display:flex;
+    font-size:larger;
+    width:2em;
+    height:auto;
+    
+}
+#contactbutton{
 
+    background-color:transparent;
+    color:none;
+    border-style:none;
+    border-color:transparent;
+    width:40px;
+    size:xx-large;
+}
+.skills{
+    display:flex;
+    flex-direction:column;
+    align-self:center;
+    justify-content:center;
+}

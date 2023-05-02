@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import {useParams} from 'react-router-dom'
 import axios from "axios";
 import { URL } from "../config";
+import { AiOutlineMail } from 'react-icons/ai'
 
 function ApplicantMatch({user}) {
  const [matches,setMatches] = useState([]); // applications that match [location:...,remote:...,...]
@@ -49,7 +50,7 @@ function ApplicantMatch({user}) {
 
 
   return (
-    <div>
+    <div className = 'sheet'>
       {matches.map(c=>{
          return(
           <div key = {c._id}>
@@ -58,26 +59,34 @@ function ApplicantMatch({user}) {
             <button className = {c.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' >on site</button>
             <button className = {c.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' >flexible</button>
             <p>{c.location}</p>
-            <p>{c.minPrice}</p>
-            <p>{c.maxPrice}</p>
-            <h2>Skills</h2>
+            <p>{c.minPrice}-{c.maxPrice || 'infinity'}</p>
+            <div className = 'skills'>
+            <span>
             {c.jobFields.map((d) =>{
               return(
-                <button key = {d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+                <button className = {d.selected.toString()} key = {d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
                 
               )})}
-              <h3>Soft</h3>
+            </span>
+            
+            <span>
             {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.softSkills[c.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
             return (
-              <button key = {e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+              <button className = {e.selected.toString()}  key = {e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
             )
             })} 
+            </span>
+            
+            <span>
             {c.jobFields.findIndex(c => c.selected == true) !== -1 &&  c.hardSkills[c.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
             return (
-              <button key = {f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+              <button className = {f.selected.toString()}  key = {f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
             )
             })}
-            <h1>{c.jobDescription}</h1>
+            </span>
+            </div>
+            <p>{c.jobDescription}</p>
+            <button id = 'contactbutton'><AiOutlineMail className = 'contact' /></button>
             
           </div>
          )
