@@ -155,7 +155,7 @@ function App() {
         />  
          <Route
         path="/applicant/matches"
-        element ={isLoggedIn && < ApplicantMatch/>}  
+        element ={isLoggedIn && < ApplicantMatch user = {user}/>}  
         />
           <Route
         path="/recruiter/main"
@@ -163,7 +163,7 @@ function App() {
         />  
          <Route
         path="/recruiter/matches"
-        element ={isLoggedIn &&< RecruiterMatch/>}  
+        element ={isLoggedIn &&< RecruiterMatch user= {user} />}  
         />
 
         

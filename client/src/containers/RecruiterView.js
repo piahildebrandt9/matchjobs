@@ -54,18 +54,18 @@ function RecruiterView() {
       <h2>Skills</h2>
       {data.jobFields.map((d) =>{
         return(
-          <button  disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
+          <button  key ={d.jobFieldName} disabled = {d.selected}  name = 'jobField'  type = 'radio'  >{d.jobFieldName}</button>
           
         )})}
         <h3>Soft</h3>
       {data.jobFields.findIndex(c => c.selected == true) !== -1 &&  data.softSkills[data.jobFields.findIndex(c => c.selected == true) ].map((e)=>{
       return (
-        <button disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
+        <button key={e.skillName} disabled = {e.selected} name = 'softSkills' type = 'radio' >{e.skillName}</button>
       )
       })} 
       {data.jobFields.findIndex(c => c.selected == true) !== -1 &&  data.hardSkills[data.jobFields.findIndex(c => c.selected == true) ].map((f)=>{
       return (
-        <button disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
+        <button key ={f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
       )
       })}
       <h1>{data.jobDescription}</h1>

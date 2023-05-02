@@ -289,7 +289,9 @@ const getActiveJobOffer = async(req,res)=>{
 const likeApplicant = async(req,res)=>{
   const {applicationId, recruiterId}= req.body
   try {
-    await JobApplication.findOneAndUpdate({_id: applicationId}, {$push: {likedBy: {recruiter_id : recruiterId}}}) // FIND ALL
+    const find  = await JobApplication.findOne({_id: applicationId})
+    console.log(find)
+    await JobApplication.updateOne( find,{$push: {likedBy: {recruiter_id : recruiterId}}}) // FIND ALL
     res.send({ok:true, data:' Applicant liked successfully'})    
       // if(application){application.likedBy.push({recruiterId})}else{res.send({ok:true, data:"Applicant id could'nt be found"})}
    } catch (error) {
