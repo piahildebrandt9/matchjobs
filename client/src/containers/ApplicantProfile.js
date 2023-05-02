@@ -39,14 +39,23 @@ function ApplicantProfile() {
 
   }
 
+  // change active status when clicking the active button
   const setActive = async(cId,c)=>{
     try {
-      c.active = !c.active;
-      const updateApp = await axios.post(`${URL}/applicant/updateJobApplication`,{jobApplication:c,oldJobApplicationId:cId})
-      if(!updateApp){
-          console.log('failed to update JobApplication')
+      // find Index of chosen jobapplication
+      const idx = myJobApplications.findIndex(d => d._id == cId)
+      // make copy of current jobApplications array
+      const temp = [...myJobApplications]
+      //change value of this application to the opposite
+      temp[idx].active = !c.active;
+      // update myJOBApplicatons state variable
+      setMyJobApplications(temp)
+      // update db
+      const updateApp = await axios.post(`${URL}/applicant/updateJobApplication`,{jobApplication:temp[idx],oldJobApplicationId:cId})
+     
+      if(!updateApp.data.data.ok){
+        console.log('failed to change active status')
       }
-      
     } catch (error) {
       console.log(error) 
     }

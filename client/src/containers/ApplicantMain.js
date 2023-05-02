@@ -92,9 +92,16 @@ function ApplicantMain({user}) {
   }
 
   // like one jobOffer in db/backend
-  const likeOffer=async(cId)=>{
+  const likeOffer=async(c,cId)=>{
     try {
-      const likeOffer = await axios.post(`${URL}/applicant/likeOffer`,{offerId:cId,applicantId:user._id})
+      // check if applicant already liked this jobOffer
+      if(!c.likedBy.map(d=>d.applicant_id).includes(user._id)){
+        // like JobOffer
+        const like = await axios.post(`${URL}/applicant/likeOffer`,{offerId:cId,applicantId:user._id})
+        if(!like.data.data.ok){
+          console.log('failed to like jobOffer')
+        }
+      }
       
     } catch (error) {
       console.log(error)
@@ -137,7 +144,7 @@ function ApplicantMain({user}) {
               )
               })}
               <h1>{c.jobDescription}</h1>
-              <button onClick = {()=> likeOffer(c._id)}>like</button>
+              <button onClick = {()=> likeOffer(c,c._id)}>like</button>
   
   
       </div>

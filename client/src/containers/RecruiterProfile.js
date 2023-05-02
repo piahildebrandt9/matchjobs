@@ -47,21 +47,27 @@ function RecruiterProfile() {
 
   }
 
+  // change active status when clicking the active button
   const setActive = async(cId,c)=>{
     try {
-      c.active = !c.active;
-      const updateOffer = await axios.post(`${URL}/recruiter/updateJobOffer`,{jobOffer:c,oldJobOfferId:cId})
-      if(!updateOffer){
-          console.log('failed to update JobOffer')
+      // find Index of chosen joboffer
+      const idx = myJobOffers.findIndex(d => d._id == cId)
+      // make copy of current job offers array
+      const temp = [...myJobOffers]
+      // change value of this offer to the opposite
+      temp[idx].active = !c.active;
+      // update myJobOffers state variable
+      setMyJobOffers(temp)
+      //update db
+      const updateOffer = await axios.post(`${URL}/recruiter/updateJobOffer`,{jobOffer:temp[idx],oldJobOfferId:cId})
+      
+      if(!updateOffer.data.data.ok){
+        console.log('failed to change active status')
       }
       
     } catch (error) {
       console.log(error)
-      
     }
-    
-
-
   }
 
 
@@ -70,6 +76,9 @@ function RecruiterProfile() {
   useEffect(()=>{
       handleJobOffers();
   },[])
+
+  useEffect(()=>{
+  },[myJobOffers])
 
 
 
