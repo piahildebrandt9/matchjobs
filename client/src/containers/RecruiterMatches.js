@@ -7,11 +7,11 @@ import { URL } from "../config";
 
 function RecruiterMatch({user}) {
 
-  const [matches,setMatches] = useState([]);
+  const [matches,setMatches] = useState([]); // applications that match [location:...,remote:...,...]
 
+
+  // load applications and jobOffer and find matches
   const setUpMatches =async()=>{
-
-    
 
     try {
       // get my active jobOffer
@@ -40,16 +40,13 @@ function RecruiterMatch({user}) {
        setMatches(finalmatches)
        
     } catch (error) {
-      console.log(error)
-      
+      console.log(error)  
     }
-    
-
   }
+
 
   useEffect(()=>{
     setUpMatches();
-
 
   },[])
 
@@ -83,10 +80,8 @@ function RecruiterMatch({user}) {
               <button key = {f.skillName} disabled = {f.selected} name = 'hardSkills' type = 'radio' >{f.skillName}</button>
             )
             })}
-            <h1>{c.jobDescription}</h1>
+            <h1>{c.bio}</h1>
             
-
-
           </div>
          )
       })}
