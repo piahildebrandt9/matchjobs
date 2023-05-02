@@ -4,7 +4,7 @@
   }
 
 .nav{
-    size:large;
+    size:medium;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -13,7 +13,8 @@
     height:6vh;
     position:relative;
     box-shadow: 5px 3px 10px rgb(64, 66, 73) ;
-    /* rgb(64, 66, 73) */
+    padding-right:1em;
+    
 }
 .nav a {
     text-decoration:none;
@@ -36,7 +37,7 @@
     width:10%;
     left: 45%;
     font-family:outfit_light;
-    font-size:x-large;
+    font-size:xx-large;
     
 }
 .profile{
@@ -71,36 +72,54 @@
     background-image:url('./assets/background-pic.jpg');
     background-repeat:no-repeat;
     background-size:cover;
+    overflow-y:hidden;
     
 
 }
-.login{
+.main{
+    max-height:96vh;
+    overflow-y:hidden;
+}
+.wrapper{
+    max-height:90vh;
+    overflow: scroll;
+    
+    
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+.sheet{
     display:flex;
     flex-direction:column;
     box-shadow: 5px 10px 18px rgb(64, 66, 73) ;
     border-radius:30px;
     width:50%;
     background-color:rgb(64, 66, 73);
-    margin: 2em 0 0 25%;
+    margin: 2em 0 2em 25%;
     color:black;
+    position:relative;
+    padding:0 0 0.5em 0;
+    
     
     
 }
-.login h1{
+.sheet h1{
     font-weight:lighter;
     margin:1em 0 0;
 }
-.login input{
+.sheet input{
     width:40%;
     align-self:center;
 }
 
-.login button{
+.sheet button{
     
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
-#login{
+#button{
     width:min-content;
     align-self:center;
     background-color:white;
@@ -110,7 +129,8 @@
     margin: 0.5em 0;
     color:black;
     cursor:pointer;
-    box-shadow: 5px 5px 10px turquoise;
+    box-shadow: 2px 2px 10px turquoise;
+    margin: 0.25em 0.25em 0;
     
 
 }
@@ -133,12 +153,12 @@
 #register:active{
     color:black;
 }
-.userchoice:disabled{
+.choice:disabled{
     background-color:turquoise;
     
 
 }
-.userchoice{
+.choice{
     background-color:darkgrey;
     border-style:solid;
     border-radius:5px;
@@ -146,6 +166,7 @@
     margin: 0 0.25em 0;
     color:black;
     cursor:pointer;
+    max-width:max-content;
     
 }
 
@@ -157,9 +178,35 @@
     margin: 0 0.25em 0;
     color:black;
     cursor:pointer;
+    max-width:max-content;
 }
 
 .true{
     background-color:turquoise;
+    border-style:solid;
+    border-radius:5px;
+    border-color:transparent;
+    margin: 0 0.25em 0;
+    color:black;
+    cursor:pointer;
+    max-width:max-content;
 
 }
+.biglink{
+    color:black;
+    text-decoration:none;
+}
+
+#activating{
+    position:absolute;
+    right:1.5em;
+    bottom:0.5em;
+    
+}
+#jobDescription{
+    width:40%;
+    align-self:center;
+    border-style:none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+

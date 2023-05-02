@@ -120,32 +120,30 @@ function ApplicantEdit() {
 
 
     return (
-    <div>
-      
-      <h1>Add your job offer</h1>
-      <h1>Job Title</h1>
+    <div className = 'sheet'>
+     
+      <p>Job Title</p>
       <input id = 'jobTitle' value={data['jobTitle']} onChange = {(e) =>changeData(e)}/>
-    
-      {/* <button onClick={}> remote</button>
-      <button onClick={}>on site</button>
-      <button onClick={}>flexible</button> */}
-      <p>location</p>
-      <input id = 'location' value={data['location']} onChange = {(e) =>changeData(e)}/>
+      <span>
       <button className = {data.remote.toString()}  name = 'remote' value = 'remote' type = 'radio' onClick = {(e) =>setValue(e)}>remote</button>
       <button className = {data.onSite.toString()}  name = 'onSite' value = 'onSite' type = 'radio' onClick = {(e) =>setValue(e)}>on site</button>
       <button className = {data.flexible.toString()}  name = 'flexible' value = 'flexible' type = 'radio' onClick = {(e) =>setValue(e)}>flexible</button>
-    
+      </span>
+      <p>location</p>
+      <input id = 'location' value={data['location']} onChange = {(e) =>changeData(e)}/>
+     
       <p>min salary</p>
       <input id = 'minPrice' value = {data['minPrice']} onChange = {(e) =>changeData(e)}/>
       <p>max salary</p>
       <input id = 'maxPrice' value = {data['maxPrice']} onChange = {(e) =>changeData(e)}/>
-      <h2>Skills</h2>
+      <p>Skills</p>
       <p>job Field</p>
      <Skills idx = {idx} data= {data} setJobField  ={setJobField} setSoftSkill= {setSoftSkill} setHardSkill = {setHardSkill} />
-      <h1>Bio</h1>
-      <input id = 'bio' value = {data['bio']} onChange = {(e) =>changeData(e)}/>
+      <p>Bio</p>
+      <textarea rows = '4' id = 'jobDescription' value = {data['bio']} onChange = {(e) =>changeData(e)}/>
 
-      <button onClick = {submit}>submit</button>
+      <button id = 'button' onClick = {submit}>submit</button>
+
       <p>{msg}</p>
 
     </div>

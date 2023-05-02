@@ -99,20 +99,20 @@ function Login({finalLogin}) {
   }
 
   return (
-    <div className="login">
+    <div className="sheet">
       <h1>username:</h1>
       <input name = 'userName' onChange = {getInput}/>
       <h1>password:</h1>
       
       <input name = 'password' onChange = {getInput}/>
       <span id = 'users'>
-      <button className = 'userchoice' disabled={userType === "recruiter" ? true : false} name = 'user' value = 'recruiter' type = 'radio' onClick = {(e)=>getUser(e,"recruiter")}>Recruiter</button>
-      <button className = 'userchoice'  disabled={userType === "applicant" ? true : false} name = 'user' value = 'applicant' type = 'radio' onClick = {(e)=>getUser(e,"applicant")}>Applicant</button>
+      <button className = 'choice' disabled={userType === "recruiter" ? true : false} name = 'user' value = 'recruiter' type = 'radio' onClick = {(e)=>getUser(e,"recruiter")}>Recruiter</button>
+      <button className = 'choice'  disabled={userType === "applicant" ? true : false} name = 'user' value = 'applicant' type = 'radio' onClick = {(e)=>getUser(e,"applicant")}>Applicant</button>
       {/* <button className = 'userchoice'  disabled={userType === "admin" ? true : false}name = 'user' value = 'admin' type = 'radio' onClick = {(e)=>getUser(e,"admin")}>Admin</button> */}
       </span>
       <NavLink to = '/register' ><button id = 'register' >register</button> </NavLink>
     
-      <button id = 'login' onClick = {login}>login</button>
+      <button id = 'button' onClick = {login}>login</button>
       <p>{msg}</p>
       
  </div>

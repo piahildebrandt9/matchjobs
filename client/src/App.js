@@ -99,7 +99,7 @@ function App() {
     <Router>
     {/* // navbar always visible with props isLoggedIn = true/false, user = {userName, userType:'recruiter'/'applicant',_id} or [] */}
     <Navbar  isLoggedIn={isLoggedIn} user ={user} logout = {logout}/> 
-
+      <div className = 'main'>
       <Routes>
       {/* // if no specific route called go to login page or profile page if isLoggedIn = true */}
         <Route 
@@ -178,6 +178,7 @@ function App() {
         />
        
       </Routes>
+      </div>
     </Router>
     </div>
     );
