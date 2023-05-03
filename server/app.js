@@ -26,11 +26,18 @@ try {
   console.log('ERROR : Seems like your DB is not running')
 }
 }
-connecting()
+
 
 app.use('/recruiter/', require('./routes/recruitersRoutes'));
 app.use('/applicant/', require('./routes/applicantsRoutes'));
 app.use('/admin/', require('./routes/adminRoutes'));
+
+//Connect to the database before listening
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
 app.listen(5555, ()=>console.log('listening on port 5555'));
 
 
