@@ -140,7 +140,7 @@ function ApplicantEdit() {
       <p>job Field</p>
      <Skills idx = {idx} data= {data} setJobField  ={setJobField} setSoftSkill= {setSoftSkill} setHardSkill = {setHardSkill} />
       <p>Bio</p>
-      <textarea rows = '4' id = 'jobDescription' value = {data['bio']} onChange = {(e) =>changeData(e)}/>
+      <textarea rows = '4' id = 'bio' value = {data['bio']} onChange = {(e) =>changeData(e)}/>
 
       <button id = 'button' onClick = {submit}>submit</button>
 

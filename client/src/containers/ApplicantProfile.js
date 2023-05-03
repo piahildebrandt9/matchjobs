@@ -47,18 +47,35 @@ function ApplicantProfile() {
       // make copy of current jobApplications array
       const temp = [...myJobApplications]
       //change value of this application to the opposite
-      temp[idx].active = !c.active;
+      if(temp[idx].active){
+        temp.map(d => d.active=false)
+      }
+      else{
+        temp.map(d => d.active = false)
+        temp[idx].active = true;
+      }
+      
       // update myJOBApplicatons state variable
       setMyJobApplications(temp)
-      // update db
-      const updateApp = await axios.post(`${URL}/applicant/updateJobApplication`,{jobApplication:temp[idx],oldJobApplicationId:cId})
-     
-      if(!updateApp.data.data.ok){
-        console.log('failed to change active status')
-      }
+      
+      
     } catch (error) {
       console.log(error) 
     }
+  }
+
+  const updateApp =async(appl,id)=>{
+    try {
+      const update = await axios.post(`${URL}/applicant/updateJobApplication`,{jobApplication:appl,oldJobApplicationId:id})
+    if(!update.data.ok){
+      console.log('failed to change active status')
+    }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
   }
 
 
@@ -67,6 +84,12 @@ function ApplicantProfile() {
       handleJobApplications();
   },[])
 
+
+  useEffect(()=>{
+    for(var item of myJobApplications){
+      updateApp(item,item._id);
+    }
+  },[myJobApplications])
 
 
   return (
