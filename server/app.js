@@ -9,6 +9,15 @@ const express = require('express'),
   app.use(express.json())
   app.use(require('cors')())
 
+  const path = require('path');
+
+  app.use(express.static(__dirname));
+  app.use(express.static(path.join(__dirname, '../client/build')));
+
+  app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+
   async function connecting(){
 try {
   await mongoose.connect(process.env.MONGO)
