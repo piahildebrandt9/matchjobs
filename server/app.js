@@ -10,14 +10,14 @@ const express = require('express'),
   app.use(express.json())
   app.use(require('cors')())
 
-  const path = require('path');
+  // const path = require('path');
 
-  app.use(express.static(__dirname));
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  // app.use(express.static(__dirname));
+  // app.use(express.static(path.join(__dirname, '../client/build')));
 
-  app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
+  // app.get('/*', function (req, res) {
+  //   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  // });
 
   async function connecting(){
 try {
@@ -27,19 +27,19 @@ try {
   console.log('ERROR : Seems like your DB is not running')
 }
 }
-
+connecting()
 
 app.use('/recruiter/', require('./routes/recruitersRoutes'));
 app.use('/applicant/', require('./routes/applicantsRoutes'));
 app.use('/admin/', require('./routes/adminRoutes'));
 
 //Connect to the database before listening
-connecting().then(() => {
+// connecting().then(() => {
  
-  app.listen(PORT, () => {
-      console.log("listening for requests");
-  })
-})
+//   app.listen(PORT, () => {
+//       console.log("listening for requests");
+//   })
+// })
 app.listen(5555, ()=>console.log('listening on port 5555'));
 
 
