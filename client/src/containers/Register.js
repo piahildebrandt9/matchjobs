@@ -37,7 +37,7 @@ function Register() {
   return (
     <div className = 'sheet'>
       {/* // input register information */}
-      <h1>user name</h1>
+      <h1>email</h1>
       <input name = 'email' onChange = {getInput}/>
       <h1>password</h1>
       <input name = 'password' onChange = {getInput}/>

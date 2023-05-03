@@ -86,23 +86,19 @@ const verify_token = (req, res) => {
 
 // //findApplicants
 const findApplicants = async (req,res) =>{
-  const {email, password} = req.body;
+  const {userid} = req.body;
   try {
       // true if find email
-      const findAppName = await Applicant.findOne({email}) // findOne returns the whole object (can use findAppName.password to access key password)
-      if (findAppName){
-      // CHECK IF PASSWORD MATCHES
-     const findPassword = await findAppName.password     //Applicant.findOne({password})
-        if (findAppName._id.toString()=== findPassword._id.toString()){
-          res.send({ok:true, data:`Applicant ${email} found successfully`})
-        } else{
-          res.send({ok:false,data:'email and password do not match'})
-        }
-      }else{
-      res.send({ok:false, data:"user does not exist"})
+      const findAppName = await Applicant.findOne({_id:userid}) // findOne returns the whole object (can use findAppName.password to access key password)
+      console.log('findAppName',findAppName)
+      if(findAppName){
+        res.send({ok:true,data:findAppName})
+      }
+      else{
+        res.send({ok:false,data:'failed to find applicant'})
       }
     } catch (error) {
-      res.send(error)
+      res.send({ok:false,data:error})
     }
 }
 // //addApplicants

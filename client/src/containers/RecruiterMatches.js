@@ -9,6 +9,8 @@ import { AiOutlineMail } from 'react-icons/ai'
 function RecruiterMatch({user}) {
 
   const [matches,setMatches] = useState([]); // applications that match [location:...,remote:...,...]
+  const [userEmails,setUserEmails] = useState([]) // ['mail@bla.com','...',...]
+  
 
 
   // load applications and jobOffer and find matches
@@ -38,20 +40,41 @@ function RecruiterMatch({user}) {
       const finalmatches = filterapplicantsids.flat(1).filter(c => c.likedBy.map(d => d.recruiter_id).includes(user._id))
       // filter finalmatches
       const filtered = [];
+      const alluserids = []
+      
       for(var item of finalmatches){
         if(item.active){
-          filtered.push(item)
+          filtered.push(item);
+          alluserids.push(item.applicantsId)
+
         }
       }
+      getAllUserEmails(alluserids)
      
       setMatches(filtered)
-
       }
-     
        
     } catch (error) {
       console.log(error)  
     }
+  }
+
+  const getAllUserEmails= async(alluserids)=>{
+    try {
+    for(var i = 0;i <alluserids.length;i++){
+      await getOneUserMail(alluserids[i]);
+    }
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+  const getOneUserMail = async(userid)=>{
+    const getApplicant = await axios.post(`${URL}/applicant/findApplicants`, {userid})
+    setUserEmails([...userEmails, getApplicant.data.data.email])
   }
 
 
@@ -63,7 +86,7 @@ function RecruiterMatch({user}) {
 
   return (
     <div className = 'wrapper'>
-      {matches.map(c=>{
+      {matches.map((c,idx)=>{
          return(
           <div key = {c._id} className = 'sheet'>
             <span>
@@ -100,7 +123,7 @@ function RecruiterMatch({user}) {
             </div>
             <p>{c.bio}</p>
             <span>
-            <button id = 'contactbutton'><AiOutlineMail className = 'contact' /></button>
+            <button id = 'contactbutton'><a href={`mailto:${userEmails[idx]}`} ><AiOutlineMail className = 'contact' /></a></button>
             </span>
 
             

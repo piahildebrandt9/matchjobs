@@ -86,26 +86,20 @@ const verify_token = (req, res) => {
 
 
 const findRecruiter = async (req,res) =>{
-    const {email, password} = req.body;
-    try {
-        // true if find email
-        const findRecName = await Recruiter.findOne({email})
-        console.log(findRecName._id)
-        if (findRecName){
-        // CHECK IF PASSWORD MATCHES
-        const findPassword = await findRecName.password
-          if (findRecName._id.toString()=== findPassword._id.toString()){
-            res.send({ok:true, data:`recruiter ${email} found successfully`})
-          } else{
-            res.send({ok:false,data:'email and password do not match'})
-          }
-        }else{
-        res.send({ok:false, data:"user does not exist"})
-        }
-      } catch (error) {
-        res.send(error)
+  const {userid} = req.body;
+  try {
+      // true if find email
+      const findRecName = await Recruiter.findOne({_id:userid}) // findOne returns the whole object (can use findAppName.password to access key password)
+      console.log('findRecName',findRecName)
+      if(findRecName){
+        res.send({ok:true,data:findRecName})
       }
-
+      else{
+        res.send({ok:false,data:'failed to find recruiter'})
+      }
+    } catch (error) {
+      res.send({ok:false,data:error})
+    }
 }
 
 const addRecruiter = async (req,res) =>{

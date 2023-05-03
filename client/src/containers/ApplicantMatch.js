@@ -6,7 +6,7 @@ import { AiOutlineMail } from 'react-icons/ai'
 
 function ApplicantMatch({user}) {
  const [matches,setMatches] = useState([]); // applications that match [location:...,remote:...,...]
-
+const [userEmails,setUserEmails] = useState([]) // ['mail@bla.com','...',...]
 
   // load jobOffers and jobApplication and find matches
   const setUpMatches =async()=>{
@@ -35,12 +35,16 @@ function ApplicantMatch({user}) {
       const finalmatches = filterRecruiterIds.flat(1).filter(c => c.likedBy.map(d => d.applicant_id).includes(user._id))
       //filter finalmatches
       const filtered = []
+      const alluserids = []
       for(var item of finalmatches){
         if(item.active){
           filtered.push(item)
+          
+          alluserids.push(item.recruitersId)
         }
       }
-     
+      console.log(alluserids)
+      getAllUserEmails(alluserids)
       setMatches(filtered)
       
 
@@ -49,6 +53,24 @@ function ApplicantMatch({user}) {
     } catch (error) {
       console.log(error)  
     }
+  }
+
+   const getAllUserEmails= async(alluserids)=>{
+    try {
+      for(var i = 0;i <alluserids.length;i++){
+        await getOneUserMail(alluserids[i]);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+  const getOneUserMail = async(userid)=>{
+    const getRecruiter = await axios.post(`${URL}/recruiter/findRecruiter`, {userid})
+    console.log(getRecruiter)
+    setUserEmails([...userEmails, getRecruiter.data.data.email])
   }
 
 
@@ -60,7 +82,7 @@ function ApplicantMatch({user}) {
 
   return (
     <div className = 'wrapper'>
-      {matches.map(c=>{
+      {matches.map((c,idx)=>{
          return(
           <div className='sheet' key = {c._id}>
             <span>
@@ -97,7 +119,7 @@ function ApplicantMatch({user}) {
             </div>
             <p>{c.jobDescription}</p>
             <span>
-            <button id = 'contactbutton'><AiOutlineMail className = 'contact' /></button>
+            <button id = 'contactbutton'><a href={`mailto:${userEmails[idx]}`} ><AiOutlineMail className = 'contact' /></a></button>
             </span>
             
           </div>

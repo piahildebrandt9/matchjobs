@@ -39,7 +39,7 @@ function Login({finalLogin}) {
         // login recruiter in backend
         
         const recruiter = await axios.post(`${URL}/recruiter/login`,{email:input.email,password:input.password});
-      
+        console.log(recruiter)
         if(recruiter.data.ok){
           // output message from login backend
           setMsg(recruiter.data.message)
@@ -55,6 +55,7 @@ function Login({finalLogin}) {
           
         }
         else{
+          console.log('here')
           setMsg(recruiter.data.message)
         } 
         
