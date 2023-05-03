@@ -37,17 +37,22 @@ function Login({finalLogin}) {
       // userType 'recruiter'
       case 'recruiter':
         // login recruiter in backend
+        
         const recruiter = await axios.post(`${URL}/recruiter/login`,{email:input.email,password:input.password});
       
         if(recruiter.data.ok){
           // output message from login backend
           setMsg(recruiter.data.message)
-          // call final login in function in app.js which also sets user to logged in and saves token in localstorage
+          
+          setTimeout(()=>{
+            // call final login in function in app.js which also sets user to logged in and saves token in localstorage
           finalLogin(recruiter.data.token)
           // get informatin from token
           let decoded = jose.decodeJwt(recruiter.data.token)
           // navigate to profile 
-          navigate(`/recruiter/profile/${decoded._id}`)
+            navigate(`/recruiter/profile/${decoded._id}`)
+          },2000)
+          
         }
         else{
           setMsg(recruiter.data.message)
@@ -63,13 +68,15 @@ function Login({finalLogin}) {
         if(applicant.data.ok){
           //output message form login backend
           setMsg(applicant.data.message)
-          // call final login functino in app.js
-          // set user to logged in and save token in local storage
+          
+          setTimeout(()=>{
+            // call final login functino in app.js
+          
+            // set user to logged in and save token in local storage
           finalLogin(applicant.data.token)
           // get informatin from token
           let decoded = jose.decodeJwt(applicant.data.token)
           // navigate to profile page
-          setTimeout(()=>{
             navigate(`/applicant/profile/${decoded._id}`)
           },2000)
           
