@@ -7,7 +7,7 @@ import { MdOutlineHandshake } from 'react-icons/md'
 
 const Navbar = ({isLoggedIn, user, logout}) => {
     // isLoggedIn is the state variable from app.js which is either true or false
-    // user is the state variable with userName, userType and ._id from the token
+    // user is the state variable with email, userType and ._id from the token
     // logout is the final logout function
 
   return (

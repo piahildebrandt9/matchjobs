@@ -8,7 +8,7 @@ import * as jose from 'jose';
 
 function Login({finalLogin}) {
   //state variables
-  const [input, setInput] = useState({userName:'',password:''}) // input state variable
+  const [input, setInput] = useState({email:'',password:''}) // input state variable
   const [userType,setUserType] = useState(""); // userType = 'recruiter'/'applicant'
   const [msg, setMsg]= useState(''); // msg displayed in the end if login was ssuccessfull or not
   //useNavigate
@@ -37,7 +37,7 @@ function Login({finalLogin}) {
       // userType 'recruiter'
       case 'recruiter':
         // login recruiter in backend
-        const recruiter = await axios.post(`${URL}/recruiter/login`,{userName:input.userName,password:input.password});
+        const recruiter = await axios.post(`${URL}/recruiter/login`,{email:input.email,password:input.password});
       
         if(recruiter.data.ok){
           // output message from login backend
@@ -58,7 +58,7 @@ function Login({finalLogin}) {
       // userType 'applicant
       case 'applicant':
         // login applicant in backend
-        const applicant = await axios.post(`${URL}/applicant/login`,{userName:input.userName,password:input.password});
+        const applicant = await axios.post(`${URL}/applicant/login`,{email:input.email,password:input.password});
        
         if(applicant.data.ok){
           //output message form login backend
@@ -69,7 +69,10 @@ function Login({finalLogin}) {
           // get informatin from token
           let decoded = jose.decodeJwt(applicant.data.token)
           // navigate to profile page
-          navigate(`/applicant/profile/${decoded._id}`)
+          setTimeout(()=>{
+            navigate(`/applicant/profile/${decoded._id}`)
+          },2000)
+          
           
         
         }
@@ -79,7 +82,7 @@ function Login({finalLogin}) {
         
         break;
       case 'admin':
-        const admin = await axios.post(`${URL}/admin/login`,{userName:input.userName,password:input.password});
+        const admin = await axios.post(`${URL}/admin/login`,{email:input.email,password:input.password});
         if(admin.ok){
           setMsg(admin.data.message)
           finalLogin(admin.data.token)
@@ -100,8 +103,8 @@ function Login({finalLogin}) {
 
   return (
     <div className="sheet">
-      <h1>username:</h1>
-      <input name = 'userName' onChange = {getInput}/>
+      <h1>email:</h1>
+      <input name = 'email' onChange = {getInput}/>
       <h1>password:</h1>
       
       <input name = 'password' onChange = {getInput}/>

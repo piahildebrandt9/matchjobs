@@ -27,7 +27,7 @@ import RecruiterMatch from './containers/RecruiterMatches';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(""); // true if token in localStorage still valid, false if not
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token'))); // name of the token saved in loval storage
-  const [user,setUser] = useState([]); // {userName, userType:'recruiter'/'applicant',_id} or []
+  const [user,setUser] = useState([]); // {email, userType:'recruiter'/'applicant',_id} or []
   
 // for every change of the state variable token, reload verify_token
   useEffect(
@@ -44,7 +44,7 @@ function App() {
             // set authorizatin in header to token
           axios.defaults.headers.common['Authorization'] = token;
 
-          // decoding the information from the token {userName,userType,_id}
+          // decoding the information from the token {email},userType,_id}
           let decoded = jose.decodeJwt(token) 
 
           // call function verify token in backend which verify the secret jwt password for token
@@ -74,10 +74,10 @@ function App() {
     // set loggedin state to true
     setIsLoggedIn(true);
 
-    // decoding the information form the token {userName,userType}
+    // decoding the information form the token {email,userType}
     let decoded = jose.decodeJwt(token) 
 
-    // set user {userName, userType:'recruiter'/'applicant',_id} from token
+    // set user {email, userType:'recruiter'/'applicant',_id} from token
     setUser(decoded) 
     
     
@@ -97,7 +97,7 @@ function App() {
   return (
     <div className="app">
     <Router>
-    {/* // navbar always visible with props isLoggedIn = true/false, user = {userName, userType:'recruiter'/'applicant',_id} or [] */}
+    {/* // navbar always visible with props isLoggedIn = true/false, user = {email, userType:'recruiter'/'applicant',_id} or [] */}
     <Navbar  isLoggedIn={isLoggedIn} user ={user} logout = {logout}/> 
       <div className = 'main'>
       <Routes>

@@ -5,7 +5,7 @@ import { URL } from "../config";
 
 
 function Register() {
-  const [input, setInput] = useState({userName:'',password:'', password2:''})//current input in input html tags
+  const [input, setInput] = useState({email:'',password:'', password2:''})//current input in input html tags
   const [button,setButton] = useState(""); // 'recruiter'/'applicant'
   const [msg, setMsg]= useState(''); // output message 'successfully registered'/'failed to register'
 
@@ -38,7 +38,7 @@ function Register() {
     <div className = 'sheet'>
       {/* // input register information */}
       <h1>user name</h1>
-      <input name = 'userName' onChange = {getInput}/>
+      <input name = 'email' onChange = {getInput}/>
       <h1>password</h1>
       <input name = 'password' onChange = {getInput}/>
       <h1>password2</h1>

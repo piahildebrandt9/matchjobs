@@ -25,9 +25,9 @@ function ApplicantMain({user}) {
       
       allJobOffers.forEach((item,idx)=>{
         count[idx] = 0;
-        console.log('item',item)
-        console.log('active...',activeJobApplication)
-       
+        // console.log('item',item)
+        // console.log('active...',activeJobApplication)
+       if(activeJobApplication.length >0){
         if(item.jobFields.filter(c=>c.selected== true)[0].jobFieldName == activeJobApplication.jobFields.filter(c=>c.selected == true)[0].jobFieldName){
           
           if(item.remote == activeJobApplication.remote){
@@ -49,6 +49,7 @@ function ApplicantMain({user}) {
             count[idx]+=1;
           } 
         }
+      }
       })
       
       // sort by counted similarities

@@ -4,6 +4,7 @@ const  Recruiter = require('../models/recruiter')
 const JobField = require('../models/jobFields')
 const argon2 = require("argon2"); //https://github.com/ranisalt/node-argon2/wiki/Options
 const jwt = require("jsonwebtoken");
+const validator = function(email){if(email.match(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/)){return true}else{return false}}
 
 
 const jwt_secret = process.env.JWT_SECRET;
@@ -11,18 +12,18 @@ const jwt_secret = process.env.JWT_SECRET;
 const register = async (req, res) => {
   // this salt can be truly random with one of available npm packages
   const salt = '321dsa'
-  const { userName, password, password2 } = req.body;
-  if (!userName || !password || !password2){
+  const { email, password, password2 } = req.body;
+  if (!email || !password || !password2){
     return res.json({ ok: false, message: "All fields required" });
   }
   if (password !== password2){
     return res.json({ ok: false, message: "Passwords must match" });
   }
-  // if (!validator.isEmail(email)){
-  //   return res.json({ ok: false, message: "Invalid email" });
-  // }
+  if (!validator(email)){
+    return res.json({ ok: false, message: "Invalid email" });
+  }
   try {
-    const user = await Recruiter.findOne({ userName });
+    const user = await Recruiter.findOne({ email });
     if (user) return res.json({ ok: false, message: "User exists!" });
     const hash = await argon2.hash(password,salt);
     // not salted, salt is appending a random string to a password to strengthen the hash 
@@ -31,7 +32,7 @@ const register = async (req, res) => {
     console.log("hash ==>", hash);
     console.log("hash2 ==>", hash2);
     const newUser = {
-      userName,
+      email,
       password: hash,
     };
     await Recruiter.create(newUser);
@@ -44,17 +45,17 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { userName, password } = req.body;
+  const { email, password } = req.body;
   
-  if (!userName || !password){
+  if (!email || !password){
     return res.json({ ok: false, message: "all input fields are required"});
   }
-  // if (!validator.isEmail(email)){
-  //   return res.json({ ok: false, message: "Invalid email provided" });
-  // }
+  if (!validator(email)){
+    return res.json({ ok: false, message: "Invalid email provided" });
+  }
 
   try {
-    const user = await Recruiter.findOne({ userName });
+    const user = await Recruiter.findOne({ email });
 
     if (!user) return res.json({ ok: false, message: "Invalid user provided" });
  
@@ -63,10 +64,10 @@ const login = async (req, res) => {
   
     if (match) {
       // once user is verified and confirmed we send back the token to keep in localStorage in the client and in this token we can add some data -- payload -- to retrieve from the token in the client and see, for example, which user is logged in exactly. The payload would be the first argument in .sign() method. In the following example we are sending an object with key userEmail and the value of email coming from the "user" found in line 47
-      const token = jwt.sign({userName:user.userName, userType:'recruiter',_id:user._id}, jwt_secret, { expiresIn: "1000h" }); //{expiresIn:'365d'}
+      const token = jwt.sign({email:user.email, userType:'recruiter',_id:user._id}, jwt_secret, { expiresIn: "1000h" }); //{expiresIn:'365d'}
       console.log(token)
       // after we send the payload to the client you can see how to get it in the client's Login component inside handleSubmit function
-      res.json({ ok: true, message: "welcome back", token, userName });
+      res.json({ ok: true, message: "welcome back", token, email });
     } else return res.json({ ok: false, message: "Invalid data provided" });
   } catch (error) {
     res.json({ ok: false, error });
@@ -85,18 +86,18 @@ const verify_token = (req, res) => {
 
 
 const findRecruiter = async (req,res) =>{
-    const {userName, password} = req.body;
+    const {email, password} = req.body;
     try {
-        // true if find username
-        const findRecName = await Recruiter.findOne({userName})
+        // true if find email
+        const findRecName = await Recruiter.findOne({email})
         console.log(findRecName._id)
         if (findRecName){
         // CHECK IF PASSWORD MATCHES
         const findPassword = await findRecName.password
           if (findRecName._id.toString()=== findPassword._id.toString()){
-            res.send({ok:true, data:`recruiter ${userName} found successfully`})
+            res.send({ok:true, data:`recruiter ${email} found successfully`})
           } else{
-            res.send({ok:false,data:'username and password do not match'})
+            res.send({ok:false,data:'email and password do not match'})
           }
         }else{
         res.send({ok:false, data:"user does not exist"})
@@ -108,11 +109,11 @@ const findRecruiter = async (req,res) =>{
 }
 
 const addRecruiter = async (req,res) =>{
-    const {userName, password} = req.body; 
+    const {email, password} = req.body; 
     try {
-      const findRec = await Recruiter.findOne({userName, password})
+      const findRec = await Recruiter.findOne({email, password})
       if (!findRec){
-        const createNew = await Recruiter.create({userName, password})
+        const createNew = await Recruiter.create({email, password})
         if(createNew){
           res.send({ok:true,data:'recruiter added successfully'})
         }else{
@@ -124,10 +125,10 @@ const addRecruiter = async (req,res) =>{
     }
 }
 const deleteRecruiter = async (req,res)=>{
-    const {userName} = req.body;
+    const {email} = req.body;
     try {
-      // find the username
-      const findUsername = await Recruiter.findOneAndDelete({userName})
+      // find the email
+      const findUsername = await Recruiter.findOneAndDelete({email})
         if (findUsername){
           // await Recruiter.deleteOne({userName})
           res.send ({ok:true,data:'your profile has been deleted successfully'})
@@ -139,18 +140,18 @@ const deleteRecruiter = async (req,res)=>{
     }
 }
 const updateRecruiter = async (req,res)=>{
-    const {olduserName,oldPassword,userName, password} = req.body
+    const {oldEmail,oldPassword,email, password} = req.body
     try{
-        const findRec = await Recruiter.findOne({userName:olduserName,password:oldPassword})
-        const findNewRec = await Recruiter.findOne({userName})
+        const findRec = await Recruiter.findOne({email:oldEmail,password:oldPassword})
+        const findNewRec = await Recruiter.findOne({email})
 
         if(findRec){
             if(findNewRec){
-                res.send({ok:false,data:`username ${userName} already exists`})
+                res.send({ok:false,data:`email ${email} already exists`})
             }
             else{
-                await Recruiter.updateOne(findRec,{userName,password})
-                res.send({ok:true,data:`Your username ${olduserName} has been updated to ${userName? userName:olduserName}. Your password ${oldPassword} has been updated to ${password? password:oldPassword}.`})
+                await Recruiter.updateOne(findRec,{email,password})
+                res.send({ok:true,data:`Your email ${oldEmail} has been updated to ${email? email:oldEmail}. Your password ${oldPassword} has been updated to ${password? password:oldPassword}.`})
             }
         }
         else{
