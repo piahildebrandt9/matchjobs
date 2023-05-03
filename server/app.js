@@ -1,5 +1,6 @@
 const express = require('express'),
   app= express(),
+  PORT = process.env.PORT;
   mongoose = require('mongoose');
   // check schemas or give error
   mongoose.set('debug', true)
