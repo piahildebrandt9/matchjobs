@@ -1,6 +1,6 @@
 const express = require('express'),
   app= express(),
-  PORT = process.env.PORT;
+  PORT = process.env.PORT || 3000;
   mongoose = require('mongoose');
   // check schemas or give error
   mongoose.set('debug', true)
@@ -35,6 +35,7 @@ app.use('/admin/', require('./routes/adminRoutes'));
 
 //Connect to the database before listening
 connecting().then(() => {
+ 
   app.listen(PORT, () => {
       console.log("listening for requests");
   })
