@@ -34,7 +34,7 @@ function RecruiterProfile() {
 
   const deleteJobOffer = async(cId)=>{
     try {
-      const deleteOffer = await axios.post(`${URL}/recruiter/deleteJobOffer`,{offersId:cId})
+      await axios.post(`${URL}/recruiter/deleteJobOffer`,{offersId:cId})
     
     handleJobOffers();
       
@@ -100,9 +100,13 @@ function RecruiterProfile() {
   
 
   useEffect(()=>{
-    for(var item of myJobOffers){
-      updateOffer(item,item._id);
+    if(myJobOffers){
+      for(var item of myJobOffers){
+        updateOffer(item,item._id);
+      }
+
     }
+    
   },[myJobOffers])
 
 
@@ -128,7 +132,7 @@ function RecruiterProfile() {
 
     {/* // display allmyJobOffers each in a new sheet */}
     <div className = 'wrapper'>
-    {myJobOffers.map(c=>{return( 
+    {myJobOffers && myJobOffers.map(c=>{return( 
         <div className = 'sheet' key={c._id}>
 
         <NavLink className = 'biglink' to = {`/recruiter/view/${c._id}`}>
