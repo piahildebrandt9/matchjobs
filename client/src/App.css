@@ -263,6 +263,7 @@
     justify-self:center;
     min-height: 50px;
     min-width:50%;
+    margin: 0 0 0 0;
   }
   
   .form_control {
@@ -323,7 +324,7 @@
     appearance: none;
     height: 2px;
     width: 100%;
-    position: absolute;
+    /* position: absolute; */
     background-color: #C6C6C6;
     pointer-events: none;
   }
