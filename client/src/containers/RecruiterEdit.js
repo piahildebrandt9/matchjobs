@@ -138,10 +138,22 @@ function RecruiterEdit() {
       </span>
       <p>location</p>
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
-      <label htmlFor="min">min salary</label>
-     <input id="min" className="min" name="min" type="range" step="1" min={data['minPrice']} max= {data['maxPrice']} onChange = {(e)=>changePrice(e)} />
-    <label htmlFor="max">Maximum price</label>
-    <input id="max" className="max" name="max" type="range" step="1" min={data['minPrice']} max= {data['maxPrice']} onChange = {(e)=>changePrice(e)} />
+      <div className = 'range-container'>
+        <div className = 'sliderscontrol'>
+          <input id="slider-1"  type="range" step="500" min='0' max='10000' value = '500' />
+          <input id="slider-2"  type="range" step="500" min='0' max='10000' value = '3000' />
+        </div>
+        <div className="form_control">
+          <div className="form_control_container">
+              <div className="form_control_container__time">Min</div>
+              <input className="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/>
+          </div>
+          <div className="form_control_container">
+              <div className="form_control_container__time">Max</div>
+              <input className="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/>
+          </div>
+        </div>
+      </div>
       {/* <p>min salary</p>
       <input id = 'minPrice' value = {data['minPrice'] } onChange = {(e) =>changeData(e)}/>
       <p>max salary</p>
