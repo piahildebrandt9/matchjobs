@@ -174,7 +174,7 @@ function RecruiterEdit() {
       }
 
       function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-          const rangeDistance = to.max-to.min;
+          const rangeDistance = to.max - to.min;
           const fromPosition = from.value - to.min;
           const toPosition = to.value - to.min;
           controlSlider.style.background = `linear-gradient(
@@ -227,8 +227,8 @@ function RecruiterEdit() {
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
       <div className = 'range-container'>
         <div className = 'sliders_control'>
-          <input id="fromSlider"  type="range" step="1" min='0' max='100' defaultValue = '10' />
-          <input id="toSlider"  type="range" step="1" min='0' max='100' defaultValue = '40' />
+          <input id="fromSlider"  type="range"  min='0' max='100' defaultValue = '10' />
+          <input id="toSlider"  type="range"  min='0' max='100' defaultValue = '40' />
         </div>
         <div className="form_control">
           <div className="form_control_container">
