@@ -262,8 +262,6 @@
     align-self:center;
     justify-self:center;
     min-height: 50px;
-    min-width:50%;
-    margin: 0 0 0 0;
   }
   
   .form_control {
