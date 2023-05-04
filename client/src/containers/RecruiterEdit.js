@@ -140,8 +140,8 @@ function RecruiterEdit() {
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
       <div className = 'range-container'>
         <div className = 'sliderscontrol'>
-          <input id="slider-1"  type="range" step="500" min='0' max='10000' value = '500' />
-          <input id="slider-2"  type="range" step="500" min='0' max='10000' value = '3000' />
+          <input id="slider-1"  type="range" step="500" min='0' max='10000' defaultValue = '500' />
+          <input id="slider-2"  type="range" step="500" min='0' max='10000' defaultValue = '3000' />
         </div>
         <div className="form_control">
           <div className="form_control_container">
