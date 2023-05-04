@@ -85,10 +85,12 @@
 .main{
     max-height:96vh;
     overflow-y:hidden;
+    scrollbar-width:0;
 }
 .wrapper{
     max-height:90vh;
     overflow: scroll;
+    scrollbar-width:0;
     
     
 }
