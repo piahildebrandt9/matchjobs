@@ -122,10 +122,10 @@ function RecruiterEdit() {
   },[])
 
   
-  const fromSlider = document.querySelector('#fromSlider');
-  const toSlider = document.querySelector('#toSlider');
-  const fromInput = document.querySelector('#fromInput');
-  const toInput = document.querySelector('#toInput');
+  const fromSlider = document.getElementById('#fromSlider');
+  const toSlider = document.getElementById('#toSlider');
+  const fromInput = document.getElementById('#fromInput');
+  const toInput = document.getElementById('#toInput');
   fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
   setToggleAccessible(toSlider);
 
@@ -189,6 +189,7 @@ function RecruiterEdit() {
       }
 
       function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
+        console.log(from,to,controlSlider)
           const rangeDistance = to.max - 0;
           const fromPosition = 10 - 0;
           const toPosition = 40 - 0;
