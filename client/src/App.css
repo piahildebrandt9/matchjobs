@@ -258,8 +258,11 @@
   }
   
   .sliders_control {
-    /* position: relative; */
+    position: relative;
+    align-self:center;
+    justify-self:center;
     min-height: 50px;
+    min-width:50%;
   }
   
   .form_control {
