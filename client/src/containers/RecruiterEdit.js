@@ -116,25 +116,25 @@ function RecruiterEdit() {
   useEffect(()=>{
     // when initialize rendering setUp data
     setUp(id,setIdx,setData,setMsg,data)
+    const fromSlider = document.getElementById('fromSlider');
+    const toSlider = document.getElementById('toSlider');
+    const fromInput = document.getElementById('fromInput');
+    const toInput = document.getElementById('toInput');
+    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+    setToggleAccessible(toSlider);
+
+    fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
+    toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
+    fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
+    toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+
     
     
   
   },[])
 
+
   
-  const fromSlider = document.getElementById('fromSlider');
-  const toSlider = document.getElementById('toSlider');
-  const fromInput = document.getElementById('fromInput');
-  const toInput = document.getElementById('toInput');
-  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-  setToggleAccessible(toSlider);
-
-  fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
-  toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
-  fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
-  toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
-
-
         function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
           const [from, to] = getParsed(fromInput, toInput);
           fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
@@ -230,8 +230,8 @@ function RecruiterEdit() {
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
       <div className = 'range_container'>
         <div className = 'sliders_control'>
-          <input id="fromSlider"  type="range"  min='0' max='100' defaultValue = '10' />
-          <input id="toSlider"  type="range"  min='0' max='100' defaultValue = '40' />
+          <input id='fromSlider'  type="range"  min='0' max='100' defaultValue = '10' />
+          <input id='toSlider'  type="range"  min='0' max='100' defaultValue = '40' />
         </div>
         <div className="form_control">
           <div className="form_control_container">
