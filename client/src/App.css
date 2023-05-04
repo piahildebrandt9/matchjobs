@@ -258,7 +258,7 @@
   }
   
   .sliders_control {
-    position: relative;
+    /* position: relative; */
     min-height: 50px;
   }
   
