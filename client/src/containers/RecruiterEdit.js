@@ -120,6 +120,21 @@ function RecruiterEdit() {
     
   
   },[])
+
+  
+  const fromSlider = document.querySelector('#fromSlider');
+  const toSlider = document.querySelector('#toSlider');
+  const fromInput = document.querySelector('#fromInput');
+  const toInput = document.querySelector('#toInput');
+  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+  setToggleAccessible(toSlider);
+
+  fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
+  toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
+  fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
+  toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+
+
         function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
           const [from, to] = getParsed(fromInput, toInput);
           fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
@@ -174,7 +189,7 @@ function RecruiterEdit() {
       }
 
       function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-          const rangeDistance = 100 - 0;
+          const rangeDistance = to.max - 0;
           const fromPosition = 10 - 0;
           const toPosition = 40 - 0;
           controlSlider.style.background = `linear-gradient(
@@ -195,19 +210,6 @@ function RecruiterEdit() {
           toSlider.style.zIndex = 0;
         }
       }
-
-      const fromSlider = document.querySelector('#fromSlider');
-      const toSlider = document.querySelector('#toSlider');
-      const fromInput = document.querySelector('#fromInput');
-      const toInput = document.querySelector('#toInput');
-      fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-      setToggleAccessible(toSlider);
-
-      fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
-      toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
-      fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
-      toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
-
 
 
     return (
