@@ -174,9 +174,9 @@ function RecruiterEdit() {
       }
 
       function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-          const rangeDistance = 100 - to.min;
-          const fromPosition = from.value - to.min;
-          const toPosition = to.value - to.min;
+          const rangeDistance = 100 - 0;
+          const fromPosition = 10 - 0;
+          const toPosition = 40 - 0;
           controlSlider.style.background = `linear-gradient(
             to right,
             ${sliderColor} 0%,
