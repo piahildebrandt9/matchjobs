@@ -104,7 +104,7 @@ function Login({finalLogin}) {
     }
       
     } catch (error) {
-      setMsg(error)
+      setMsg("error")
     }
     
   }
