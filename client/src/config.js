@@ -1,3 +1,3 @@
-const URL = `https://angry-jumpsuit-wasp.cyclic.app `;
+const URL = `https://angry-jumpsuit-wasp.cyclic.app`;
 
 export { URL };
