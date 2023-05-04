@@ -122,10 +122,10 @@ function RecruiterEdit() {
   },[])
 
   
-  const fromSlider = document.getElementById('#fromSlider');
-  const toSlider = document.getElementById('#toSlider');
-  const fromInput = document.getElementById('#fromInput');
-  const toInput = document.getElementById('#toInput');
+  const fromSlider = document.getElementById('fromSlider');
+  const toSlider = document.getElementById('toSlider');
+  const fromInput = document.getElementById('fromInput');
+  const toInput = document.getElementById('toInput');
   fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
   setToggleAccessible(toSlider);
 
