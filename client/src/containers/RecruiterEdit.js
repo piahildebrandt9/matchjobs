@@ -189,7 +189,7 @@ function RecruiterEdit() {
       }
 
       function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-        console.log(from,to,controlSlider)
+        
           const rangeDistance = to.max - to.min;
           const fromPosition = from.value - to.min;
           const toPosition = to.value - to.min;
