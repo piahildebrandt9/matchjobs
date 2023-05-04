@@ -25,14 +25,6 @@ app.use('/recruiter/', require('./routes/recruitersRoutes'));
 app.use('/applicant/', require('./routes/applicantsRoutes'));
 app.use('/admin/', require('./routes/adminRoutes'));
 
-//Connect to the database before listening
-// connecting().then(() => {
- 
-//   app.listen(PORT, () => {
-//       console.log("listening for requests");
-//   })
-// })
-
 
 const path = require('path');
 
