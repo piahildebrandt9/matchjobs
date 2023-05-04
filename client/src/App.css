@@ -86,11 +86,13 @@
     max-height:96vh;
     overflow-y:hidden;
     scrollbar-width:0;
+    scrollbar-color:transparent;
 }
 .wrapper{
     max-height:90vh;
     overflow: scroll;
     scrollbar-width:0;
+    scrollbar-color:transparent;
     
     
 }
