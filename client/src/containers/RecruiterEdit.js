@@ -225,7 +225,7 @@ function RecruiterEdit() {
       </span>
       <p>location</p>
       <input id = 'location' value = {data['location']} onChange = {(e) =>changeData(e)}/>
-      <div className = 'range-container'>
+      <div className = 'range_container'>
         <div className = 'sliders_control'>
           <input id="fromSlider"  type="range"  min='0' max='100' defaultValue = '10' />
           <input id="toSlider"  type="range"  min='0' max='100' defaultValue = '40' />
