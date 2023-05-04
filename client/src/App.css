@@ -328,4 +328,5 @@
   #fromSlider {
     height: 0;
     z-index: 1;
+    left:0;
   }
