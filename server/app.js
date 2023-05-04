@@ -19,7 +19,7 @@ try {
   console.log('ERROR : Seems like your DB is not running')
 }
 }
-connecting()
+
 
 app.use('/recruiter/', require('./routes/recruitersRoutes'));
 app.use('/applicant/', require('./routes/applicantsRoutes'));
@@ -43,7 +43,10 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(5555, ()=>console.log('listening on port 5555'));
-
+connecting().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
 
 
