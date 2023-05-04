@@ -1,3 +1,3 @@
-const URL = `http://localhost:5555`;
+const URL = `https://angry-jumpsuit-wasp.cyclic.app `;
 
 export { URL };
