@@ -104,6 +104,7 @@ function Login({finalLogin}) {
     }
       
     } catch (error) {
+      console.log(error);
       setMsg("error")
     }
     
